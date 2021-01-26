@@ -1,13 +1,11 @@
 {
     "required": true,
     "minVersion": "0.8",
-    "package": "net.dodogang.modid.mixin",
+    "package": "net.dodogang.plume.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
-
     ],
     "client": [
-        "ExampleMixin"
     ],
     "injectors": {
         "defaultRequire": 1

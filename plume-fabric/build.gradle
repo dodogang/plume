@@ -22,9 +22,6 @@ dependencies {
     if (rootProject.hasProperty('fabric_api_version')) {
         modCompile("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
     }
-    if (rootProject.hasProperty('architectury_version')) {
-        modCompile("me.shedaniel:architectury:${rootProject.architectury_version}:fabric")
-    }
     if (rootProject.hasProperty('rei_version')) {
         modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
         modRuntime("me.shedaniel:RoughlyEnoughItems:${rootProject.rei_version}")
@@ -33,16 +30,21 @@ dependencies {
         modRuntime("io.github.prospector:modmenu:${rootProject.mod_menu_version}")
     }
 
-    compileOnly(project(path: ":common")) {
-        transitive = false
+    ext.dependOnModule = { path ->
+        compileOnly(project(path: path)) {
+            transitive = false
+        }
+        runtimeOnly(project(path: path, configuration: "transformDevelopmentFabric")) {
+            transitive = false
+        }
+        shadow(project(path: path, configuration: "transformProductionFabric")) {
+            transitive = false
+        }
     }
-    runtimeOnly(project(path: ":common", configuration: "transformDevelopmentFabric")) {
-        transitive = false
-    }
-    shadow(project(path: ":common", configuration: "transformProductionFabric")) {
-        transitive = false
-    }
+
+    dependOnModule(":plume-common")
 }
+
 
 processResources {
     inputs.property "version", project.version

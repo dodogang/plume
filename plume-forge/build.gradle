@@ -11,7 +11,7 @@ architectury {
 }
 
 loom {
-    mixinConfigs = ["modid.mixins.json"]
+    mixinConfigs = ["plume.mixins.json"]
     useFabricMixin = true
 }
 
@@ -31,23 +31,24 @@ dependencies {
     mappings("net.fabricmc:yarn:${rootProject.yarn_version}:v2")
     forge("net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}")
 
-    if (rootProject.hasProperty('architectury_version')) {
-        modCompile("me.shedaniel:architectury:${rootProject.architectury_version}:forge")
-    }
     if (rootProject.hasProperty('jei_version')) {
         modCompile("mezz.jei:jei-${rootProject.jei_version}:api")
         modRuntime("mezz.jei:jei-${rootProject.jei_version}")
     }
 
-    compileOnly(project(path: ":common")) {
-        transitive = false
+    ext.dependOnModule = { path ->
+        compileOnly(project(path: path)) {
+            transitive = false
+        }
+        runtimeOnly(project(path: path, configuration: "transformDevelopmentForge")) {
+            transitive = false
+        }
+        shadow(project(path: path, configuration: "transformProductionForg")) {
+            transitive = false
+        }
     }
-    runtimeOnly(project(path: ":common", configuration: "transformDevelopmentForge")) {
-        transitive = false
-    }
-    shadow(project(path: ":common", configuration: "transformProductionForge")) {
-        transitive = false
-    }
+
+    dependOnModule(":plume-common")
 }
 
 processResources {

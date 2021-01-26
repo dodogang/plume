@@ -1,26 +1,26 @@
 {
     "schemaVersion": 1,
-    "id": "modid",
+    "id": "plume",
     "version": "${version}",
-    "name": "Example Mod",
-    "description": "This is an example description! Tell everyone what your mod is about!",
+    "name": "Plume",
+    "description": "Dodo Gang Library Mod",
     "authors": [
         "Dodo Gang"
     ],
     "contact": {
         "homepage": "https://dodogang.net",
-        "sources": "https://github.com/dodogang/architectury-example-mod"
+        "sources": "https://github.com/dodogang/plume"
     },
     "license": "MIT",
-    "icon": "assets/modid/icon.png",
+    "icon": "assets/plume/icon.png",
     "environment": "*",
     "entrypoints": {
         "main": [
-            "net.dodogang.modid.fabric.ModIdFabric"
+            "net.dodogang.plume.fabric.PlumeFabric"
         ]
     },
     "mixins": [
-        "modid.mixins.json"
+        "plume.mixins.json"
     ],
     "depends": {
         "fabricloader": ">=0.7.4",

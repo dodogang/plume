@@ -8,8 +8,8 @@ pluginManagement {
     }
 }
 
-include("common")
-include("fabric")
-include("forge")
+include("plume-common")
+include("plume-fabric")
+include("plume-forge")
 
-rootProject.name = "modid"
+rootProject.name = "plume"
