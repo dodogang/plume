@@ -1,0 +1,64 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "5.0.0"
+}
+
+configurations {
+    shadow
+}
+
+architectury {
+    platformSetupLoomIde()
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    minecraft("com.mojang:minecraft:${rootProject.minecraft_version}")
+    mappings("net.fabricmc:yarn:${rootProject.yarn_version}:v2")
+    modCompile("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
+
+    if (rootProject.hasProperty('fabric_api_version')) {
+        modCompile("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
+    }
+    if (rootProject.hasProperty('architectury_version')) {
+        modCompile("me.shedaniel:architectury:${rootProject.architectury_version}:fabric")
+    }
+    if (rootProject.hasProperty('rei_version')) {
+        modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
+        modRuntime("me.shedaniel:RoughlyEnoughItems:${rootProject.rei_version}")
+    }
+    if (rootProject.hasProperty('mod_menu_version')) {
+        modRuntime("io.github.prospector:modmenu:${rootProject.mod_menu_version}")
+    }
+
+    compileOnly(project(path: ":common")) {
+        transitive = false
+    }
+    runtimeOnly(project(path: ":common", configuration: "transformDevelopmentFabric")) {
+        transitive = false
+    }
+    shadow(project(path: ":common", configuration: "transformProductionFabric")) {
+        transitive = false
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadow]
+    classifier "shadow"
+}
+
+remapJar {
+    dependsOn(shadowJar)
+    input.set(shadowJar.archivePath)
+    classifier "fabric"
+}

@@ -1,0 +1,72 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "5.0.0"
+}
+
+configurations {
+    shadow
+}
+
+architectury {
+    platformSetupLoomIde()
+}
+
+loom {
+    mixinConfigs = ["modid.mixins.json"]
+    useFabricMixin = true
+}
+
+repositories {
+    maven {
+        name = "Progwml6 maven / JEI Maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        name = "ModMaven / JEI Mirror"
+        url = "https://modmaven.k-4u.nl"
+    }
+}
+
+dependencies {
+    minecraft("com.mojang:minecraft:${rootProject.minecraft_version}")
+    mappings("net.fabricmc:yarn:${rootProject.yarn_version}:v2")
+    forge("net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}")
+
+    if (rootProject.hasProperty('architectury_version')) {
+        modCompile("me.shedaniel:architectury:${rootProject.architectury_version}:forge")
+    }
+    if (rootProject.hasProperty('jei_version')) {
+        modCompile("mezz.jei:jei-${rootProject.jei_version}:api")
+        modRuntime("mezz.jei:jei-${rootProject.jei_version}")
+    }
+
+    compileOnly(project(path: ":common")) {
+        transitive = false
+    }
+    runtimeOnly(project(path: ":common", configuration: "transformDevelopmentForge")) {
+        transitive = false
+    }
+    shadow(project(path: ":common", configuration: "transformProductionForge")) {
+        transitive = false
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+
+    configurations = [project.configurations.shadow]
+    classifier "shadow"
+}
+
+remapJar {
+    dependsOn(shadowJar)
+    input.set(shadowJar.archivePath)
+    classifier "forge"
+}
