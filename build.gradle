@@ -13,6 +13,34 @@ subprojects {
     loom {
         silentMojangMappingsLicense()
     }
+
+    dependencies {
+        ext.dependOnModule = { path ->
+            compileOnly(project(path: path)) {
+                transitive = false
+            }
+        }
+
+        ext.dependOnModuleFromFabric = { path ->
+            runtimeOnly(project(path: path, configuration: "transformDevelopmentFabric")) {
+                transitive = false
+            }
+            shadow(project(path: path, configuration: "transformProductionFabric")) {
+                transitive = false
+            }
+            ext.dependOnModule(path)
+        }
+
+        ext.dependOnModuleFromForge = { path ->
+            runtimeOnly(project(path: path, configuration: "transformDevelopmentForge")) {
+                transitive = false
+            }
+            shadow(project(path: path, configuration: "transformProductionForge")) {
+                transitive = false
+            }
+            ext.dependOnModule(path)
+        }
+    }
 }
 
 allprojects {

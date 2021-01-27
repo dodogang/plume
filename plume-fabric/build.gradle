@@ -30,19 +30,9 @@ dependencies {
         modRuntime("io.github.prospector:modmenu:${rootProject.mod_menu_version}")
     }
 
-    ext.dependOnModule = { path ->
-        compileOnly(project(path: path)) {
-            transitive = false
-        }
-        runtimeOnly(project(path: path, configuration: "transformDevelopmentFabric")) {
-            transitive = false
-        }
-        shadow(project(path: path, configuration: "transformProductionFabric")) {
-            transitive = false
-        }
-    }
-
-    dependOnModule(":plume-common")
+    ext.dependOnModuleFromFabric(":plume-common")
+    ext.dependOnModuleFromFabric(":ash-fabric")
+    ext.dependOnModuleFromFabric(":ash-common")
 }
 
 

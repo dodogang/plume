@@ -12,4 +12,9 @@ include("plume-common")
 include("plume-fabric")
 include("plume-forge")
 
+include("ash-common", "ash-fabric", "ash-forge")
+project(":ash-common").projectDir = new File("./ash/common")
+project(":ash-fabric").projectDir = new File("./ash/fabric")
+project(":ash-forge").projectDir = new File("./ash/forge")
+
 rootProject.name = "plume"
