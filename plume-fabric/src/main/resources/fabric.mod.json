@@ -17,6 +17,9 @@
     "entrypoints": {
         "main": [
             "net.dodogang.plume.fabric.PlumeFabric"
+        ],
+        "client": [
+            "net.dodogang.plume.fabric.client.PlumeClientFabric"
         ]
     },
     "mixins": [
