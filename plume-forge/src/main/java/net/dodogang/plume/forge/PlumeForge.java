@@ -9,6 +9,8 @@ import net.minecraftforge.fml.common.Mod;
 @Mod(Plume.MOD_ID)
 public class PlumeForge {
     public PlumeForge() {
+        Plume.init();
+
         DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> PlumeClientForge::new);
     }
 }
