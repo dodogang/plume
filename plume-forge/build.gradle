@@ -62,3 +62,14 @@ remapJar {
     input.set(shadowJar.archivePath)
     classifier "forge"
 }
+
+publishing {
+    publications {
+        mavenForge(MavenPublication) {
+            artifact(remapJar.archiveFile) {
+                builtBy build
+                classifier "forge"
+            }
+        }
+    }
+}
