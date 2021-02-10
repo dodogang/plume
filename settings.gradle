@@ -17,4 +17,4 @@ project(":ash-common").projectDir = new File("./ash/common")
 project(":ash-fabric").projectDir = new File("./ash/fabric")
 project(":ash-forge").projectDir = new File("./ash/forge")
 
-rootProject.name = "plume"
+rootProject.name = "plume-1.16.5"
