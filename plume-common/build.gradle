@@ -32,9 +32,9 @@ publishing {
     publications {
         mavenCommon(MavenPublication) {
             // Todo: build a common jar that contains all common modules
-            artifact(file("${project.buildDir}/libs/${project.archivesBaseName}-${project.version}.jar")) {
-                builtBy build
-            }
+//            artifact(file("${project.buildDir}/libs/${project.archivesBaseName}-${project.version}.jar")) {
+//                builtBy build
+//            }
             artifact(sourcesJar) {
                 builtBy remapSourcesJar
             }
