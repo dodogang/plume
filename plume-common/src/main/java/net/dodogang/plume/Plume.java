@@ -30,9 +30,9 @@ public class Plume {
         BatchedRegister<Item> itemBatchedRegister = BatchedRegister.create(Registry.ITEM_KEY, MOD_ID);
 
         final TestBlock block = new TestBlock(AbstractBlock.Settings.copy(Blocks.DIRT));
-        RegistrySupplier<TestBlock> testBlock = blockBatchedRegister.add("test", () -> block);
+        RegistrySupplier<TestBlock> testBlock = blockBatchedRegister.add("test", block);
         RegistrySupplier<BlockItem> testBlockItem = itemBatchedRegister.add(
-                "test", () -> new BlockItem(block, new Item.Settings().group(itemGroup))
+                "test", new BlockItem(block, new Item.Settings().group(itemGroup))
         );
 
         blockBatchedRegister.register();
