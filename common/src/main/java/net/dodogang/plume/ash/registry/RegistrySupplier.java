@@ -19,6 +19,13 @@ public class RegistrySupplier<T> implements Supplier<T> {
         this.cachedValue = null;
     }
 
+    /**
+     * Gets the value from the vanilla or forge registry of the id. This allows
+     * for registry replacement on forge to work.
+     *
+     * @return the registered value or null. Use {@link RegistrySupplier#isPresent()}
+     * to see if it has been registered.
+     */
     @Override
     public T get() {
         if (cachedValue != null) {
@@ -33,13 +40,18 @@ public class RegistrySupplier<T> implements Supplier<T> {
     }
 
     /**
-     * Only use if necessary. eg. during the registration phase.
-     * @return the same value that was passed to registration.
+     * Gets the initially registered value. Only use if the value is required
+     * before registration has occurred.
+     *
+     * @return the initially registered value
      */
     public T getInitialValue() {
         return isPresent() ? get() : initialValue;
     }
 
+    /**
+     * @return true if an object has been registered with id
+     */
     public boolean isPresent() {
         return get() != null;
     }

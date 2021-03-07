@@ -17,14 +17,33 @@ public abstract class BatchedRegister<T> {
 
         this.registered = false;
     }
-    
+
+    /**
+     * Creates a BatchedRegister with a specific registry key.
+     *
+     * @param registryKey the registry key found in {@link Registry}
+     * @param modId the mod's modid
+     * @param <T> The type of object that will be registered.
+     * @return a BatchedRegister
+     */
     @ExpectPlatform
     public static <T> BatchedRegister<T> create(RegistryKey<Registry<T>> registryKey, String modId) {
         throw new AssertionError();
     }
-    
+
+    /**
+     * Adds an object to the batch with the given name.
+     *
+     * @param name the name of the object to be combined with the modId to make the id
+     * @param object the object to be registered
+     * @return a {@link RegistrySupplier} containing the id of the object
+     */
     public abstract <V extends T> RegistrySupplier<V> add(String name, V object);
-    
+
+    /**
+     * Registers all the objects in the registry batch. Should only be called
+     * once after all objects have been added to the batch.
+     */
     public void register() {
         if (registered) {
             throw new IllegalStateException("Attempted to register BatchRegister of '" + registryKey + "' twice.");
