@@ -1,20 +1,14 @@
 pluginManagement {
     repositories {
-        jcenter()
         maven { url "https://maven.fabricmc.net/" }
-        maven { url "https://dl.bintray.com/shedaniel/cloth" }
+        maven { url "https://maven.shedaniel.me/" }
         maven { url "https://files.minecraftforge.net/maven/" }
         gradlePluginPortal()
     }
 }
 
-include("plume-common")
-include("plume-fabric")
-include("plume-forge")
+include("common")
+include("fabric")
+include("forge")
 
-include("ash-common", "ash-fabric", "ash-forge")
-project(":ash-common").projectDir = new File("./ash/common")
-project(":ash-fabric").projectDir = new File("./ash/fabric")
-project(":ash-forge").projectDir = new File("./ash/forge")
-
-rootProject.name = "plume-1.16.5"
+rootProject.name = "plume"
