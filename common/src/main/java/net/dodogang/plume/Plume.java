@@ -1,21 +1,19 @@
 package net.dodogang.plume;
 
-import net.dodogang.plume.ash.registry.BatchedRegister;
 import net.dodogang.plume.ash.registry.ItemGroupBuilder;
+import net.dodogang.plume.registry.BlockBatchedRegistry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class Plume {
     public static final String MOD_ID = "plume";
 
-    public static final boolean runDevTests = true;
+    public static final boolean runDevTests = false;
 
     public static void initialize() {
         if (runDevTests) {
@@ -25,15 +23,12 @@ public class Plume {
                     .items(itemStacks -> itemStacks.add(new ItemStack(Blocks.DIRT)))
                     .build();
 
-            BatchedRegister<Block> blockBatchedRegister = BatchedRegister.create(Registry.BLOCK_KEY, MOD_ID);
-            BatchedRegister<Item> itemBatchedRegister = BatchedRegister.create(Registry.ITEM_KEY, MOD_ID);
+            BlockBatchedRegistry registry = new BlockBatchedRegistry(MOD_ID);
+            registry.setDefaultItemSettings(new Item.Settings().group(itemGroup));
 
-            Block block = new Block(AbstractBlock.Settings.copy(Blocks.STONE));
-            blockBatchedRegister.add("test_block", block);
-            itemBatchedRegister.add("test_block", new BlockItem(block, new Item.Settings().group(itemGroup)));
+            registry.add("test_block", new Block(AbstractBlock.Settings.copy(Blocks.STONE)));
 
-            blockBatchedRegister.register();
-            itemBatchedRegister.register();
+            registry.register();
         }
     }
 }
