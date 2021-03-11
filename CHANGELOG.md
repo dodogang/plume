@@ -6,18 +6,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v0.3.0 - 2021-03-11
+### Added
+- Add `PlumeCraftingTableBlock` which allows for non-vanilla crafting table
+  blocks to open the crafting screen.
+- Add `PlumeStairsBlock` which makes vanilla `StairsBlock` public.
+- Add a helper function to add blocks with copied block settings to
+  `BlockBatchedRegistry`.
+- Add a helper function to add stairs to `BlockBatchedRegistry`.
+
+### Changed
+- Rename `BatchedRegistry` to `RegistryBatch`.
+- Rename `BlockBatchedRegistry` to `BlockRegistryBatch`.
+
 ## v0.2.0 - 2021-03-11
 ### Added
 - Add `BlockBatchedRegistry` that wraps around `BatchedRegistry` to make it 
   easier to register blocks and their block items.
-- Rename `BatchedRegister` to `BatchedRegistry`.
 - Add a changelog to keep track of changes between versions. This should make
   it easier to keep track of what needs to be changed when a dependent changes
   its plume version.
 
-### Removed
-- Remove `BatchedRegister`. Instead, use `BatchedRegistry` because that name
-  works better grammatically.
+### Changed
+- Rename `BatchedRegister` to `BatchedRegistry`.
 
 ## v0.1.0 - 2021-03-10
 ### Added

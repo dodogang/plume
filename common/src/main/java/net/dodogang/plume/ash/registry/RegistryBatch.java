@@ -5,13 +5,13 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BatchedRegistry<T> {
+public abstract class RegistryBatch<T> {
     protected final RegistryKey<Registry<T>> registryKey;
     protected final String modId;
 
     protected boolean registered;
 
-    protected BatchedRegistry(RegistryKey<Registry<T>> registryKey, String modId) {
+    protected RegistryBatch(RegistryKey<Registry<T>> registryKey, String modId) {
         this.registryKey = registryKey;
         this.modId = modId;
 
@@ -27,7 +27,7 @@ public abstract class BatchedRegistry<T> {
      * @return a BatchedRegister
      */
     @ExpectPlatform
-    public static <T> BatchedRegistry<T> create(RegistryKey<Registry<T>> registryKey, String modId) {
+    public static <T> RegistryBatch<T> create(RegistryKey<Registry<T>> registryKey, String modId) {
         throw new AssertionError();
     }
 

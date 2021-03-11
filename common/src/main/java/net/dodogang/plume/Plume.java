@@ -1,7 +1,7 @@
 package net.dodogang.plume;
 
 import net.dodogang.plume.ash.registry.ItemGroupBuilder;
-import net.dodogang.plume.registry.BlockBatchedRegistry;
+import net.dodogang.plume.registry.BlockRegistryBatch;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -23,7 +23,7 @@ public class Plume {
                     .items(itemStacks -> itemStacks.add(new ItemStack(Blocks.DIRT)))
                     .build();
 
-            BlockBatchedRegistry registry = new BlockBatchedRegistry(MOD_ID);
+            BlockRegistryBatch registry = new BlockRegistryBatch(MOD_ID);
             registry.setDefaultItemSettings(new Item.Settings().group(itemGroup));
 
             registry.add("test_block", new Block(AbstractBlock.Settings.copy(Blocks.STONE)));

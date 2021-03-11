@@ -1,7 +1,7 @@
 package net.dodogang.plume.ash.registry.forge;
 
 import net.dodogang.plume.ash.forge.ModEventBus;
-import net.dodogang.plume.ash.registry.BatchedRegistry;
+import net.dodogang.plume.ash.registry.RegistryBatch;
 import net.dodogang.plume.ash.registry.RegistrySupplier;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -11,10 +11,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryManager;
 
-public class BatchedRegistryImpl<T extends IForgeRegistryEntry<T>> extends BatchedRegistry<T> {
+public class RegistryBatchImpl<T extends IForgeRegistryEntry<T>> extends RegistryBatch<T> {
     private final DeferredRegister<T> deferredRegister;
 
-    public BatchedRegistryImpl(RegistryKey<Registry<T>> registryKey, String modId) {
+    public RegistryBatchImpl(RegistryKey<Registry<T>> registryKey, String modId) {
         super(registryKey, modId);
         this.deferredRegister = DeferredRegister.create(RegistryManager.ACTIVE.getRegistry(registryKey), modId);
     }
@@ -28,8 +28,8 @@ public class BatchedRegistryImpl<T extends IForgeRegistryEntry<T>> extends Batch
      * @return a BatchedRegister
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static <T> BatchedRegistry<T> create(RegistryKey<Registry<T>> registryKey, String modId) {
-        return new BatchedRegistryImpl(registryKey, modId);
+    public static <T> RegistryBatch<T> create(RegistryKey<Registry<T>> registryKey, String modId) {
+        return new RegistryBatchImpl(registryKey, modId);
     }
 
     /**

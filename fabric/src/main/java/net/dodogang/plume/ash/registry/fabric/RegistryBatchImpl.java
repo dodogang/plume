@@ -1,15 +1,15 @@
 package net.dodogang.plume.ash.registry.fabric;
 
-import net.dodogang.plume.ash.registry.BatchedRegistry;
+import net.dodogang.plume.ash.registry.RegistryBatch;
 import net.dodogang.plume.ash.registry.RegistrySupplier;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 
-public class BatchedRegistryImpl<T> extends BatchedRegistry<T> {
+public class RegistryBatchImpl<T> extends RegistryBatch<T> {
     private final Registry<T> registry;
 
-    public BatchedRegistryImpl(RegistryKey<Registry<T>> registryKey, String modId) {
+    public RegistryBatchImpl(RegistryKey<Registry<T>> registryKey, String modId) {
         super(registryKey, modId);
         this.registry = findRegistryByKey(registryKey);
     }
@@ -22,8 +22,8 @@ public class BatchedRegistryImpl<T> extends BatchedRegistry<T> {
      * @param <T> The type of object that will be registered.
      * @return a BatchedRegister
      */
-    public static <T> BatchedRegistry<T> create(RegistryKey<Registry<T>> registryKey, String modId) {
-        return new BatchedRegistryImpl<>(registryKey, modId);
+    public static <T> RegistryBatch<T> create(RegistryKey<Registry<T>> registryKey, String modId) {
+        return new RegistryBatchImpl<>(registryKey, modId);
     }
 
     /**
