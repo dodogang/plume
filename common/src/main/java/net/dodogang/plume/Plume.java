@@ -1,7 +1,9 @@
 package net.dodogang.plume;
 
 import net.dodogang.plume.ash.registry.ItemGroupBuilder;
+import net.dodogang.plume.ash.registry.RegistrySupplier;
 import net.dodogang.plume.registry.BlockRegistryBatch;
+import net.dodogang.plume.registry.PointOfInterestTypeAppender;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -9,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.poi.PointOfInterestType;
 
 public class Plume {
     public static final String MOD_ID = "plume";
@@ -26,9 +29,17 @@ public class Plume {
             BlockRegistryBatch registry = new BlockRegistryBatch(MOD_ID);
             registry.setDefaultItemSettings(new Item.Settings().group(itemGroup));
 
-            registry.add("test_block", new Block(AbstractBlock.Settings.copy(Blocks.STONE)));
+            RegistrySupplier<Block> testBlock = registry.add(
+                    "test_block",
+                    new Block(AbstractBlock.Settings.copy(Blocks.STONE))
+            );
 
             registry.register();
+
+            PointOfInterestTypeAppender.appendBlocks(
+                    PointOfInterestType.BUTCHER,
+                    testBlock.getInitialValue()
+            );
         }
     }
 }
