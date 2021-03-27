@@ -14,7 +14,7 @@ architectury {
 loom {
     useFabricMixin = true
 
-    mixinConfigs = [ "plume.mixins.json" ]
+    mixinConfigs = [ "plume.mixins.json", "plume-ash-forge.mixins.json" ]
 }
 
 dependencies {

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `ToolTags` which allows mods to find if an ItemStack contains a tool.
 - Add `BlockEntityRendererRegistry` to register block entity renderers to block
   entity types.
+- Add `BuiltinItemRendererRegistry` to register dynamic item renderers to items.
 
 ## v0.3.1 - 2021-03-24
 ### Added

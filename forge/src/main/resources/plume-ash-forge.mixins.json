@@ -1,0 +1,13 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "net.dodogang.plume.ash.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "mixins": [],
+    "client": [
+        "client.forge.ItemAccessor"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
