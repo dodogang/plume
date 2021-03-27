@@ -5,10 +5,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
 import net.minecraft.item.SwordItem;
 import net.minecraftforge.common.ToolType;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Set;
 
-public class ToolTagsImpl {
+@ApiStatus.Internal
+public final class ToolTagsImpl {
+    private ToolTagsImpl() {}
+
     public static boolean containsImpl(ToolTags tag, ItemStack stack) {
         Set<ToolType> toolTypes = stack.getItem().getToolTypes(stack);
         switch (tag) {
@@ -19,7 +23,7 @@ public class ToolTagsImpl {
             case PICKAXES:
                 return toolTypes.contains(ToolType.PICKAXE);
             case SHOVELS:
-                return toolTypes.contains(ToolType.HOE);
+                return toolTypes.contains(ToolType.SHOVEL);
             case SWORDS:
                 // Forge doesn't have types for swords or shears... so we have to do it this way.
                 return stack.getItem() instanceof SwordItem;

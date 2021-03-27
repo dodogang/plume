@@ -10,8 +10,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryManager;
+import org.jetbrains.annotations.ApiStatus;
 
-public class RegistryBatchImpl<T extends IForgeRegistryEntry<T>> extends RegistryBatch<T> {
+@ApiStatus.Internal
+public final class RegistryBatchImpl<T extends IForgeRegistryEntry<T>> extends RegistryBatch<T> {
     private final DeferredRegister<T> deferredRegister;
 
     public RegistryBatchImpl(RegistryKey<Registry<T>> registryKey, String modId) {

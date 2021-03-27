@@ -5,8 +5,10 @@ import net.dodogang.plume.ash.registry.RegistrySupplier;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+import org.jetbrains.annotations.ApiStatus;
 
-public class RegistryBatchImpl<T> extends RegistryBatch<T> {
+@ApiStatus.Internal
+public final class RegistryBatchImpl<T> extends RegistryBatch<T> {
     private final Registry<T> registry;
 
     public RegistryBatchImpl(RegistryKey<Registry<T>> registryKey, String modId) {

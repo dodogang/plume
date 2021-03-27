@@ -9,7 +9,8 @@ import net.minecraft.world.poi.PointOfInterestType;
 
 import java.util.*;
 
-public class PointOfInterestTypeAppender {
+public final class PointOfInterestTypeAppender {
+    private PointOfInterestTypeAppender() {}
 
     /**
      * Appends the given block states onto the list of block states for a

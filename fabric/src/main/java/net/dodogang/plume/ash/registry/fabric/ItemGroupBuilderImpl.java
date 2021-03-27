@@ -6,7 +6,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 
-public class ItemGroupBuilderImpl extends ItemGroupBuilder {
+@ApiStatus.Internal
+public final class ItemGroupBuilderImpl extends ItemGroupBuilder {
     public ItemGroupBuilderImpl(Identifier id) {
         super(id);
     }
@@ -17,7 +18,6 @@ public class ItemGroupBuilderImpl extends ItemGroupBuilder {
      * @param id The name of the ItemGroup and will be used in the translation key.
      * @return a ItemGroupBuilder
      */
-    @ApiStatus.Internal
     public static ItemGroupBuilder create(Identifier id) {
         return new ItemGroupBuilderImpl(id);
     }

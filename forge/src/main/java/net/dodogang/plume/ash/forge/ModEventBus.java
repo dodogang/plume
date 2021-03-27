@@ -13,7 +13,9 @@ import java.util.Optional;
  * In a mod's forge module immediately after being constructed:
  * ModEventBus.registerModEventBus("mod_id", FMLJavaModLoadingContext.get().getModEventBus());
  */
-public class ModEventBus {
+public final class ModEventBus {
+    private ModEventBus() {}
+
     private static final HashMap<String, IEventBus> MOD_EVENT_BUSES = new HashMap<>();
 
     /**

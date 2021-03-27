@@ -10,7 +10,7 @@ import org.jetbrains.annotations.ApiStatus;
 import java.util.function.Function;
 
 @ApiStatus.Internal
-public class BlockEntityRendererRegistryImpl {
+public final class BlockEntityRendererRegistryImpl {
     /**
      * Registers a renderer to a block entity type.
      *

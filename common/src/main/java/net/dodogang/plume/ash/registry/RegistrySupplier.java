@@ -6,11 +6,11 @@ import net.minecraft.util.registry.Registry;
 import java.util.function.Supplier;
 
 public class RegistrySupplier<T> implements Supplier<T> {
-    private final Identifier id;
-    private final Registry<T> registry;
-    private final T initialValue;
+    protected final Identifier id;
+    protected final Registry<T> registry;
+    protected final T initialValue;
 
-    private T cachedValue;
+    protected T cachedValue;
 
     public RegistrySupplier(Identifier id, Registry<T> registry, T initialValue) {
         this.id = id;
