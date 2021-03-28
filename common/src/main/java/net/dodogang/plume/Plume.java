@@ -52,9 +52,9 @@ public class Plume {
 
     public static void setup() {
         if (runDevTests) {
-            FuelRegistry.register(testBlock.get(), 80);
-            FuelRegistry.register(Blocks.DIRT, 80);
-            FuelRegistry.register(Items.BLUE_DYE, 80);
+            FuelRegistry.register(80, testBlock.get());
+            FuelRegistry.register(80, Blocks.DIRT);
+            FuelRegistry.register(80, Items.BLUE_DYE);
         }
     }
 }
