@@ -7,5 +7,6 @@ public class PlumeFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Plume.initialize();
+        Plume.setup();
     }
 }

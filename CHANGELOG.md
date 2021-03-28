@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v0.3.3 - 2021-03-27
+- Add `FuelRegistry` for registering items as furnace fuels and for getting
+  the fuel time of an item.
+
 ## v0.3.2 - 2021-03-27
 - Add `ToolTags` which allows mods to find if an ItemStack contains a tool.
 - Add `BlockEntityRendererRegistry` to register block entity renderers to block
