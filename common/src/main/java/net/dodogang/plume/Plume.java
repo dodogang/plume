@@ -21,7 +21,7 @@ public class Plume {
     public static final String MOD_ID = "plume";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
-    public static final boolean runDevTests = true;
+    public static final boolean runDevTests = false;
 
     private static RegistrySupplier<Block> testBlock;
 

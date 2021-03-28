@@ -4,6 +4,7 @@ import net.dodogang.plume.ash.registry.FuelRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tag.Tag;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import org.jetbrains.annotations.ApiStatus;
@@ -16,28 +17,38 @@ public final class FuelRegistryImpl {
     private static final Map<Item, Integer> ITEM_FUEL_TIMES = new HashMap<>();
 
     /**
-     * Registers an item as fuel with a burn time for furnace-like blocks.
+     * Registers items as fuel with a burn time for furnace-like blocks.
      *
-     * <p>Note: Undefined behavior if the item has been registered already by
-     * vanilla or another mod. Expect this to not affect those items.
+     * <p>If an item has already been registered a burn time by vanilla or
+     * another mod, this doesn't overwrite it.
      *
-     * @param item an item
      * @param burnTime the item's burn time
+     * @param items the items
      */
-    public static void register(ItemConvertible item, int burnTime) {
-        ITEM_FUEL_TIMES.put(item.asItem(), burnTime);
+    public static void register(int burnTime, ItemConvertible... items) {
+        for (ItemConvertible item : items) {
+            if (ForgeHooks.getBurnTime(new ItemStack(item)) < 0) {
+                ITEM_FUEL_TIMES.put(item.asItem(), burnTime);
+            }
+        }
     }
 
     /**
-     * Unregisters an item as fuel furnace-like blocks.
+     * Registers items from a tag as fuel with a burn time for furnace-like
+     * blocks.
      *
-     * <p>Note: This only unregisters it if it has been registered through
-     * plume's {@link FuelRegistry}.
+     * <p>If an item has already been registered a burn time by vanilla or
+     * another mod, this doesn't overwrite it.
      *
-     * @param item an item
+     * @param burnTime the item's burn time
+     * @param itemTag an item tag
      */
-    public static void unregister(ItemConvertible item) {
-        ITEM_FUEL_TIMES.remove(item.asItem());
+    public static void registerTag(int burnTime, Tag<Item> itemTag) {
+        for (Item item : itemTag.values()) {
+            if (ForgeHooks.getBurnTime(new ItemStack(item)) < 0) {
+                ITEM_FUEL_TIMES.put(item, burnTime);
+            }
+        }
     }
 
     /**

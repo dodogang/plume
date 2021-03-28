@@ -1,35 +1,39 @@
 package net.dodogang.plume.ash.registry;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.tag.Tag;
 
 public final class FuelRegistry {
     private FuelRegistry() {}
 
     /**
-     * Registers an item as fuel with a burn time for furnace-like blocks.
+     * Registers items as fuel with a burn time for furnace-like blocks.
      *
-     * <p>Note: Undefined behavior if the item has been registered already by
-     * vanilla or another mod. Expect this to not affect those items.
+     * <p>If an item has already been registered a burn time by vanilla or
+     * another mod, this doesn't overwrite it.
      *
-     * @param item an item
      * @param burnTime the item's burn time
+     * @param items the items
      */
     @ExpectPlatform
-    public static void register(ItemConvertible item, int burnTime) {
+    public static void register(int burnTime, ItemConvertible... items) {
         throw new AssertionError();
     }
 
     /**
-     * Unregisters an item as fuel furnace-like blocks.
+     * Registers items from a tag as fuel with a burn time for furnace-like
+     * blocks.
      *
-     * <p>Note: This only unregisters it if it has been registered through
-     * plume's {@link FuelRegistry}.
+     * <p>If the item has already been registered a burn time by vanilla or
+     * another mod, this doesn't overwrite it.
      *
-     * @param item an item
+     * @param burnTime the item's burn time
+     * @param itemTag an item tag
      */
     @ExpectPlatform
-    public static void unregister(ItemConvertible item) {
+    public static void registerTag(int burnTime, Tag<Item> itemTag) {
         throw new AssertionError();
     }
 
