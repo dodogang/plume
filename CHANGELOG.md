@@ -6,7 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## v0.4.0 - 2021
+## v0.5.0 - 2021-04-01
+### Removed
+- Remove `registerTag` from `FuelRegistry` because it won't be used.
+
+### Fixed
+- Fix `register` method in `FuelRegistry` to actually work.
+
+## v0.4.0 - 2021-03-28
 ### Added
 - Add `TagRegistry` for registering block, entity type, fluid, and item tags.
 - Add `registerTag` in `FuelRegistry` for registering whole tags as a fuel.
