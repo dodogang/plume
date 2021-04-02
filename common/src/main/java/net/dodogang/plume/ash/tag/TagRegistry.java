@@ -51,7 +51,7 @@ public class TagRegistry {
      * @return the created item tag
      */
     @ExpectPlatform
-    public static Tag<Item> items(Identifier id) {
+    public static Tag<Item> item(Identifier id) {
         throw new AssertionError();
     }
 }
