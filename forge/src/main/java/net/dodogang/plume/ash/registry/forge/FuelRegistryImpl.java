@@ -4,7 +4,6 @@ import net.dodogang.plume.ash.registry.FuelRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tag.Tag;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import org.jetbrains.annotations.ApiStatus;
@@ -27,26 +26,8 @@ public final class FuelRegistryImpl {
      */
     public static void register(int burnTime, ItemConvertible... items) {
         for (ItemConvertible item : items) {
-            if (ForgeHooks.getBurnTime(new ItemStack(item)) < 0) {
+            if (ForgeHooks.getBurnTime(new ItemStack(item)) <= 0) {
                 ITEM_FUEL_TIMES.put(item.asItem(), burnTime);
-            }
-        }
-    }
-
-    /**
-     * Registers items from a tag as fuel with a burn time for furnace-like
-     * blocks.
-     *
-     * <p>If an item has already been registered a burn time by vanilla or
-     * another mod, this doesn't overwrite it.
-     *
-     * @param burnTime the item's burn time
-     * @param itemTag an item tag
-     */
-    public static void registerTag(int burnTime, Tag<Item> itemTag) {
-        for (Item item : itemTag.values()) {
-            if (ForgeHooks.getBurnTime(new ItemStack(item)) < 0) {
-                ITEM_FUEL_TIMES.put(item, burnTime);
             }
         }
     }
