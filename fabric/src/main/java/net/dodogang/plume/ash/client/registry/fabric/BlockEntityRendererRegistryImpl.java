@@ -20,7 +20,7 @@ public final class BlockEntityRendererRegistryImpl {
      */
     public static <T extends BlockEntity> void register(
             BlockEntityType<T> beType,
-            Function<BlockEntityRenderDispatcher, BlockEntityRenderer<T>> renderer
+            Function<BlockEntityRenderDispatcher, BlockEntityRenderer<? super T>> renderer
     ) {
         BlockEntityRendererRegistry.INSTANCE.register(beType, renderer);
     }
