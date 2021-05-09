@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v0.5.1 - 2021-05-09
+### Added
+- Add `Environment` for getting the platform and whether the game is in a
+  development environment or not.
+  
+### Changed
+- Remove check in `FuelRegistry` so it can be used before tags have been
+  initialized.
+
 ## v0.5.0 - 2021-04-01
 ### Removed
 - Remove `registerTag` from `FuelRegistry` because it won't be used.
