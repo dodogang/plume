@@ -9,17 +9,12 @@ public final class FuelRegistryImpl {
     /**
      * Registers items as fuel with a burn time for furnace-like blocks.
      *
-     * <p>If an item has already been registered a burn time by vanilla or
-     * another mod, this doesn't overwrite it.
-     *
      * @param burnTime the item's burn time
      * @param items items
      */
     public static void register(int burnTime, ItemConvertible... items) {
         for (ItemConvertible item : items) {
-            if (net.fabricmc.fabric.api.registry.FuelRegistry.INSTANCE.get(item) <= 0) {
-                net.fabricmc.fabric.api.registry.FuelRegistry.INSTANCE.add(item, burnTime);
-            }
+            net.fabricmc.fabric.api.registry.FuelRegistry.INSTANCE.add(item, burnTime);
         }
     }
 

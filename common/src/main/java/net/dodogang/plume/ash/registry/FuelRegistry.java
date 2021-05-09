@@ -9,9 +9,6 @@ public final class FuelRegistry {
     /**
      * Registers items as fuel with a burn time for furnace-like blocks.
      *
-     * <p>If an item has already been registered a burn time by vanilla or
-     * another mod, this doesn't overwrite it.
-     *
      * @param burnTime the item's burn time
      * @param items the items
      */

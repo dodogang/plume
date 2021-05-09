@@ -18,17 +18,12 @@ public final class FuelRegistryImpl {
     /**
      * Registers items as fuel with a burn time for furnace-like blocks.
      *
-     * <p>If an item has already been registered a burn time by vanilla or
-     * another mod, this doesn't overwrite it.
-     *
      * @param burnTime the item's burn time
      * @param items the items
      */
     public static void register(int burnTime, ItemConvertible... items) {
         for (ItemConvertible item : items) {
-            if (ForgeHooks.getBurnTime(new ItemStack(item)) <= 0) {
-                ITEM_FUEL_TIMES.put(item.asItem(), burnTime);
-            }
+            ITEM_FUEL_TIMES.put(item.asItem(), burnTime);
         }
     }
 
