@@ -1,5 +1,6 @@
 package net.dodogang.plume;
 
+import net.dodogang.plume.ash.Environment;
 import net.dodogang.plume.ash.registry.FuelRegistry;
 import net.dodogang.plume.ash.registry.ItemGroupBuilder;
 import net.dodogang.plume.ash.registry.RegistrySupplier;
@@ -21,7 +22,7 @@ public class Plume {
     public static final String MOD_ID = "plume";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
-    public static final boolean runDevTests = false;
+    public static final boolean runDevTests = Environment.isDevelopmentEnvironment();
 
     private static RegistrySupplier<Block> testBlock;
 
