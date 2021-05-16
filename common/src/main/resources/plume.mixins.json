@@ -4,6 +4,7 @@
     "package": "net.dodogang.plume.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
+        "AbstractBlockStateMixin",
         "PointOfInterestTypeAccessor"
     ],
     "client": [],
