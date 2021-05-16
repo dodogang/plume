@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v0.5.2 - 2021-05-15
+### Added
+- Add `PlumeLadderBlock` which makes vanilla `LadderBlock` public.
+
 ## v0.5.1 - 2021-05-09
 ### Added
 - Add `Environment` for getting the platform and whether the game is in a
