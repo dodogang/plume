@@ -18,7 +18,7 @@ import net.minecraft.world.poi.PointOfInterestType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Plume {
+public final class Plume {
     public static final String MOD_ID = "plume";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 

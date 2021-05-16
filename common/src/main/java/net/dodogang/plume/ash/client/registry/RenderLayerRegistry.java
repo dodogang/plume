@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.fluid.Fluid;
 
-public class RenderLayerRegistry {
+public final class RenderLayerRegistry {
     /**
      * Map (or re-map) multiple blocks with a render layer.  Re-mapping is not
      * recommended but if done, last one in wins. Must be called from client

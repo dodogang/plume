@@ -1,6 +1,6 @@
 package net.dodogang.plume.client;
 
-public class PlumeClient {
+public final class PlumeClient {
     public static void initialize() {
 
     }

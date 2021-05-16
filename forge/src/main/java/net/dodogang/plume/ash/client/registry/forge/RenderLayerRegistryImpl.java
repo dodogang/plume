@@ -4,8 +4,10 @@ import net.minecraft.block.Block;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.fluid.Fluid;
+import org.jetbrains.annotations.ApiStatus;
 
-public class RenderLayerRegistryImpl {
+@ApiStatus.Internal
+public final class RenderLayerRegistryImpl {
     /**
      * Map (or re-map) multiple blocks with a render layer.  Re-mapping is not
      * recommended but if done, last one in wins. Must be called from client

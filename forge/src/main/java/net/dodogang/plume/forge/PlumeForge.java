@@ -12,7 +12,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Plume.MOD_ID)
-public class PlumeForge {
+public final class PlumeForge {
     public PlumeForge() {
         ModEventBus.registerModEventBus(Plume.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
 

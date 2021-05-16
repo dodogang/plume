@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
 
 @ApiStatus.NonExtendable
-public class BlockRegistryBatch {
+public final class BlockRegistryBatch {
     protected final RegistryBatch<Block> blockRegistry;
     protected final RegistryBatch<Item> itemRegistry;
     protected Item.Settings defaultSettings;

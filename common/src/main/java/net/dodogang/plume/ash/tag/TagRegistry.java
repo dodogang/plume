@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 
-public class TagRegistry {
+public final class TagRegistry {
     private TagRegistry() {}
 
     /**
