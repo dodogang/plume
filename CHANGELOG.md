@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v0.5.4 - 2021-5-16
+### Added
+- Add `RenderLayerRegistry` for setting a block or fluid's render layer.
+
 ## v0.5.3 - 2021-5-16
 ### Added
 - Add `AbstractBlockStateMixin` which allows for blocks with the "bookshelves"
