@@ -7,7 +7,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.Util;
 import net.minecraft.world.poi.PointOfInterestType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public final class PointOfInterestTypeAppender {
     private PointOfInterestTypeAppender() {}

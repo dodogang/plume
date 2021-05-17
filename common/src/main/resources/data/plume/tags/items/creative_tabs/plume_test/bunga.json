@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:red_concrete",
+    {
+      "id": "plume:test_block",
+      "required": false
+    }
+  ]
+}

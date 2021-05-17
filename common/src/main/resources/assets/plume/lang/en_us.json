@@ -1,3 +1,11 @@
 {
-  "plume.discord": "Discord"
+  "plume.discord": "Discord",
+
+  "__plume.test": "",
+  "block.plume.test_block": "Plume Test Block",
+  "itemGroup.plume_test": "Plume (%s)",
+  "itemGroup.plume_test.title": "Plume",
+  "itemGroup.tab.plume_test:all": "All",
+  "itemGroup.tab.plume_test:unga": "Unga",
+  "itemGroup.tab.plume_test:bunga": "Bunga"
 }
