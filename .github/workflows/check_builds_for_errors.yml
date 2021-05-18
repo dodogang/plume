@@ -30,5 +30,19 @@ jobs:
       - name: Make gradle wrapper executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
-      - name: Build
-        run: ./gradlew build
+
+      - name: Build Fabric
+        run: ./gradlew :fabric:build
+      - name: Capture Fabric build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: fabric/build/libs/
+
+      - name: Build Forge
+        run: ./gradlew :forge:build
+      - name: Capture Forge build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: forge/build/libs/
