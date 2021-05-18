@@ -5,6 +5,8 @@ import net.dodogang.plume.ash.registry.ItemGroupBuilder;
 import net.dodogang.plume.ash.tag.TagRegistry;
 import net.dodogang.plume.client.gui.item_group.ItemGroupTab;
 import net.dodogang.plume.mixin.client.CreativeInventoryScreenAccessor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
@@ -88,6 +90,7 @@ public class TabbedItemGroup extends ItemGroup {
         initialized = true;
     }
 
+    @Environment(EnvType.CLIENT)
     public Identifier getIconBackgroundTexture() {
         return CreativeInventoryScreenAccessor.getTexture();
     }

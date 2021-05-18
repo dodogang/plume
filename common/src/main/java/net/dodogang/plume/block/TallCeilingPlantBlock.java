@@ -1,6 +1,11 @@
 package net.dodogang.plume.block;
 
-import net.minecraft.block.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.PlantBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
@@ -108,6 +113,7 @@ public class TallCeilingPlantBlock extends PlantBlock {
 
     @SuppressWarnings("deprecation")
     @Override
+    @Environment(EnvType.CLIENT)
     public long getRenderingSeed(BlockState state, BlockPos pos) {
         return MathHelper.hashCode(pos.getX(), pos.down(state.get(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), pos.getZ());
     }

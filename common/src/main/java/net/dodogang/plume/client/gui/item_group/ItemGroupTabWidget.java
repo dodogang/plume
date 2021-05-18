@@ -3,12 +3,15 @@ package net.dodogang.plume.client.gui.item_group;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.dodogang.plume.item.item_group.TabbedItemGroup;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
+@Environment(EnvType.CLIENT)
 public class ItemGroupTabWidget extends ButtonWidget {
     private final ItemGroupTab tab;
     public final Identifier texture;

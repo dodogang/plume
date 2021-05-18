@@ -2,6 +2,8 @@ package net.dodogang.plume.client.gui.item_group;
 
 import net.dodogang.plume.Plume;
 import net.dodogang.plume.item.item_group.TabbedItemGroup;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,6 +11,7 @@ import net.minecraft.tag.Tag;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
+@Environment(EnvType.CLIENT)
 public class ItemGroupTab {
     private final Tag<Item> tag;
     private final ItemStack icon;
