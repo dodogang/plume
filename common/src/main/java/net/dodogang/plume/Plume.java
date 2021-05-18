@@ -65,7 +65,7 @@ public final class Plume {
 
             PointOfInterestTypeAppender.appendBlocks(
                     PointOfInterestType.BUTCHER,
-                    TEST_BLOCK.get()
+                    TEST_BLOCK.getInitialValue()
             );
         }
 
