@@ -43,14 +43,22 @@ public final class Plume {
         if (runDevTests) {
             LOGGER.log(Level.INFO, "Development environment detected! Running dev initialize.");
 
-            ItemGroup itemGroup = new TabbedItemGroup("plume_test",
-                (id) -> {
-                    String ns = id.getNamespace();
-                    return ImmutableList.of(
-                        TabbedItemGroup.createTab(Blocks.DIRT, ns, "unga"),
-                        TabbedItemGroup.createTab(Blocks.BLACK_CONCRETE, ns, "bunga")
-                    );
-                }, () -> new ItemStack(Blocks.STONE)
+            ItemGroup itemGroup = new TabbedItemGroup(
+                "plume_test",
+                (group) -> ImmutableList.of(
+                    group.createTab("unga", Blocks.DIRT),
+                    group.createTab("bunga", Blocks.BLACK_CONCRETE)
+                ),
+                (group) -> new ItemStack(Blocks.STONE)
+            );
+            ItemGroup testAdditionalItemGroup = new TabbedItemGroup(
+                "plume_test2",
+                (group) -> ImmutableList.of(
+                    group.createTab("unga", Blocks.GRASS_BLOCK),
+                    group.createTab("bunga", Blocks.BLUE_CONCRETE),
+                    group.createTab("bunga", Blocks.YELLOW_BANNER)
+                ),
+                (group) -> new ItemStack(Blocks.STICKY_PISTON)
             );
 
             BlockRegistryBatch blocks = new BlockRegistryBatch(MOD_ID).setDefaultItemSettings(new Item.Settings().group(itemGroup));

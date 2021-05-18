@@ -13,27 +13,34 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class ItemGroupTabWidget extends ButtonWidget {
-    private final ItemGroupTab tab;
-    public final Identifier texture;
+    protected final ItemGroupTab parent;
+    protected final Identifier texture;
+    protected boolean isSelected = false;
 
-    public boolean isSelected = false;
-
-    public ItemGroupTabWidget(int x, int y, ItemGroupTab tab, PressAction onPress, Identifier texture) {
-        super(x, y, 22, 22, tab.getTranslationKey(), onPress);
-        this.tab = tab;
+    public ItemGroupTabWidget(int x, int y, ItemGroupTab parent, PressAction onPress, Identifier texture) {
+        super(x, y, 22, 22, parent.getTranslationKey(), onPress);
+        this.parent = parent;
         this.texture = texture;
     }
-    public ItemGroupTabWidget(int x, int y, int selectedTabIndex, TabbedItemGroup tab, CreativeInventoryScreen screen, Identifier texture) {
-        this(x - 24, (y + 12) + (selectedTabIndex * 24), tab.getTabs().get(selectedTabIndex), (btn) -> {
-            tab.setSelectedTabIndex(selectedTabIndex);
+    public ItemGroupTabWidget(int x, int y, int index, TabbedItemGroup parent, CreativeInventoryScreen screen, Identifier texture) {
+        this(x - 24, (y + 12) + (index * 24), parent.getTabs().get(index), btn -> ItemGroupTabWidget.setSelected(btn, parent, index, screen), texture);
+    }
+
+    public static void setSelected(ButtonWidget widget, TabbedItemGroup tabGroup, int index, CreativeInventoryScreen screen) {
+        ((ItemGroupTabWidget) widget).setSelected();
+        tabGroup.setSelectedTabIndex(index);
+
+        if (screen != null) {
             MinecraftClient.getInstance().openScreen(screen);
-            ((ItemGroupTabWidget) btn).isSelected = true;
-        }, texture);
+        }
+    }
+    public void setSelected() {
+        this.isSelected = true;
     }
 
     @Override
     protected int getYImage(boolean isHovered) {
-        return isHovered || isSelected ? 1 : 0;
+        return isHovered || this.isSelected ? 1 : 0;
     }
 
     @SuppressWarnings("deprecation")
@@ -50,6 +57,6 @@ public class ItemGroupTabWidget extends ButtonWidget {
         this.drawTexture(matrices, this.x, this.y, 0, this.getYImage(this.isHovered()) * height, this.width, this.height);
         this.renderBg(matrices, client, mouseX, mouseY);
 
-        client.getItemRenderer().renderInGui(tab.getIcon(), this.x + 3, this.y + 3);
+        client.getItemRenderer().renderInGui(parent.getIcon(), this.x + 3, this.y + 3);
     }
 }

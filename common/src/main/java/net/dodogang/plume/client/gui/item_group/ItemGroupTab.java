@@ -10,43 +10,48 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tag.Tag;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class ItemGroupTab {
-    private final Tag<Item> tag;
-    private final ItemStack icon;
-    private final Identifier id;
-    private Identifier widgetBackgroundTexture = new Identifier(Plume.MOD_ID, "textures/gui/creative_inventory/item_group/tab_widget.png");
+    private final @NotNull Identifier id;
+    private final @NotNull ItemStack icon;
+    private final @Nullable Tag<Item> tag;
 
-    public ItemGroupTab(ItemStack icon, Identifier id, Tag<Item> tag) {
-        this.tag = tag;
-        this.icon = icon;
+    private static final Identifier TAB_WIDGET_TEXTURE = new Identifier(Plume.MOD_ID, "textures/gui/creative_inventory/item_group/tab_widget.png");
+
+    public ItemGroupTab(@NotNull Identifier id, @NotNull ItemStack icon, @Nullable Tag<Item> tag) {
         this.id = id;
+        this.icon = icon;
+        this.tag = tag;
     }
 
-    @SuppressWarnings("unused")
-    public ItemGroupTab setWidgetBackgroundTexture(Identifier widgetBackgroundTexture) {
-        this.widgetBackgroundTexture = widgetBackgroundTexture;
-        return this;
-    }
-
+    @NotNull
     public Identifier getId() {
         return this.id;
+    }
+    @NotNull
+    public ItemStack getIcon() {
+        return this.icon;
+    }
+    @Nullable
+    public Tag<Item> getTag() {
+        return this.tag;
+    }
+    public Identifier getWidgetBackgroundTexture() {
+        return ItemGroupTab.TAB_WIDGET_TEXTURE;
     }
 
     public TranslatableText getTranslationKey() {
         return new TranslatableText("itemGroup.tab." + id);
     }
 
-    public ItemStack getIcon() {
-        return this.icon;
+    public ItemGroupTabWidget createWidget(int x, int y, int index, TabbedItemGroup tab, CreativeInventoryScreen screen) {
+        return new ItemGroupTabWidget(x, y, index, tab, screen, this.getWidgetBackgroundTexture());
     }
 
-    public boolean matches(Item item) {
+    public boolean contains(Item item) {
         return tag != null && tag.contains(item);
-    }
-
-    public ItemGroupTabWidget createWidget(int x, int y, int selectedTabIndex, TabbedItemGroup tab, CreativeInventoryScreen screen) {
-        return new ItemGroupTabWidget(x, y, selectedTabIndex, tab, screen, this.widgetBackgroundTexture);
     }
 }

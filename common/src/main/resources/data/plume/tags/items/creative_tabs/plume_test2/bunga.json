@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:green_concrete",
+    {
+      "id": "plume:test_ceiling_plant",
+      "required": false
+    }
+  ]
+}
