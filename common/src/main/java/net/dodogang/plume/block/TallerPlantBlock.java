@@ -1,8 +1,6 @@
 package net.dodogang.plume.block;
 
 import net.dodogang.plume.block.enums.TripleBlockPart;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -133,7 +131,6 @@ public class TallerPlantBlock extends PlantBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    @Environment(EnvType.CLIENT)
     public long getRenderingSeed(BlockState state, BlockPos pos) {
         return MathHelper.hashCode(pos.getX(), pos.down(state.get(PART) == TripleBlockPart.LOWER ? 0 : 1).getY(), pos.getZ());
     }

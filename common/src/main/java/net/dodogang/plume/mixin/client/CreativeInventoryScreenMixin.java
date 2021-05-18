@@ -3,8 +3,6 @@ package net.dodogang.plume.mixin.client;
 import com.google.common.collect.Lists;
 import net.dodogang.plume.client.gui.item_group.ItemGroupTabWidget;
 import net.dodogang.plume.item.item_group.TabbedItemGroup;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
@@ -19,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
 @Mixin(CreativeInventoryScreen.class)
 public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScreen<CreativeInventoryScreen.CreativeScreenHandler> {
     private final List<ItemGroupTabWidget> plume_tabButtons = Lists.newArrayList();
