@@ -34,8 +34,9 @@ public final class BlockRegistryBatch {
      *
      * @param settings the new default item settings
      */
-    public void setDefaultItemSettings(Item.Settings settings) {
+    public BlockRegistryBatch setDefaultItemSettings(Item.Settings settings) {
         this.defaultSettings = settings;
+        return this;
     }
 
     /**

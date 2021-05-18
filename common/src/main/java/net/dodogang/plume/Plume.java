@@ -53,8 +53,7 @@ public final class Plume {
                 }, () -> new ItemStack(Blocks.STONE)
             );
 
-            BlockRegistryBatch blocks = new BlockRegistryBatch(MOD_ID);
-            blocks.setDefaultItemSettings(new Item.Settings().group(itemGroup));
+            BlockRegistryBatch blocks = new BlockRegistryBatch(MOD_ID).setDefaultItemSettings(new Item.Settings().group(itemGroup));
 
             TEST_BLOCK = blocks.add("test_block", new Block(AbstractBlock.Settings.copy(Blocks.STONE)));
             TEST_BEAM_BLOCK = blocks.add("test_beam_block", new BeamBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
