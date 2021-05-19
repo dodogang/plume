@@ -30,15 +30,15 @@ public class TabbedItemGroup extends ItemGroup {
     private final Function<Identifier, List<ItemGroupTab>> tabsSupplier;
 
     private final List<ItemGroupTab> tabs = new ArrayList<>();
-    private int selectedTabIndex = 0;
-    private boolean initialized = false;
+    private int selectedTabIndex          = 0;
+    private boolean initialized           = false;
 
     public TabbedItemGroup(Identifier id, Function<Identifier, List<ItemGroupTab>> tabs, Supplier<ItemStack> icon) {
         super(TabbedItemGroup.getItemGroupIndex(id), id.getNamespace() + "." + id.getPath());
 
-        this.id = id;
+        this.id           = id;
         this.tabsSupplier = tabs;
-        this.icon = icon;
+        this.icon         = icon;
     }
     public TabbedItemGroup(String modId, Function<Identifier, List<ItemGroupTab>> tabs, Supplier<ItemStack> icon) {
         this(new Identifier(modId, "title"), tabs, icon);
@@ -50,7 +50,8 @@ public class TabbedItemGroup extends ItemGroup {
     }
 
     public static ItemGroupTab createTab(ItemConvertible item, String modId, String id) {
-        return TabbedItemGroup.createTab(item, modId, id, TagRegistry.item(new Identifier(Plume.MOD_ID, "creative_tabs/" + modId + "/" + id)));
+        return TabbedItemGroup.createTab(
+            item, modId, id, TagRegistry.item(new Identifier(Plume.MOD_ID, "creative_tabs/" + modId + "/" + id)));
     }
     public static ItemGroupTab createTab(ItemConvertible item, String modId, String id, Tag<Item> tag) {
         return TabbedItemGroup.createTab(new ItemStack(item), modId, id, tag);
@@ -121,7 +122,9 @@ public class TabbedItemGroup extends ItemGroup {
 
     @Override
     public Text getTranslationKey() {
-        return this.selectedTabIndex != 0 ? new TranslatableText("itemGroup." + id.getNamespace(), this.getSelectedItemTab().getTranslationKey()) : super.getTranslationKey();
+        return this.selectedTabIndex != 0
+            ? new TranslatableText("itemGroup." + id.getNamespace(), this.getSelectedItemTab().getTranslationKey())
+            : super.getTranslationKey();
     }
 
     @Override

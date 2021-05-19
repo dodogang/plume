@@ -5,6 +5,7 @@ import net.dodogang.plume.ash.registry.RegistrySupplier;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal

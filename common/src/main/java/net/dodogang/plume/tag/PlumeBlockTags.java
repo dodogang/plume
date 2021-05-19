@@ -58,6 +58,6 @@ public class PlumeBlockTags {
     public static final Tag.Identified<Block> FEATURE_SUPPORTERS_STONE = register("feature_supporters_stone");
 
     private static Tag.Identified<Block> register(String id) {
-        return (Tag.Identified<Block>) TagRegistry.block(new Identifier(Plume.MOD_ID, id));
+        return (Tag.Identified<Block>)TagRegistry.block(new Identifier(Plume.MOD_ID, id));
     }
 }

@@ -45,19 +45,28 @@ public class TallCeilingPlantBlock extends PlantBlock {
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
+    public BlockState getStateForNeighborUpdate(
+        BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
         DoubleBlockHalf doubleBlockHalf = state.get(HALF);
-        if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP) && (!newState.isOf(this) || newState.get(HALF) == doubleBlockHalf)) {
+        if (direction.getAxis() == Direction.Axis.Y
+            && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP)
+            && (!newState.isOf(this) || newState.get(HALF) == doubleBlockHalf))
+        {
             return Blocks.AIR.getDefaultState();
         } else {
-            return doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
+            return doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN
+                    && !state.canPlaceAt(world, pos)
+                ? Blocks.AIR.getDefaultState()
+                : super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
         }
     }
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos blockPos = ctx.getBlockPos();
-        return blockPos.getY() > 0 && ctx.getWorld().getBlockState(blockPos.down()).canReplace(ctx) ? super.getPlacementState(ctx) : null;
+        return blockPos.getY() > 0 && ctx.getWorld().getBlockState(blockPos.down()).canReplace(ctx)
+            ? super.getPlacementState(ctx)
+            : null;
     }
 
     @Override
@@ -77,7 +86,8 @@ public class TallCeilingPlantBlock extends PlantBlock {
     }
 
     @Override
-    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack) {
+    public void afterBreak(
+        World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack) {
         super.afterBreak(world, player, pos, Blocks.AIR.getDefaultState(), blockEntity, stack);
     }
 
@@ -97,7 +107,7 @@ public class TallCeilingPlantBlock extends PlantBlock {
     protected static void onBreakInCreative(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         DoubleBlockHalf doubleBlockHalf = state.get(HALF);
         if (doubleBlockHalf == DoubleBlockHalf.UPPER) {
-            BlockPos blockPos = pos.up();
+            BlockPos blockPos     = pos.up();
             BlockState blockState = world.getBlockState(blockPos);
             if (blockState.getBlock() == state.getBlock() && blockState.get(HALF) == DoubleBlockHalf.LOWER) {
                 world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
@@ -115,6 +125,7 @@ public class TallCeilingPlantBlock extends PlantBlock {
     @Override
     @Environment(EnvType.CLIENT)
     public long getRenderingSeed(BlockState state, BlockPos pos) {
-        return MathHelper.hashCode(pos.getX(), pos.down(state.get(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), pos.getZ());
+        return MathHelper.hashCode(
+            pos.getX(), pos.down(state.get(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), pos.getZ());
     }
 }

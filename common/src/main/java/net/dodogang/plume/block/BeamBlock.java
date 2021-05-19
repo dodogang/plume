@@ -22,33 +22,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings({"unused","deprecation"})
+@SuppressWarnings({"unused", "deprecation"})
 public class BeamBlock extends Block implements Waterloggable {
-    public static final BooleanProperty POST = BooleanProperty.of("post");
-    public static final BooleanProperty NORTH = Properties.NORTH;
-    public static final BooleanProperty EAST = Properties.EAST;
-    public static final BooleanProperty SOUTH = Properties.SOUTH;
-    public static final BooleanProperty WEST = Properties.WEST;
-    public static final BooleanProperty UP = Properties.UP;
-    public static final BooleanProperty DOWN = Properties.DOWN;
+    public static final BooleanProperty POST        = BooleanProperty.of("post");
+    public static final BooleanProperty NORTH       = Properties.NORTH;
+    public static final BooleanProperty EAST        = Properties.EAST;
+    public static final BooleanProperty SOUTH       = Properties.SOUTH;
+    public static final BooleanProperty WEST        = Properties.WEST;
+    public static final BooleanProperty UP          = Properties.UP;
+    public static final BooleanProperty DOWN        = Properties.DOWN;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
-    public static final Map<Direction, BooleanProperty> PROP_MAP = Util.make(new HashMap<>(),
-        map -> {
-            map.put(Direction.NORTH, NORTH);
-            map.put(Direction.EAST, EAST);
-            map.put(Direction.SOUTH, SOUTH);
-            map.put(Direction.WEST, WEST);
-            map.put(Direction.UP, UP);
-            map.put(Direction.DOWN, DOWN);
-        });
+    public static final Map<Direction, BooleanProperty> PROP_MAP = Util.make(new HashMap<>(), map -> {
+        map.put(Direction.NORTH, NORTH);
+        map.put(Direction.EAST, EAST);
+        map.put(Direction.SOUTH, SOUTH);
+        map.put(Direction.WEST, WEST);
+        map.put(Direction.UP, UP);
+        map.put(Direction.DOWN, DOWN);
+    });
 
     private final ShapeUtil shapeUtil;
 
     public BeamBlock(AbstractBlock.Settings settings) {
         super(settings);
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(POST, true).with(NORTH, false).with(EAST, false).with(SOUTH, false).with(WEST, false).with(UP, false).with(DOWN, false).with(WATERLOGGED, false));
+        this.setDefaultState(this.getStateManager()
+                                 .getDefaultState()
+                                 .with(POST, true)
+                                 .with(NORTH, false)
+                                 .with(EAST, false)
+                                 .with(SOUTH, false)
+                                 .with(WEST, false)
+                                 .with(UP, false)
+                                 .with(DOWN, false)
+                                 .with(WATERLOGGED, false));
         this.shapeUtil = new ShapeUtil(this);
     }
 
@@ -58,17 +66,24 @@ public class BeamBlock extends Block implements Waterloggable {
 
     private BlockState makeConnections(World world, BlockPos pos) {
         Boolean north = this.isConnectable(world, pos.north(), Direction.SOUTH);
-        Boolean east = this.isConnectable(world, pos.east(), Direction.WEST);
+        Boolean east  = this.isConnectable(world, pos.east(), Direction.WEST);
         Boolean south = this.isConnectable(world, pos.south(), Direction.NORTH);
-        Boolean west = this.isConnectable(world, pos.west(), Direction.EAST);
-        Boolean up = this.isConnectable(world, pos.up(), Direction.DOWN);
-        Boolean down = this.isConnectable(world, pos.down(), Direction.UP);
+        Boolean west  = this.isConnectable(world, pos.west(), Direction.EAST);
+        Boolean up    = this.isConnectable(world, pos.up(), Direction.DOWN);
+        Boolean down  = this.isConnectable(world, pos.down(), Direction.UP);
 
-        return this.getDefaultState().with(NORTH, north).with(EAST, east).with(SOUTH, south).with(WEST, west).with(UP, up).with(DOWN, down);
+        return this.getDefaultState()
+            .with(NORTH, north)
+            .with(EAST, east)
+            .with(SOUTH, south)
+            .with(WEST, west)
+            .with(UP, up)
+            .with(DOWN, down);
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
+    public BlockState getStateForNeighborUpdate(
+        BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
         return state.with(getProperty(direction), this.isConnectable(world, posFrom, direction.getOpposite()));
     }
 
@@ -83,7 +98,8 @@ public class BeamBlock extends Block implements Waterloggable {
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.makeConnections(ctx.getWorld(), ctx.getBlockPos()).with(POST, ctx.getSide() == Direction.UP || ctx.getSide() == Direction.DOWN);
+        return this.makeConnections(ctx.getWorld(), ctx.getBlockPos())
+            .with(POST, ctx.getSide() == Direction.UP || ctx.getSide() == Direction.DOWN);
     }
 
     @Override
@@ -129,23 +145,20 @@ public class BeamBlock extends Block implements Waterloggable {
 
         public ShapeUtil(BeamBlock beamBlock) {
             this.beamBlock = beamBlock;
-            this.shapes = createStateShapeMap();
+            this.shapes    = createStateShapeMap();
         }
 
         private HashMap<BlockState, VoxelShape> createStateShapeMap() {
             return Util.make(
                 new HashMap<>(),
-                map -> beamBlock.getStateManager().getStates().forEach(
-                    state -> map.put(state, getStateShape(state))
-                )
-            );
+                map -> beamBlock.getStateManager().getStates().forEach(state -> map.put(state, getStateShape(state))));
         }
 
         private VoxelShape getStateShape(BlockState state) {
             final double size = 4;
-            final VoxelShape baseShape = !state.get(POST)
-                ? Block.createCuboidShape(size, size, size, 16.0D - size, 16.0D - size, 16.0D - size)
-                : Block.createCuboidShape(size, 0.0D, size, 16.0D - size, 16.0D, 16.0D - size);
+            final VoxelShape baseShape =
+                !state.get(POST) ? Block.createCuboidShape(size, size, size, 16.0D - size, 16.0D - size, 16.0D - size)
+                                 : Block.createCuboidShape(size, 0.0D, size, 16.0D - size, 16.0D, 16.0D - size);
 
             final List<VoxelShape> connections = new ArrayList<>();
             for (Direction dir : Direction.values()) {

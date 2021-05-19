@@ -16,12 +16,13 @@ public class ItemGroupTab {
     private final Tag<Item> tag;
     private final ItemStack icon;
     private final Identifier id;
-    private Identifier widgetBackgroundTexture = new Identifier(Plume.MOD_ID, "textures/gui/creative_inventory/item_group/tab_widget.png");
+    private Identifier widgetBackgroundTexture =
+        new Identifier(Plume.MOD_ID, "textures/gui/creative_inventory/item_group/tab_widget.png");
 
     public ItemGroupTab(ItemStack icon, Identifier id, Tag<Item> tag) {
-        this.tag = tag;
+        this.tag  = tag;
         this.icon = icon;
-        this.id = id;
+        this.id   = id;
     }
 
     @SuppressWarnings("unused")
@@ -46,7 +47,8 @@ public class ItemGroupTab {
         return tag != null && tag.contains(item);
     }
 
-    public ItemGroupTabWidget createWidget(int x, int y, int selectedTabIndex, TabbedItemGroup tab, CreativeInventoryScreen screen) {
+    public ItemGroupTabWidget createWidget(
+        int x, int y, int selectedTabIndex, TabbedItemGroup tab, CreativeInventoryScreen screen) {
         return new ItemGroupTabWidget(x, y, selectedTabIndex, tab, screen, this.widgetBackgroundTexture);
     }
 }

@@ -2,6 +2,7 @@ package net.dodogang.plume.ash.fabric;
 
 import net.dodogang.plume.ash.Platform;
 import net.fabricmc.loader.api.FabricLoader;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal

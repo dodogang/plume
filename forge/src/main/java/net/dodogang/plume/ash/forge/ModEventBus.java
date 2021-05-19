@@ -1,6 +1,7 @@
 package net.dodogang.plume.ash.forge;
 
 import net.minecraftforge.eventbus.api.IEventBus;
+
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import java.util.Optional;
  * ModEventBus.registerModEventBus("mod_id", FMLJavaModLoadingContext.get().getModEventBus());
  */
 public final class ModEventBus {
-    private ModEventBus() {}
+    private ModEventBus() { }
 
     private static final HashMap<String, IEventBus> MOD_EVENT_BUSES = new HashMap<>();
 
@@ -38,7 +39,6 @@ public final class ModEventBus {
 
     public static IEventBus getModEventBusOrThrow(String modId) {
         return getModEventBus(modId).orElseThrow(
-                () -> new IllegalStateException("Mod Event Bus for modid '" + modId + "' has not been registered.")
-        );
+            () -> new IllegalStateException("Mod Event Bus for modid '" + modId + "' has not been registered."));
     }
 }

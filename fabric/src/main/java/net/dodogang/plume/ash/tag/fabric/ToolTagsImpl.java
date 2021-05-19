@@ -3,11 +3,12 @@ package net.dodogang.plume.ash.tag.fabric;
 import net.dodogang.plume.ash.tag.ToolTags;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.item.ItemStack;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
 public final class ToolTagsImpl {
-    private ToolTagsImpl() {}
+    private ToolTagsImpl() { }
 
     public static boolean containsImpl(ToolTags tag, ItemStack stack) {
         switch (tag) {

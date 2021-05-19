@@ -8,6 +8,7 @@ import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
@@ -33,13 +34,8 @@ public final class BuiltinItemRendererRegistryImpl {
 
         @Override
         public void render(
-                ItemStack stack,
-                ModelTransformation.Mode mode,
-                MatrixStack matrices,
-                VertexConsumerProvider vertexConsumers,
-                int light,
-                int overlay
-        ) {
+            ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices,
+            VertexConsumerProvider vertexConsumers, int light, int overlay) {
             renderer.render(stack, mode, matrices, vertexConsumers, light, overlay);
         }
     }

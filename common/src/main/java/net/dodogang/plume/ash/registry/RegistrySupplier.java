@@ -13,10 +13,10 @@ public class RegistrySupplier<T> implements Supplier<T> {
     protected T cachedValue;
 
     public RegistrySupplier(Identifier id, Registry<T> registry, T initialValue) {
-        this.id = id;
-        this.registry = registry;
+        this.id           = id;
+        this.registry     = registry;
         this.initialValue = initialValue;
-        this.cachedValue = null;
+        this.cachedValue  = null;
     }
 
     /**

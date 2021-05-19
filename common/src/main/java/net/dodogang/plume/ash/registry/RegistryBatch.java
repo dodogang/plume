@@ -1,8 +1,10 @@
 package net.dodogang.plume.ash.registry;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
+
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+
 import org.jetbrains.annotations.Nullable;
 
 public abstract class RegistryBatch<T> {
@@ -13,7 +15,7 @@ public abstract class RegistryBatch<T> {
 
     protected RegistryBatch(RegistryKey<Registry<T>> registryKey, String modId) {
         this.registryKey = registryKey;
-        this.modId = modId;
+        this.modId       = modId;
 
         this.registered = false;
     }
@@ -51,7 +53,7 @@ public abstract class RegistryBatch<T> {
         registered = true;
         registerImpl();
     }
-    
+
     protected abstract void registerImpl();
 
     @SuppressWarnings({"unchecked", "rawtypes"})

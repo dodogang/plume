@@ -1,6 +1,7 @@
 package net.dodogang.plume.ash.client.registry;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
+
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
@@ -10,7 +11,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 
 public final class BuiltinItemRendererRegistry {
-    private BuiltinItemRendererRegistry() {}
+    private BuiltinItemRendererRegistry() { }
 
     /**
      * Registers a renderer for an item.
@@ -35,9 +36,12 @@ public final class BuiltinItemRendererRegistry {
          * @param matrices        the matrix stack
          * @param vertexConsumers the vertex consumer provider
          * @param light           packed lightmap coordinates
-         * @param overlay         the overlay UV passed to {@link net.minecraft.client.render.VertexConsumer#overlay(int)}
+         * @param overlay         the overlay UV passed to {@link
+         *     net.minecraft.client.render.VertexConsumer#overlay(int)}
          */
-        void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay);
+        void render(
+            ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices,
+            VertexConsumerProvider vertexConsumers, int light, int overlay);
     }
 
     /**

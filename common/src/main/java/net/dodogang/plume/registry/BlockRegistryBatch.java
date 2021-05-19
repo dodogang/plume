@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.registry.Registry;
+
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,8 +21,8 @@ public final class BlockRegistryBatch {
     protected Item.Settings defaultSettings;
 
     public BlockRegistryBatch(String modId) {
-        this.blockRegistry = RegistryBatch.create(Registry.BLOCK_KEY, modId);
-        this.itemRegistry = RegistryBatch.create(Registry.ITEM_KEY, modId);
+        this.blockRegistry   = RegistryBatch.create(Registry.BLOCK_KEY, modId);
+        this.itemRegistry    = RegistryBatch.create(Registry.ITEM_KEY, modId);
         this.defaultSettings = new Item.Settings();
     }
 
@@ -47,7 +48,7 @@ public final class BlockRegistryBatch {
      * @param settings the {@link Item.Settings} that will make the block item.
      * @return a {@link RegistrySupplier} containing the id of the block
      */
-    public <B extends Block>RegistrySupplier<B> add(String name, B block, @Nullable Item.Settings settings) {
+    public <B extends Block> RegistrySupplier<B> add(String name, B block, @Nullable Item.Settings settings) {
         if (settings != null) {
             this.itemRegistry.add(name, new BlockItem(block, settings));
         }
@@ -63,7 +64,7 @@ public final class BlockRegistryBatch {
      * @param block the block to be registered
      * @return a {@link RegistrySupplier} containing the id of the block
      */
-    public <B extends Block>RegistrySupplier<B> add(String name, B block) {
+    public <B extends Block> RegistrySupplier<B> add(String name, B block) {
         return add(name, block, this.defaultSettings);
     }
 
@@ -78,10 +79,7 @@ public final class BlockRegistryBatch {
      * @return a {@link RegistrySupplier} containing the id of the block
      */
     public <B extends Block> RegistrySupplier<B> addCopy(
-            String name,
-            Function<AbstractBlock.Settings, B> blockFunction,
-            AbstractBlock toCopy
-    ) {
+        String name, Function<AbstractBlock.Settings, B> blockFunction, AbstractBlock toCopy) {
         return this.add(name, blockFunction.apply(AbstractBlock.Settings.copy(toCopy)));
     }
 

@@ -2,6 +2,7 @@ package net.dodogang.plume.ash.forge;
 
 import net.dodogang.plume.ash.Platform;
 import net.minecraftforge.fml.loading.FMLLoader;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal

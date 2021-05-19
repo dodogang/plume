@@ -2,6 +2,7 @@ package net.dodogang.plume.ash.registry.fabric;
 
 import net.dodogang.plume.ash.registry.FuelRegistry;
 import net.minecraft.item.ItemConvertible;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal

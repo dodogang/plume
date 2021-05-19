@@ -3,6 +3,7 @@ package net.dodogang.plume.ash.event.fabric;
 import net.dodogang.plume.ash.event.InteractionCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.util.ActionResult;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal

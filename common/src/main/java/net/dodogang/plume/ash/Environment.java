@@ -3,7 +3,7 @@ package net.dodogang.plume.ash;
 import me.shedaniel.architectury.annotations.ExpectPlatform;
 
 public final class Environment {
-    private Environment() {}
+    private Environment() { }
 
     @ExpectPlatform
     public static boolean isDevelopmentEnvironment() {

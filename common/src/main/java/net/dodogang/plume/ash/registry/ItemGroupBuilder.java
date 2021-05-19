@@ -1,9 +1,11 @@
 package net.dodogang.plume.ash.registry;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
+
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public abstract class ItemGroupBuilder {
     protected Consumer<List<ItemStack>> stacksToDisplay;
 
     protected ItemGroupBuilder(Identifier id) {
-        this.id = id;
+        this.id      = id;
         iconSupplier = () -> ItemStack.EMPTY;
     }
 

@@ -2,6 +2,7 @@ package net.dodogang.plume.client.gui.item_group;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.dodogang.plume.item.item_group.TabbedItemGroup;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -20,14 +21,15 @@ public class ItemGroupTabWidget extends ButtonWidget {
 
     public ItemGroupTabWidget(int x, int y, ItemGroupTab tab, PressAction onPress, Identifier texture) {
         super(x, y, 22, 22, tab.getTranslationKey(), onPress);
-        this.tab = tab;
+        this.tab     = tab;
         this.texture = texture;
     }
-    public ItemGroupTabWidget(int x, int y, int selectedTabIndex, TabbedItemGroup tab, CreativeInventoryScreen screen, Identifier texture) {
+    public ItemGroupTabWidget(
+        int x, int y, int selectedTabIndex, TabbedItemGroup tab, CreativeInventoryScreen screen, Identifier texture) {
         this(x - 24, (y + 12) + (selectedTabIndex * 24), tab.getTabs().get(selectedTabIndex), (btn) -> {
             tab.setSelectedTabIndex(selectedTabIndex);
             MinecraftClient.getInstance().openScreen(screen);
-            ((ItemGroupTabWidget) btn).isSelected = true;
+            ((ItemGroupTabWidget)btn).isSelected = true;
         }, texture);
     }
 
@@ -47,7 +49,8 @@ public class ItemGroupTabWidget extends ButtonWidget {
         RenderSystem.defaultBlendFunc();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
 
-        this.drawTexture(matrices, this.x, this.y, 0, this.getYImage(this.isHovered()) * height, this.width, this.height);
+        this.drawTexture(
+            matrices, this.x, this.y, 0, this.getYImage(this.isHovered()) * height, this.width, this.height);
         this.renderBg(matrices, client, mouseX, mouseY);
 
         client.getItemRenderer().renderInGui(tab.getIcon(), this.x + 3, this.y + 3);

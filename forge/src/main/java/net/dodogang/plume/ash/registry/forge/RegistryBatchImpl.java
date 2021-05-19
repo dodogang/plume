@@ -10,6 +10,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryManager;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
@@ -50,9 +51,11 @@ public final class RegistryBatchImpl<T extends IForgeRegistryEntry<T>> extends R
 
     @Override
     protected void registerImpl() {
-        IEventBus modEventBus = ModEventBus.getModEventBus(modId).orElseThrow(() -> new IllegalStateException(
-                "Attempted to register BatchedRegister before registering a ModEventBus for modid '" + modId + "'.")
-        );
+        IEventBus modEventBus = ModEventBus.getModEventBus(modId).orElseThrow(
+            ()
+                -> new IllegalStateException(
+                    "Attempted to register BatchedRegister before registering a ModEventBus for modid '" + modId
+                    + "'."));
         deferredRegister.register(modEventBus);
     }
 }

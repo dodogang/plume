@@ -1,11 +1,12 @@
 package net.dodogang.plume.ash.client.registry;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
+
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.util.Identifier;
 
 public final class SpriteRegistry {
-    private SpriteRegistry() {}
+    private SpriteRegistry() { }
 
     /**
      * Registers sprites to be loaded to a specified texture atlas.

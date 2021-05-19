@@ -1,10 +1,11 @@
 package net.dodogang.plume.ash.registry;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
+
 import net.minecraft.item.ItemConvertible;
 
 public final class FuelRegistry {
-    private FuelRegistry() {}
+    private FuelRegistry() { }
 
     /**
      * Registers items as fuel with a burn time for furnace-like blocks.

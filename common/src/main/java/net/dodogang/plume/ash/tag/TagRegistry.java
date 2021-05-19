@@ -1,6 +1,7 @@
 package net.dodogang.plume.ash.tag;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
@@ -9,7 +10,7 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 
 public final class TagRegistry {
-    private TagRegistry() {}
+    private TagRegistry() { }
 
     /**
      * Registers a block tag with the given identifier.

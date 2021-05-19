@@ -5,13 +5,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
 import net.minecraft.item.SwordItem;
 import net.minecraftforge.common.ToolType;
+
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Set;
 
 @ApiStatus.Internal
 public final class ToolTagsImpl {
-    private ToolTagsImpl() {}
+    private ToolTagsImpl() { }
 
     public static boolean containsImpl(ToolTags tag, ItemStack stack) {
         Set<ToolType> toolTypes = stack.getItem().getToolTypes(stack);

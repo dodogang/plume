@@ -4,6 +4,7 @@ import net.dodogang.plume.ash.forge.ModEventBus;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.util.Identifier;
 import net.minecraftforge.client.event.TextureStitchEvent;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal

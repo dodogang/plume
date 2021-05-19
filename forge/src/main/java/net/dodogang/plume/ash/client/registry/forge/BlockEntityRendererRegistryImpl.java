@@ -5,6 +5,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.function.Function;
@@ -19,9 +20,7 @@ public final class BlockEntityRendererRegistryImpl {
      * @param <T> extends BlockEntity
      */
     public static <T extends BlockEntity> void register(
-            BlockEntityType<T> beType, Function<BlockEntityRenderDispatcher,
-            BlockEntityRenderer<T>> renderer
-    ) {
+        BlockEntityType<T> beType, Function<BlockEntityRenderDispatcher, BlockEntityRenderer<T>> renderer) {
         ClientRegistry.bindTileEntityRenderer(beType, renderer);
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.tag.*;
 import net.minecraft.util.Identifier;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal

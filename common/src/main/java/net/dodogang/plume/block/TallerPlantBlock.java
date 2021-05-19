@@ -26,7 +26,8 @@ import java.util.ArrayList;
  */
 @SuppressWarnings("unused")
 public class TallerPlantBlock extends PlantBlock {
-    public static final EnumProperty<TripleBlockPart> PART = EnumProperty.of("triple_block_part", TripleBlockPart.class);
+    public static final EnumProperty<TripleBlockPart> PART =
+        EnumProperty.of("triple_block_part", TripleBlockPart.class);
 
     public TallerPlantBlock(AbstractBlock.Settings settings) {
         super(settings);
@@ -34,14 +35,17 @@ public class TallerPlantBlock extends PlantBlock {
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
+    public BlockState getStateForNeighborUpdate(
+        BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
         TripleBlockPart part = state.get(PART);
         if (direction == Direction.UP && part != TripleBlockPart.UPPER) {
             Block block = newState.getBlock();
-            if (block != this) return Blocks.AIR.getDefaultState();
+            if (block != this)
+                return Blocks.AIR.getDefaultState();
         } else if (direction == Direction.DOWN && part != TripleBlockPart.LOWER) {
             Block block = newState.getBlock();
-            if (block != this) return Blocks.AIR.getDefaultState();
+            if (block != this)
+                return Blocks.AIR.getDefaultState();
         }
 
         return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
@@ -50,7 +54,8 @@ public class TallerPlantBlock extends PlantBlock {
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos blockPos = ctx.getBlockPos();
-        return blockPos.getY() < 254 && ctx.getWorld().getBlockState(blockPos.up(1)).canReplace(ctx) && ctx.getWorld().getBlockState(blockPos.up(2)).canReplace(ctx)
+        return blockPos.getY() < 254 && ctx.getWorld().getBlockState(blockPos.up(1)).canReplace(ctx)
+                && ctx.getWorld().getBlockState(blockPos.up(2)).canReplace(ctx)
             ? super.getPlacementState(ctx)
             : null;
     }
@@ -65,7 +70,7 @@ public class TallerPlantBlock extends PlantBlock {
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         if (state.get(PART) == TripleBlockPart.LOWER) {
             return super.canPlaceAt(state, world, pos);
-        } else if(state.get(PART) == TripleBlockPart.MIDDLE) {
+        } else if (state.get(PART) == TripleBlockPart.MIDDLE) {
             BlockState blockStateDown1 = world.getBlockState(pos.down(1));
             return (blockStateDown1.isOf(this) && blockStateDown1.get(PART) == TripleBlockPart.LOWER);
         } else {
@@ -96,12 +101,13 @@ public class TallerPlantBlock extends PlantBlock {
     }
 
     @Override
-    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack) {
+    public void afterBreak(
+        World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack) {
         super.afterBreak(world, player, pos, Blocks.AIR.getDefaultState(), blockEntity, stack);
     }
 
     protected static void onBreakInCreative(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        ArrayList<BlockPos> positions = new ArrayList<>();
+        ArrayList<BlockPos> positions   = new ArrayList<>();
         TripleBlockPart tripleBlockPart = state.get(PART);
 
         if (tripleBlockPart == TripleBlockPart.UPPER) {
@@ -135,6 +141,7 @@ public class TallerPlantBlock extends PlantBlock {
     @Override
     @Environment(EnvType.CLIENT)
     public long getRenderingSeed(BlockState state, BlockPos pos) {
-        return MathHelper.hashCode(pos.getX(), pos.down(state.get(PART) == TripleBlockPart.LOWER ? 0 : 1).getY(), pos.getZ());
+        return MathHelper.hashCode(
+            pos.getX(), pos.down(state.get(PART) == TripleBlockPart.LOWER ? 0 : 1).getY(), pos.getZ());
     }
 }

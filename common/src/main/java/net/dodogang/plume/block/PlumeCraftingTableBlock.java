@@ -21,11 +21,9 @@ public class PlumeCraftingTableBlock extends CraftingTableBlock {
     @Override
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
         return new SimpleNamedScreenHandlerFactory(
-                (syncId, inventory, player) -> new PlumeCraftingScreenHandler(
-                    syncId,
-                    inventory,
-                    ScreenHandlerContext.create(world, pos),
-                    state.getBlock()
-                ), TITLE);
+            (syncId, inventory, player)
+                -> new PlumeCraftingScreenHandler(
+                    syncId, inventory, ScreenHandlerContext.create(world, pos), state.getBlock()),
+            TITLE);
     }
 }

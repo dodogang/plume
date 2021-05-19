@@ -3,6 +3,7 @@ package net.dodogang.plume.ash.client.registry.fabric;
 import net.dodogang.plume.ash.client.registry.BuiltinItemRendererRegistry.DynamicItemRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.item.ItemConvertible;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal

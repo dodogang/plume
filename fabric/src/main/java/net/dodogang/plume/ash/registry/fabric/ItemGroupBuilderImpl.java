@@ -4,6 +4,7 @@ import net.dodogang.plume.ash.registry.ItemGroupBuilder;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
@@ -29,9 +30,6 @@ public final class ItemGroupBuilderImpl extends ItemGroupBuilder {
      */
     @Override
     public ItemGroup build() {
-        return FabricItemGroupBuilder.create(id)
-                .icon(iconSupplier)
-                .appendItems(stacksToDisplay)
-                .build();
+        return FabricItemGroupBuilder.create(id).icon(iconSupplier).appendItems(stacksToDisplay).build();
     }
 }

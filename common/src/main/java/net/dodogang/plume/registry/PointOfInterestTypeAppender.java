@@ -1,6 +1,7 @@
 package net.dodogang.plume.registry;
 
 import com.google.common.collect.ImmutableSet;
+
 import net.dodogang.plume.mixin.PointOfInterestTypeAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public final class PointOfInterestTypeAppender {
-    private PointOfInterestTypeAppender() {}
+    private PointOfInterestTypeAppender() { }
 
     /**
      * Appends the given block states onto the list of block states for a
@@ -33,13 +34,12 @@ public final class PointOfInterestTypeAppender {
             // A state can only be in one PointOfInterestType, so we throw an error.
             if (previousPoiType != null) {
                 throw Util.throwOrPause(new IllegalStateException(
-                        String.format("%s is defined for too many PointOfInterestTypes.", state)
-                ));
+                    String.format("%s is defined for too many PointOfInterestTypes.", state)));
             }
         }
 
         // Get mutable access to poiType's blockState set.
-        PointOfInterestTypeAccessor poiTypeAccessor = (PointOfInterestTypeAccessor) poiType;
+        PointOfInterestTypeAccessor poiTypeAccessor = (PointOfInterestTypeAccessor)poiType;
 
         // Copy the set and add our states to the list.
         List<BlockState> blockStates = new ArrayList<>(poiTypeAccessor.getBlockStates());

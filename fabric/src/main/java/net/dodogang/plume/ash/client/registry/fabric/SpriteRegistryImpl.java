@@ -3,6 +3,7 @@ package net.dodogang.plume.ash.client.registry.fabric;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.util.Identifier;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal

@@ -1,6 +1,7 @@
 package net.dodogang.plume.ash.client.registry;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
+
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
@@ -18,9 +19,7 @@ public final class BlockEntityRendererRegistry {
      */
     @ExpectPlatform
     public static <T extends BlockEntity> void register(
-            BlockEntityType<T> beType,
-            Function<BlockEntityRenderDispatcher, BlockEntityRenderer<T>> renderer
-    ) {
+        BlockEntityType<T> beType, Function<BlockEntityRenderDispatcher, BlockEntityRenderer<T>> renderer) {
         throw new AssertionError();
     }
 }

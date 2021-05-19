@@ -10,10 +10,11 @@ public class PlumeCraftingScreenHandler extends CraftingScreenHandler {
     private final ScreenHandlerContext context;
     private final Block block;
 
-    public PlumeCraftingScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context, Block block) {
+    public PlumeCraftingScreenHandler(
+        int syncId, PlayerInventory inventory, ScreenHandlerContext context, Block block) {
         super(syncId, inventory, context);
         this.context = context;
-        this.block = block;
+        this.block   = block;
     }
 
     @Override

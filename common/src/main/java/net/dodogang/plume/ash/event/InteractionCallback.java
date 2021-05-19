@@ -1,6 +1,7 @@
 package net.dodogang.plume.ash.event;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
+
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -9,7 +10,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 public final class InteractionCallback {
-    private InteractionCallback() {}
+    private InteractionCallback() { }
 
     /**
      * Callback for right-clicking a block.

@@ -4,6 +4,7 @@ import net.dodogang.plume.ash.event.InteractionCallback;
 import net.minecraft.util.ActionResult;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal

@@ -6,6 +6,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
+
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.HashMap;
