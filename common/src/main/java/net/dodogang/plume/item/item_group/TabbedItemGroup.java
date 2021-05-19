@@ -21,26 +21,23 @@ import net.minecraft.util.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
-@SuppressWarnings("unused")
 public class TabbedItemGroup extends ItemGroup {
     protected final Identifier id;
-    private final Supplier<ItemStack> icon;
-    private final Function<Identifier, List<ItemGroupTab>> tabsSupplier;
+    protected final Function<TabbedItemGroup, ItemStack> icon;
+    protected final Function<TabbedItemGroup, List<ItemGroupTab>> tabs;
 
-    private final List<ItemGroupTab> tabs = new ArrayList<>();
+    private final List<ItemGroupTab> cachedTabs = new ArrayList<>();
     private int selectedTabIndex = 0;
-    private boolean initialized = false;
 
-    public TabbedItemGroup(Identifier id, Function<Identifier, List<ItemGroupTab>> tabs, Supplier<ItemStack> icon) {
+    public TabbedItemGroup(Identifier id, Function<TabbedItemGroup, List<ItemGroupTab>> tabs, Function<TabbedItemGroup, ItemStack> icon) {
         super(TabbedItemGroup.getItemGroupIndex(id), id.getNamespace() + "." + id.getPath());
 
         this.id = id;
-        this.tabsSupplier = tabs;
+        this.tabs = tabs;
         this.icon = icon;
     }
-    public TabbedItemGroup(String modId, Function<Identifier, List<ItemGroupTab>> tabs, Supplier<ItemStack> icon) {
+    public TabbedItemGroup(String modId, Function<TabbedItemGroup, List<ItemGroupTab>> tabs, Function<TabbedItemGroup, ItemStack> icon) {
         this(new Identifier(modId, "title"), tabs, icon);
     }
 
@@ -49,25 +46,25 @@ public class TabbedItemGroup extends ItemGroup {
         return ItemGroup.GROUPS.length - 1;
     }
 
-    public static ItemGroupTab createTab(ItemConvertible item, String modId, String id) {
-        return TabbedItemGroup.createTab(item, modId, id, TagRegistry.item(new Identifier(Plume.MOD_ID, "creative_tabs/" + modId + "/" + id)));
+    public ItemGroupTab createTab(String id, ItemConvertible icon) {
+        return this.createTab(id, icon, TagRegistry.item(new Identifier(Plume.MOD_ID, "creative_tabs/" + this.id.getNamespace() + "/" + id)));
     }
-    public static ItemGroupTab createTab(ItemConvertible item, String modId, String id, Tag<Item> tag) {
-        return TabbedItemGroup.createTab(new ItemStack(item), modId, id, tag);
+    public ItemGroupTab createTab(String id, ItemConvertible icon, Tag<Item> tag) {
+        return this.createTab(id, new ItemStack(icon), tag);
     }
-    public static ItemGroupTab createTab(ItemStack stack, String modId, String id, Tag<Item> tag) {
-        return new ItemGroupTab(stack, new Identifier(modId, id), tag);
+    public ItemGroupTab createTab(String id, ItemStack icon, Tag<Item> tag) {
+        return new ItemGroupTab(new Identifier(this.id.getNamespace(), id), icon, tag);
     }
 
     @Override
     public void appendStacks(DefaultedList<ItemStack> stacks) {
         for (Item item : Registry.ITEM) {
             ItemGroupTab tab = this.getSelectedItemTab();
-            if (tab.matches(item)) {
+            if (tab.contains(item)) {
                 this.appendStack(item, stacks);
-            } else if (tab.getId().getPath().equals("all")) {
-                for (ItemGroupTab i : tabs) {
-                    if (i.matches(item) || item.getGroup() == this) {
+            } else if (tab.getTag() == null) {
+                for (ItemGroupTab i : this.getTabs()) {
+                    if (i.contains(item) || item.getGroup() == this) {
                         this.appendStack(item, stacks);
                         break;
                     }
@@ -83,49 +80,44 @@ public class TabbedItemGroup extends ItemGroup {
         }
     }
 
-    public void init() {
-        tabs.add(createAllTab());
-        tabs.addAll(tabsSupplier.apply(this.id));
-
-        initialized = true;
-    }
-
-    @Environment(EnvType.CLIENT)
-    public Identifier getIconBackgroundTexture() {
-        return CreativeInventoryScreenAccessor.getTexture();
-    }
-
-    protected ItemGroupTab createAllTab() {
-        return createTab(getIcon(), this.id.getNamespace(), "all", null);
-    }
-
-    public ItemGroupTab getSelectedItemTab() {
-        return tabs.get(this.selectedTabIndex);
-    }
-
     public List<ItemGroupTab> getTabs() {
-        return this.tabs;
+        return this.cachedTabs;
+    }
+
+    public void refreshTabs() {
+        this.cachedTabs.clear();
+
+        this.cachedTabs.add(this.createTab("all", this.getIcon(), null));
+        this.cachedTabs.addAll(this.tabs.apply(this));
     }
 
     public int getSelectedTabIndex() {
         return this.selectedTabIndex;
     }
-
     public void setSelectedTabIndex(int selectedTabIndex) {
         this.selectedTabIndex = selectedTabIndex;
     }
 
-    public boolean isInitialized() {
-        return this.initialized;
+    public ItemGroupTab getSelectedItemTab() {
+        return this.getTabs().get(this.getSelectedTabIndex());
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public Text getTranslationKey() {
-        return this.selectedTabIndex != 0 ? new TranslatableText("itemGroup." + id.getNamespace(), this.getSelectedItemTab().getTranslationKey()) : super.getTranslationKey();
+        return this.selectedTabIndex != 0
+            ? new TranslatableText("itemGroup." + id.getNamespace(), this.getSelectedItemTab().getTranslationKey())
+            : super.getTranslationKey();
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public ItemStack createIcon() {
-        return this.icon.get();
+        return this.icon.apply(this);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public Identifier getIconBackgroundTexture() {
+        return CreativeInventoryScreenAccessor.getTexture();
     }
 }

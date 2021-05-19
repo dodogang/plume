@@ -1,11 +1,9 @@
 package net.dodogang.plume.mixin.client;
 
-import com.google.common.collect.Lists;
 import net.dodogang.plume.client.gui.item_group.ItemGroupTabWidget;
 import net.dodogang.plume.item.item_group.TabbedItemGroup;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -17,12 +15,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
 @Mixin(CreativeInventoryScreen.class)
 public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScreen<CreativeInventoryScreen.CreativeScreenHandler> {
-    private final List<ItemGroupTabWidget> plume_tabButtons = Lists.newArrayList();
+    private final List<ItemGroupTabWidget> plume_tabWidgets = new ArrayList<>();
 
     @SuppressWarnings("unused")
     public CreativeInventoryScreenMixin(CreativeInventoryScreen.CreativeScreenHandler screenHandler, PlayerInventory inventory, Text text) {
@@ -31,41 +30,41 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
 
     @Inject(at = @At("HEAD"), method = "setSelectedTab(Lnet/minecraft/item/ItemGroup;)V")
     private void setSelectedTab(ItemGroup group, CallbackInfo ci) {
-        buttons.removeAll(plume_tabButtons);
-        plume_tabButtons.clear();
+        this.buttons.removeAll(this.plume_tabWidgets);
+        this.plume_tabWidgets.clear();
 
         if (group instanceof TabbedItemGroup) {
-            TabbedItemGroup tab = (TabbedItemGroup) group;
-            if (!tab.isInitialized()) {
-                tab.init();
-            }
+            TabbedItemGroup tabGroup = (TabbedItemGroup) group;
+            tabGroup.refreshTabs();
 
-            for (int i = 0; i < tab.getTabs().size(); i++) {
-                ItemGroupTabWidget tabWidget = tab.getTabs().get(i).createWidget(x, y, i, tab, CreativeInventoryScreen.class.cast(this));
+            for (int i = 0; i < tabGroup.getTabs().size(); i++) {
+                ItemGroupTabWidget widget = tabGroup.getTabs().get(i).createWidget(x, y, i, tabGroup, CreativeInventoryScreen.class.cast(this));
 
-                if (i == tab.getSelectedTabIndex()) {
-                    tabWidget.isSelected = true;
+                if (i == tabGroup.getSelectedTabIndex()) {
+                    widget.setSelected();
                 }
 
-                plume_tabButtons.add(tabWidget);
-                addButton(tabWidget);
+                this.plume_tabWidgets.add(widget);
+                this.addButton(widget);
             }
         }
     }
 
     @Inject(at = @At("TAIL"), method = "render(Lnet/minecraft/client/util/math/MatrixStack;IIF)V")
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta, CallbackInfo cbi) {
-        plume_tabButtons.forEach(b -> {
-            if (b.isHovered()) {
-                renderTooltip(matrixStack, b.getMessage(), mouseX, mouseY);
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+        this.plume_tabWidgets.forEach(
+            w -> {
+                if (w.isMouseOver(mouseX, mouseY)) {
+                    this.renderTooltip(matrices, w.getMessage(), mouseX, mouseY);
+                }
             }
-        });
+        );
     }
 
     @Inject(method = "renderTabIcon", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/CreativeInventoryScreen;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V", shift = At.Shift.BEFORE))
-    protected void renderTabIcon(MatrixStack matrixStack, ItemGroup itemGroup, CallbackInfo ci) {
-        if (itemGroup instanceof TabbedItemGroup) {
-            MinecraftClient.getInstance().getTextureManager().bindTexture(((TabbedItemGroup) itemGroup).getIconBackgroundTexture());
+    protected void renderTabIcon(MatrixStack matrices, ItemGroup group, CallbackInfo ci) {
+        if (this.client != null && group instanceof TabbedItemGroup) {
+            this.client.getTextureManager().bindTexture(((TabbedItemGroup) group).getIconBackgroundTexture());
         }
     }
 }
