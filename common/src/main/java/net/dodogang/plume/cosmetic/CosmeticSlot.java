@@ -1,35 +1,35 @@
 package net.dodogang.plume.cosmetic;
 
+import com.google.common.collect.Lists;
 import net.minecraft.entity.EquipmentSlot;
 
+import java.util.List;
+
 public enum CosmeticSlot {
-    HEAD(EquipmentSlot.HEAD),
+    HAT(EquipmentSlot.HEAD),
     MASK(EquipmentSlot.HEAD),
     CHEST(EquipmentSlot.CHEST),
+    BACK,
     LEGS(EquipmentSlot.LEGS),
     FEET(EquipmentSlot.FEET),
     HAND,
-    PARTICLE,
-    PET;
+    AURA;
 
     /**
-     * A base slot, used for cancelling armor rendering.
+     * A collection of base slots, used for cancelling armor rendering.
      */
-    protected final EquipmentSlot base;
+    protected final List<EquipmentSlot> slotsToCancelRender;
 
-    CosmeticSlot(EquipmentSlot base) {
-        this.base = base;
-    }
-    CosmeticSlot() {
-        this(null);
+    CosmeticSlot(EquipmentSlot... slotsToCancelRender) {
+        this.slotsToCancelRender = Lists.newArrayList(slotsToCancelRender);
     }
 
-    public EquipmentSlot getBase() {
-        return this.base;
+    public List<EquipmentSlot> getSlotsToCancelRender() {
+        return this.slotsToCancelRender;
     }
 
     @Override
     public String toString() {
-        return "CosmeticSlot{" + "base=" + base + '}';
+        return "CosmeticSlot{" + "base=" + slotsToCancelRender + '}';
     }
 }

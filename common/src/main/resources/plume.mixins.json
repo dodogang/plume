@@ -20,10 +20,10 @@
   ],
   "client": [
     "client.ArmorFeatureRendererMixin",
+    "client.ClientPlayerEntityMixin",
     "client.CreativeInventoryScreenAccessor",
     "client.CreativeInventoryScreenMixin",
-    "client.PlayerEntityRendererMixin",
-    "client.ClientPlayerEntityMixin"
+    "client.PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

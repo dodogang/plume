@@ -1,9 +1,9 @@
 package net.dodogang.plume.mixin.client;
 
 import com.mojang.authlib.GameProfile;
-import net.dodogang.plume.client.cosmetic.ClientCosmeticsManager;
+import net.dodogang.plume.client.cosmetic.ClientCosmeticManager;
 import net.dodogang.plume.cosmetic.CosmeticPlayerData;
-import net.dodogang.plume.cosmetic.ParticleCosmetic;
+import net.dodogang.plume.cosmetic.TickingCosmetic;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -22,21 +22,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
     @Shadow @Final protected MinecraftClient client;
 
-    public ClientPlayerEntityMixin(ClientWorld world, GameProfile profile) {
+    @SuppressWarnings("unused")
+    private ClientPlayerEntityMixin(ClientWorld world, GameProfile profile) {
         super(world, profile);
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void onTick(CallbackInfo ci) {
-        CosmeticPlayerData cosmeticData = ClientCosmeticsManager.PLAYER_DATA.get(this.uuid);
-        if (cosmeticData != null) {
-            cosmeticData.getCosmetics().forEach(
-                (cosmeticSlot, cosmetic) -> {
-                    if (cosmetic instanceof ParticleCosmetic) {
-                        ((ParticleCosmetic) cosmetic).spawnParticle(this.world, this);
+        if (!this.isSpectator() && !this.isInvisibleTo(this.client.player)) {
+            CosmeticPlayerData cosmetics = ClientCosmeticManager.LOCAL_DATA.get(this.uuid);
+            if (cosmetics != null) {
+                cosmetics.getCosmetics().forEach((slot, cosmetic) -> {
+                    if (cosmetic instanceof TickingCosmetic && ((TickingCosmetic) cosmetic).shouldTick(this)) {
+                        ((TickingCosmetic) cosmetic).tick(this.world, this);
                     }
-                }
-            );
+                });
+            }
         }
     }
 }

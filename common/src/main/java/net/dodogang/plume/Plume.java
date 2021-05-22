@@ -1,6 +1,7 @@
 package net.dodogang.plume;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.reflect.Reflection;
 import net.dodogang.plume.ash.Environment;
 import net.dodogang.plume.ash.registry.FuelRegistry;
 import net.dodogang.plume.ash.registry.RegistrySupplier;
@@ -8,6 +9,7 @@ import net.dodogang.plume.block.BeamBlock;
 import net.dodogang.plume.block.CeilingPlantBlock;
 import net.dodogang.plume.block.TallCeilingPlantBlock;
 import net.dodogang.plume.block.TallerPlantBlock;
+import net.dodogang.plume.cosmetic.Cosmetics;
 import net.dodogang.plume.item.item_group.TabbedItemGroup;
 import net.dodogang.plume.registry.BlockRegistryBatch;
 import net.dodogang.plume.registry.PointOfInterestTypeAppender;
@@ -37,6 +39,7 @@ public final class Plume {
     private static RegistrySupplier<Block> TEST_TALL_CEILING_PLANT_BLOCK;
     private static RegistrySupplier<Block> TEST_TALLER_PLANT_BLOCK;
 
+    @SuppressWarnings("UnstableApiUsage")
     public static void initialize() {
         LOGGER.log(Level.INFO, "Initializing");
 
@@ -76,6 +79,10 @@ public final class Plume {
                     TEST_BLOCK.getInitialValue()
             );
         }
+
+        Reflection.initialize(
+            Cosmetics.class
+        );
 
         LOGGER.log(Level.INFO, "Initialized");
     }

@@ -11,6 +11,13 @@ public class Cosmetic {
         this.slot = slot;
     }
 
+    /**
+     * @return Whether this cosmetic is expected to have an attached renderer.
+     */
+    public boolean hasRenderer() {
+        return true;
+    }
+
     @Override
     public String toString() {
         return "Cosmetic{" + "id=" + id + ", slot=" + slot + '}';

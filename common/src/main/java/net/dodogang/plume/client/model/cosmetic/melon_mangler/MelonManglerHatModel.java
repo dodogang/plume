@@ -2,11 +2,14 @@ package net.dodogang.plume.client.model.cosmetic.melon_mangler;
 
 import com.google.common.collect.ImmutableList;
 import net.dodogang.plume.client.model.cosmetic.CosmeticModel;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 
 @SuppressWarnings("FieldCanBeLocal")
+@Environment(EnvType.CLIENT)
 public class MelonManglerHatModel extends CosmeticModel {
     private final ModelPart hat;
     private final ModelPart midHat;
