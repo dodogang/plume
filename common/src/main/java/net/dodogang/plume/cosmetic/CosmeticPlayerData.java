@@ -7,29 +7,29 @@ import java.util.Map;
 import java.util.UUID;
 
 public class CosmeticPlayerData {
-    private final @NotNull UUID playerUUID;
-    private final @NotNull Map<CosmeticSlot, Cosmetic> cosmeticToSlot;
+    private final @NotNull UUID uuid;
+    private final @NotNull Map<CosmeticSlot, Cosmetic> active;
 
-    private CosmeticPlayerData(@NotNull UUID playerUUID, @NotNull Map<CosmeticSlot, Cosmetic> cosmeticToSlot) {
-        this.playerUUID = playerUUID;
-        this.cosmeticToSlot = cosmeticToSlot;
+    private CosmeticPlayerData(@NotNull UUID uuid, @NotNull Map<CosmeticSlot, Cosmetic> active) {
+        this.uuid = uuid;
+        this.active = active;
     }
 
     public static CosmeticPlayerData of(@NotNull UUID playerUUID, @NotNull Cosmetic... cosmetics) {
-        Map<CosmeticSlot, Cosmetic> cosmeticToSlot = new HashMap<>();
+        Map<CosmeticSlot, Cosmetic> active = new HashMap<>();
         for (Cosmetic cosmetic : cosmetics) {
-            cosmeticToSlot.put(cosmetic.slot, cosmetic);
+            active.put(cosmetic.slot, cosmetic);
         }
-        return new CosmeticPlayerData(playerUUID, cosmeticToSlot);
+        return new CosmeticPlayerData(playerUUID, active);
     }
 
     @NotNull
     public Map<CosmeticSlot, Cosmetic> getCosmetics() {
-        return this.cosmeticToSlot;
+        return this.active;
     }
 
     @Override
     public String toString() {
-        return "CosmeticPlayerData{" + "playerUUID=" + playerUUID + ", cosmetics=" + cosmeticToSlot + '}';
+        return "CosmeticPlayerData{" + "uuid=" + uuid + ", active=" + active + '}';
     }
 }

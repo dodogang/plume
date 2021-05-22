@@ -1,4 +1,4 @@
-package net.dodogang.plume.client.cosmetic;
+package net.dodogang.plume.cosmetic.client;
 
 import net.dodogang.plume.client.PlumeClient;
 import net.dodogang.plume.client.model.cosmetic.CosmeticModel;

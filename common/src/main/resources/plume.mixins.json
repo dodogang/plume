@@ -6,6 +6,7 @@
   "mixins": [
     "AbstractBlockStateMixin",
     "PointOfInterestTypeAccessor",
+
     "supporters_tags.AttachedStemBlockMixin",
     "supporters_tags.CropBlockMixin",
     "supporters_tags.DeadBushBlockMixin",
@@ -19,11 +20,12 @@
     "supporters_tags.WitherRoseBlockMixin"
   ],
   "client": [
-    "client.ArmorFeatureRendererMixin",
-    "client.ClientPlayerEntityMixin",
+    "client.cosmetic.ArmorFeatureRendererMixin",
+    "client.cosmetic.ClientPlayerEntityMixin",
+    "client.cosmetic.PlayerEntityRendererMixin",
+
     "client.CreativeInventoryScreenAccessor",
-    "client.CreativeInventoryScreenMixin",
-    "client.PlayerEntityRendererMixin"
+    "client.CreativeInventoryScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

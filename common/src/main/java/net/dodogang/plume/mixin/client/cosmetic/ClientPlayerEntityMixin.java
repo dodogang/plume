@@ -1,7 +1,7 @@
-package net.dodogang.plume.mixin.client;
+package net.dodogang.plume.mixin.client.cosmetic;
 
 import com.mojang.authlib.GameProfile;
-import net.dodogang.plume.client.cosmetic.ClientCosmeticManager;
+import net.dodogang.plume.cosmetic.client.ClientCosmeticManager;
 import net.dodogang.plume.cosmetic.CosmeticPlayerData;
 import net.dodogang.plume.cosmetic.TickingCosmetic;
 import net.fabricmc.api.EnvType;

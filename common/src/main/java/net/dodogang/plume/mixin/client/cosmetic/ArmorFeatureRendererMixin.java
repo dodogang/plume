@@ -1,6 +1,6 @@
-package net.dodogang.plume.mixin.client;
+package net.dodogang.plume.mixin.client.cosmetic;
 
-import net.dodogang.plume.client.cosmetic.ClientCosmeticManager;
+import net.dodogang.plume.cosmetic.client.ClientCosmeticManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;

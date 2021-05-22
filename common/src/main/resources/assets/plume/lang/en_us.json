@@ -1,7 +1,12 @@
 {
   "plume.discord": "Discord",
 
+  "cosmetic.plume.melon_mangler_hat": "Melon Mangler Hat",
+  "cosmetic.plume.melon_mangler_mask": "Melon Mangler Moustache",
+  "cosmetic.plume.melon_mangler_chest": "Melon Mangler Robes",
+
   "__plume.test": "",
+  "cosmetic.plume.aura": "[TEST] Aura",
   "block.plume.test_block": "Plume Test Block",
   "itemGroup.plume_test": "Plume (%s)",
   "itemGroup.plume_test.title": "Plume",

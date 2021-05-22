@@ -1,7 +1,7 @@
 package net.dodogang.plume.client;
 
 import net.dodogang.plume.Plume;
-import net.dodogang.plume.client.cosmetic.ClientCosmeticManager;
+import net.dodogang.plume.cosmetic.client.ClientCosmeticManager;
 import net.dodogang.plume.cosmetic.CosmeticPlayerData;
 import net.dodogang.plume.cosmetic.Cosmetics;
 import net.minecraft.client.MinecraftClient;
