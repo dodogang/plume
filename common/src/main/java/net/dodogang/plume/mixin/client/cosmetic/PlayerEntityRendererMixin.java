@@ -1,7 +1,7 @@
 package net.dodogang.plume.mixin.client.cosmetic;
 
-import net.dodogang.plume.cosmetic.client.ClientCosmeticManager;
-import net.dodogang.plume.client.render.cosmetic.CosmeticFeatureRenderer;
+import net.dodogang.plume.cosmetic.client.CosmeticsManagerClient;
+import net.dodogang.plume.cosmetic.client.render.CosmeticFeatureRenderer;
 import net.dodogang.plume.cosmetic.Cosmetic;
 import net.dodogang.plume.cosmetic.CosmeticPlayerData;
 import net.dodogang.plume.cosmetic.CosmeticSlot;
@@ -36,12 +36,12 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     @Inject(method = "render", at = @At("HEAD"))
     public void onRender(AbstractClientPlayerEntity entity, float f, float g, MatrixStack matrices, VertexConsumerProvider vertices, int i, CallbackInfo ci) {
         if (!entity.isSpectator()) {
-            CosmeticPlayerData cosmetics = ClientCosmeticManager.LOCAL_DATA.get(entity.getUuid());
+            CosmeticPlayerData cosmetics = CosmeticsManagerClient.LOCAL_DATA.get(entity.getUuid());
             if (cosmetics != null) {
-                Map<Cosmetic, FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>>> cache = ClientCosmeticManager.FEATURES_CACHE.get(entity.getUuid());
+                Map<Cosmetic, FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>>> cache = CosmeticsManagerClient.FEATURES_CACHE.get(entity.getUuid());
                 if (cache == null) {
                     // create base of cache if invalid
-                    ClientCosmeticManager.FEATURES_CACHE.put(entity.getUuid(), new HashMap<>());
+                    CosmeticsManagerClient.FEATURES_CACHE.put(entity.getUuid(), new HashMap<>());
                 } else {
                     Map<CosmeticSlot, Cosmetic> active = cosmetics.getCosmetics();
                     active.forEach((slot, cosmetic) -> {
@@ -49,7 +49,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
                             // instantiate and store feature renderer into features nd cache
                             FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> renderer = cache.get(cosmetic);
                             if (renderer == null) {
-                                renderer = ClientCosmeticManager.RENDERER_MAP
+                                renderer = CosmeticsManagerClient.RENDERER_MAP
                                     .get(cosmetic)
                                     .apply(PlayerEntityRenderer.class.cast(this), (FeatureRendererContext) this);
 

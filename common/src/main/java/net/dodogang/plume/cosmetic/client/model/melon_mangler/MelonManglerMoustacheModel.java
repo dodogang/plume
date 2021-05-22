@@ -1,7 +1,7 @@
-package net.dodogang.plume.client.model.cosmetic.melon_mangler;
+package net.dodogang.plume.cosmetic.client.model.melon_mangler;
 
 import com.google.common.collect.ImmutableList;
-import net.dodogang.plume.client.model.cosmetic.CosmeticModel;
+import net.dodogang.plume.cosmetic.client.model.CosmeticModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
@@ -9,27 +9,27 @@ import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 
 @Environment(EnvType.CLIENT)
-public class MelonManglerRobesModel extends CosmeticModel {
-    private final ModelPart robes;
+public class MelonManglerMoustacheModel extends CosmeticModel {
+    private final ModelPart mustache;
 
-    public MelonManglerRobesModel(PlayerEntityRenderer renderer) {
+    public MelonManglerMoustacheModel(PlayerEntityRenderer renderer) {
         super(renderer);
 
         this.textureWidth = 128;
         this.textureHeight = 128;
 
-        robes = new ModelPart(this);
-        robes.setPivot(0.0F, 0.0F, 0.0F);
-        robes.setTextureOffset(81, 102).addCuboid(-4.0F, 0.0F, -2.5F, 8.0F, 18.0F, 5.0F, 0.6F);
+        mustache = new ModelPart(this);
+        mustache.setPivot(0.0F, 23.0F, -0.25F);
+        mustache.setTextureOffset(100, 126).addCuboid(-7.0F, -3.0F, -4.2F, 14.0F, 2.0F, 0.0F);
     }
 
     @Override
     public void setAngles(PlayerEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.robes.copyPositionAndRotation(this.renderer.getModel().torso);
+        this.mustache.copyPositionAndRotation(this.renderer.getModel().getHead());
     }
 
     @Override
     public Iterable<ModelPart> getParts() {
-        return ImmutableList.of(this.robes);
+        return ImmutableList.of(this.mustache);
     }
 }

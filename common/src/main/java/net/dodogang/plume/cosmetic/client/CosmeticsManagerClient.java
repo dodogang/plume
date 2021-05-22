@@ -1,11 +1,11 @@
 package net.dodogang.plume.cosmetic.client;
 
 import net.dodogang.plume.client.PlumeClient;
-import net.dodogang.plume.client.model.cosmetic.CosmeticModel;
-import net.dodogang.plume.client.model.cosmetic.melon_mangler.MelonManglerHatModel;
-import net.dodogang.plume.client.model.cosmetic.melon_mangler.MelonManglerMoustacheModel;
-import net.dodogang.plume.client.model.cosmetic.melon_mangler.MelonManglerRobesModel;
-import net.dodogang.plume.client.render.cosmetic.CosmeticFeatureRenderer;
+import net.dodogang.plume.cosmetic.client.model.CosmeticModel;
+import net.dodogang.plume.cosmetic.client.model.melon_mangler.MelonManglerHatModel;
+import net.dodogang.plume.cosmetic.client.model.melon_mangler.MelonManglerMoustacheModel;
+import net.dodogang.plume.cosmetic.client.model.melon_mangler.MelonManglerRobesModel;
+import net.dodogang.plume.cosmetic.client.render.CosmeticFeatureRenderer;
 import net.dodogang.plume.cosmetic.Cosmetic;
 import net.dodogang.plume.cosmetic.CosmeticPlayerData;
 import net.dodogang.plume.cosmetic.CosmeticSlot;
@@ -29,7 +29,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 @Environment(EnvType.CLIENT)
-public final class ClientCosmeticManager {
+public final class CosmeticsManagerClient {
     /**
      * Cached player to data cosmetic map.
      */
@@ -52,14 +52,14 @@ public final class ClientCosmeticManager {
     }
 
     public static void registerRenderer(Cosmetic cosmetic, Function<PlayerEntityRenderer, CosmeticModel> model, Identifier texture) {
-        ClientCosmeticManager.registerRenderer(cosmetic, (renderer, ctx) -> new CosmeticFeatureRenderer<>(renderer, cosmetic, ctx, model.apply(renderer), texture));
+        CosmeticsManagerClient.registerRenderer(cosmetic, (renderer, ctx) -> new CosmeticFeatureRenderer<>(renderer, cosmetic, ctx, model.apply(renderer), texture));
     }
     public static void registerRenderer(Cosmetic cosmetic, BiFunction<PlayerEntityRenderer, FeatureRendererContext<PlayerEntity, PlayerEntityModel<PlayerEntity>>, CosmeticFeatureRenderer<?>> ctx) {
-        ClientCosmeticManager.RENDERER_MAP.put(cosmetic, ctx);
+        CosmeticsManagerClient.RENDERER_MAP.put(cosmetic, ctx);
     }
 
     public static void checkToCancelArmorRender(UUID uuid, ArmorItem item, CallbackInfo ci) {
-        CosmeticPlayerData cosmetics = ClientCosmeticManager.LOCAL_DATA.get(uuid);
+        CosmeticPlayerData cosmetics = CosmeticsManagerClient.LOCAL_DATA.get(uuid);
         if (cosmetics != null) {
             for (CosmeticSlot cosmetic : cosmetics.getCosmetics().keySet()) {
                 if (cosmetic.getSlotsToCancelRender().contains(item.getSlotType())) {

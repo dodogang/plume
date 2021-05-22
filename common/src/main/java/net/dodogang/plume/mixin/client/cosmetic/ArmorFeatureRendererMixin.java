@@ -1,6 +1,6 @@
 package net.dodogang.plume.mixin.client.cosmetic;
 
-import net.dodogang.plume.cosmetic.client.ClientCosmeticManager;
+import net.dodogang.plume.cosmetic.client.CosmeticsManagerClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -40,6 +40,6 @@ public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extend
     // DOES NOT WORK ON FORGE!!! TODO
     @Inject(method = "renderArmorParts", at = @At("HEAD"), cancellable = true)
     private void cancelRender(MatrixStack matrices, VertexConsumerProvider vertices, int i, ArmorItem item, boolean dual, A model, boolean isOverlay, float f, float g, float h, String texture, CallbackInfo ci) {
-        ClientCosmeticManager.checkToCancelArmorRender(this.uuid, item, ci);
+        CosmeticsManagerClient.checkToCancelArmorRender(this.uuid, item, ci);
     }
 }

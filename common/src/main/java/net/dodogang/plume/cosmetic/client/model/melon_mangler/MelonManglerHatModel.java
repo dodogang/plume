@@ -1,7 +1,7 @@
-package net.dodogang.plume.client.model.cosmetic.melon_mangler;
+package net.dodogang.plume.cosmetic.client.model.melon_mangler;
 
 import com.google.common.collect.ImmutableList;
-import net.dodogang.plume.client.model.cosmetic.CosmeticModel;
+import net.dodogang.plume.cosmetic.client.model.CosmeticModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;

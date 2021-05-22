@@ -1,7 +1,7 @@
 package net.dodogang.plume.mixin.client.cosmetic;
 
 import com.mojang.authlib.GameProfile;
-import net.dodogang.plume.cosmetic.client.ClientCosmeticManager;
+import net.dodogang.plume.cosmetic.client.CosmeticsManagerClient;
 import net.dodogang.plume.cosmetic.CosmeticPlayerData;
 import net.dodogang.plume.cosmetic.TickingCosmetic;
 import net.fabricmc.api.EnvType;
@@ -30,7 +30,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Inject(method = "tick", at = @At("TAIL"))
     private void onTick(CallbackInfo ci) {
         if (!this.isSpectator() && !this.isInvisibleTo(this.client.player)) {
-            CosmeticPlayerData cosmetics = ClientCosmeticManager.LOCAL_DATA.get(this.uuid);
+            CosmeticPlayerData cosmetics = CosmeticsManagerClient.LOCAL_DATA.get(this.uuid);
             if (cosmetics != null) {
                 cosmetics.getCosmetics().forEach((slot, cosmetic) -> {
                     if (cosmetic instanceof TickingCosmetic && ((TickingCosmetic) cosmetic).shouldTick(this)) {

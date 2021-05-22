@@ -1,4 +1,4 @@
-package net.dodogang.plume.client.model.cosmetic;
+package net.dodogang.plume.cosmetic.client.model;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
