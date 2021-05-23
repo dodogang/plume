@@ -19,6 +19,7 @@ public class CosmeticPlayerData {
         for (Cosmetic cosmetic : cosmetics) {
             active.put(cosmetic.slot, cosmetic);
         }
+
         return new CosmeticPlayerData(uuid, active);
     }
 
