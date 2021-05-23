@@ -22,7 +22,7 @@ public class MelonManglerHatModel extends CosmeticModel {
         this.textureHeight = 128;
 
         hat = new ModelPart(this);
-        hat.setTextureOffset(20, 105).addCuboid(-10.0F, -8.0F, -10.0F, 20.0F, 3.0F, 20.0F);
+        hat.setTextureOffset(20, 105).addCuboid(-10.0F, -9.0F, -10.0F, 20.0F, 3.0F, 20.0F);
 
         midHat = new ModelPart(this);
         midHat.setPivot(0.0F, -3.0F, 0.0F);
