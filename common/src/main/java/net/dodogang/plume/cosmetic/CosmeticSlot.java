@@ -13,7 +13,7 @@ public enum CosmeticSlot {
     LEGS(EquipmentSlot.LEGS),
     FEET(EquipmentSlot.FEET),
     HAND,
-    AURA;
+    TICKER;
 
     /**
      * A collection of base slots, used for cancelling armor rendering.
@@ -30,6 +30,6 @@ public enum CosmeticSlot {
 
     @Override
     public String toString() {
-        return "CosmeticSlot{" + "base=" + armorRenderCancellers + '}';
+        return "CosmeticSlot{" + "armorRenderCancellers=" + armorRenderCancellers + '}';
     }
 }

@@ -1,9 +1,18 @@
 {
   "plume.discord": "Discord",
 
-  "cosmetic.plume.melon_mangler_hat": "Melon Mangler Hat",
-  "cosmetic.plume.melon_mangler_mask": "Melon Mangler Moustache",
-  "cosmetic.plume.melon_mangler_chest": "Melon Mangler Robes",
+  "plume.cosmetic.plume:melon_mangler_hat": "Melon Mangler Hat",
+  "plume.cosmetic.plume:melon_mangler_mask": "Melon Mangler Moustache",
+  "plume.cosmetic.plume:melon_mangler_chest": "Melon Mangler Robes",
+
+  "plume.cosmeticSlot.hat": "Hat",
+  "plume.cosmeticSlot.mask": "Mask",
+  "plume.cosmeticSlot.chest": "Chest",
+  "plume.cosmeticSlot.back": "Back",
+  "plume.cosmeticSlot.legs": "Legs",
+  "plume.cosmeticSlot.feet": "Feet",
+  "plume.cosmeticSlot.hand": "Hand",
+  "plume.cosmeticSlot.ticker": "Aura",
 
   "__plume.test": "",
   "cosmetic.plume.aura": "[TEST] Aura",

@@ -1,7 +1,6 @@
 package net.dodogang.plume.cosmetic;
 
 import net.dodogang.plume.Plume;
-import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -22,8 +21,7 @@ public class Cosmetics {
      * TESTING
      */
 
-    public static final Cosmetic AURA = register(new TickingCosmetic(new Identifier(Plume.MOD_ID, "aura"), CosmeticSlot.AURA, (world, player) -> world.sendEntityStatus(player, Cosmetics.AURA_STATUS)));
-    public static final byte AURA_STATUS = (byte) 1434664204;
+    public static final Cosmetic AURA = register("aura", CosmeticSlot.TICKER);
 
     public static Cosmetic register(Cosmetic cosmetic) {
         Cosmetics.ALL.add(cosmetic);

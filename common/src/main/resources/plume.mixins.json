@@ -16,14 +16,14 @@
     "supporters_tags.RootsBlockMixin",
     "supporters_tags.SproutsBlockMixin",
     "supporters_tags.StemBlockMixin",
-    "supporters_tags.WitherRoseBlockMixin",
-    "cosmetic.PlayerEntityMixin"
+    "supporters_tags.WitherRoseBlockMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenAccessor",
     "client.CreativeInventoryScreenMixin",
     "cosmetic.client.ArmorFeatureRendererMixin",
     "cosmetic.client.PlayerEntityRendererMixin",
+    "cosmetic.client.PlayerEntityMixin",
     "cosmetic.client.CapeFeatureRendererMixin"
   ],
   "injectors": {

@@ -10,11 +10,13 @@ import net.dodogang.plume.cosmetic.client.render.CosmeticFeatureRenderer;
 import net.dodogang.plume.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -30,11 +32,22 @@ public final class CosmeticsManagerClient {
      * Cosmetic model renderer creator registry.
      */
     public static final Map<Cosmetic, BiFunction<PlayerEntityRenderer, FeatureRendererContext<PlayerEntity, PlayerEntityModel<PlayerEntity>>, CosmeticFeatureRenderer<?>>> RENDERER_MAP = new HashMap<>();
+    /**
+     * Cosmetic ticker registry.
+     */
+    public static final Map<Cosmetic, CosmeticTicker> TICKER_MAP = new HashMap<>();
 
     static {
         registerRenderer(Cosmetics.MELON_MANGLER_HAT, MelonManglerHatModel::new, Texture.MELON_MANGLER);
         registerRenderer(Cosmetics.MELON_MANGLER_MASK, MelonManglerMoustacheModel::new, Texture.MELON_MANGLER);
         registerRenderer(Cosmetics.MELON_MANGLER_CHEST, MelonManglerRobesModel::new, Texture.MELON_MANGLER);
+
+        registerTicker(Cosmetics.AURA, (world, player) -> {
+            MinecraftClient client = MinecraftClient.getInstance();
+            if (!client.options.getPerspective().isFirstPerson() || client.player != player) {
+                player.world.addParticle(new DustParticleEffect(1.0f, 0.0f, 1.0f, 1.0f), player.getParticleX(0.7d), player.getRandomBodyY(), player.getParticleZ(0.7d), 0.075d, 0.075d, 0.075d);
+            }
+        });
     }
 
     public static void registerRenderer(Cosmetic cosmetic, Function<PlayerEntityRenderer, CosmeticModel> model, Identifier texture) {
@@ -42,6 +55,10 @@ public final class CosmeticsManagerClient {
     }
     public static void registerRenderer(Cosmetic cosmetic, BiFunction<PlayerEntityRenderer, FeatureRendererContext<PlayerEntity, PlayerEntityModel<PlayerEntity>>, CosmeticFeatureRenderer<?>> ctx) {
         CosmeticsManagerClient.RENDERER_MAP.put(cosmetic, ctx);
+    }
+
+    public static void registerTicker(Cosmetic cosmetic, CosmeticTicker ticker) {
+        CosmeticsManagerClient.TICKER_MAP.put(cosmetic, ticker);
     }
 
     public static void cancelArmorRender(UUID uuid, EquipmentSlot equipmentSlot, CallbackInfo ci) {
