@@ -10,9 +10,11 @@ import net.dodogang.plume.block.CeilingPlantBlock;
 import net.dodogang.plume.block.TallCeilingPlantBlock;
 import net.dodogang.plume.block.TallerPlantBlock;
 import net.dodogang.plume.cosmetic.Cosmetics;
+import net.dodogang.plume.cosmetic.CosmeticsManager;
 import net.dodogang.plume.item.item_group.TabbedItemGroup;
 import net.dodogang.plume.registry.BlockRegistryBatch;
 import net.dodogang.plume.registry.PointOfInterestTypeAppender;
+import net.dodogang.plume.util.PlayerUUID;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -83,6 +85,10 @@ public final class Plume {
         Reflection.initialize(
             Cosmetics.class
         );
+
+        // testing, innit TODO
+        CosmeticsManager.registerPlayerData(PlayerUUID.AndanteMC, Cosmetics.MELON_MANGLER_HAT, Cosmetics.MELON_MANGLER_CHEST, Cosmetics.AURA);
+        CosmeticsManager.registerPlayerData(PlayerUUID.TinyAtoms, Cosmetics.MELON_MANGLER_MASK);
 
         LOGGER.log(Level.INFO, "Initialized");
     }

@@ -19,7 +19,6 @@ public class MelonManglerMoustacheModel extends CosmeticModel {
         this.textureHeight = 128;
 
         mustache = new ModelPart(this);
-        mustache.setPivot(0.0F, 23.0F, -0.25F);
         mustache.setTextureOffset(100, 126).addCuboid(-7.0F, -3.0F, -4.2F, 14.0F, 2.0F, 0.0F);
     }
 

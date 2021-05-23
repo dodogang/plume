@@ -1,8 +1,5 @@
 package net.dodogang.plume.cosmetic;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -20,11 +17,6 @@ public class TickingCosmetic extends Cosmetic {
         return false;
     }
 
-    @Environment(EnvType.CLIENT)
-    public boolean shouldTick(PlayerEntity player) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        return !client.options.getPerspective().isFirstPerson() || client.player != (player);
-    }
     public void tick(World world, PlayerEntity player) {
         this.ticker.tick(world, player);
     }

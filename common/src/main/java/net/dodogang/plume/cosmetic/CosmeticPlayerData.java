@@ -4,23 +4,22 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class CosmeticPlayerData {
-    private final @NotNull UUID uuid;
+    private final @NotNull String uuid;
     private final @NotNull Map<CosmeticSlot, Cosmetic> active;
 
-    private CosmeticPlayerData(@NotNull UUID uuid, @NotNull Map<CosmeticSlot, Cosmetic> active) {
+    private CosmeticPlayerData(@NotNull String uuid, @NotNull Map<CosmeticSlot, Cosmetic> active) {
         this.uuid = uuid;
         this.active = active;
     }
 
-    public static CosmeticPlayerData of(@NotNull UUID playerUUID, @NotNull Cosmetic... cosmetics) {
+    public static CosmeticPlayerData of(@NotNull String uuid, @NotNull Cosmetic... cosmetics) {
         Map<CosmeticSlot, Cosmetic> active = new HashMap<>();
         for (Cosmetic cosmetic : cosmetics) {
             active.put(cosmetic.slot, cosmetic);
         }
-        return new CosmeticPlayerData(playerUUID, active);
+        return new CosmeticPlayerData(uuid, active);
     }
 
     @NotNull

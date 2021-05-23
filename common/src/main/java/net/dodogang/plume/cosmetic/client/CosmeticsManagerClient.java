@@ -1,24 +1,20 @@
 package net.dodogang.plume.cosmetic.client;
 
 import net.dodogang.plume.client.PlumeClient;
+import net.dodogang.plume.cosmetic.*;
 import net.dodogang.plume.cosmetic.client.model.CosmeticModel;
 import net.dodogang.plume.cosmetic.client.model.melon_mangler.MelonManglerHatModel;
 import net.dodogang.plume.cosmetic.client.model.melon_mangler.MelonManglerMoustacheModel;
 import net.dodogang.plume.cosmetic.client.model.melon_mangler.MelonManglerRobesModel;
 import net.dodogang.plume.cosmetic.client.render.CosmeticFeatureRenderer;
-import net.dodogang.plume.cosmetic.Cosmetic;
-import net.dodogang.plume.cosmetic.CosmeticPlayerData;
-import net.dodogang.plume.cosmetic.CosmeticSlot;
-import net.dodogang.plume.cosmetic.Cosmetics;
+import net.dodogang.plume.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -30,16 +26,6 @@ import java.util.function.Function;
 
 @Environment(EnvType.CLIENT)
 public final class CosmeticsManagerClient {
-    /**
-     * Cached player to data cosmetic map.
-     */
-    public static final Map<UUID, CosmeticPlayerData> LOCAL_DATA = new HashMap<>();
-
-    /**
-     * Cached player to cosmetic to feature renderer map.
-     */
-    public static final Map<UUID, Map<Cosmetic, FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>>>> FEATURES_CACHE = new HashMap<>();
-
     /**
      * Cosmetic model renderer creator registry.
      */
@@ -58,14 +44,22 @@ public final class CosmeticsManagerClient {
         CosmeticsManagerClient.RENDERER_MAP.put(cosmetic, ctx);
     }
 
-    public static void checkToCancelArmorRender(UUID uuid, ArmorItem item, CallbackInfo ci) {
-        CosmeticPlayerData cosmetics = CosmeticsManagerClient.LOCAL_DATA.get(uuid);
+    public static void cancelArmorRender(UUID uuid, EquipmentSlot equipmentSlot, CallbackInfo ci) {
+        CosmeticPlayerData cosmetics = CosmeticsManager.LOCAL_DATA.get(Util.parseStringUUID(uuid));
         if (cosmetics != null) {
-            for (CosmeticSlot cosmetic : cosmetics.getCosmetics().keySet()) {
-                if (cosmetic.getSlotsToCancelRender().contains(item.getSlotType())) {
+            for (CosmeticSlot slot : cosmetics.getCosmetics().keySet()) {
+                if (slot.getArmorRenderCancellers().contains(equipmentSlot)) {
                     ci.cancel();
-                    break;
+                    return;
                 }
+            }
+        }
+    }
+    public static void cancelCapeRender(UUID uuid, CallbackInfo ci) {
+        CosmeticPlayerData cosmetics = CosmeticsManager.LOCAL_DATA.get(Util.parseStringUUID(uuid));
+        if (cosmetics != null) {
+            if (cosmetics.getCosmetics().containsKey(CosmeticSlot.BACK)) {
+                ci.cancel();
             }
         }
     }

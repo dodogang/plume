@@ -4,7 +4,12 @@ import net.dodogang.plume.Plume;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cosmetics {
+    public static final List<Cosmetic> ALL = new ArrayList<>();
+
     /*
      * MELON MANGLER
      */
@@ -17,9 +22,21 @@ public class Cosmetics {
      * TESTING
      */
 
-    public static final Cosmetic AURA = new TickingCosmetic(new Identifier(Plume.MOD_ID, "aura"), CosmeticSlot.AURA, (world, player) -> world.addParticle(new DustParticleEffect(1.0f, 0.0f, 1.0f, 1.0f), player.getParticleX(0.7d), player.getRandomBodyY(), player.getParticleZ(0.7d), 0.075d, 0.075d, 0.075d));
+    public static final Cosmetic AURA = register(new TickingCosmetic(new Identifier(Plume.MOD_ID, "aura"), CosmeticSlot.AURA, (world, player) -> world.sendEntityStatus(player, Cosmetics.AURA_STATUS)));
+    public static final byte AURA_STATUS = (byte) 1434664204;
 
-    private static Cosmetic register(String id, CosmeticSlot slot) {
-        return new Cosmetic(new Identifier(Plume.MOD_ID, id), slot);
+    public static Cosmetic register(Cosmetic cosmetic) {
+        Cosmetics.ALL.add(cosmetic);
+        return cosmetic;
+    }
+    public static Cosmetic register(String id, CosmeticSlot slot) {
+        return register(new Cosmetic(new Identifier(Plume.MOD_ID, id), slot));
+    }
+
+    public static List<Cosmetic> all() {
+        return Cosmetics.ALL;
+    }
+    public static Cosmetic[] arrayAll() {
+        return Cosmetics.all().toArray(new Cosmetic[]{});
     }
 }
