@@ -16,6 +16,9 @@ public class Cosmetics {
     public static final Cosmetic MELON_MANGLER_HAT = register("melon_mangler_hat", CosmeticSlot.HAT);
     public static final Cosmetic MELON_MANGLER_MASK = register("melon_mangler_mask", CosmeticSlot.MASK);
     public static final Cosmetic MELON_MANGLER_CHEST = register("melon_mangler_chest", CosmeticSlot.CHEST);
+    public static final Cosmetic MELON_MANGLER_BACK = register("melon_mangler_back", CosmeticSlot.BACK);
+    public static final Cosmetic MELON_MANGLER_HAND = register("melon_mangler_hand", CosmeticSlot.HAND);
+    public static final Cosmetic MELON_MANGLER_FEET = register("melon_mangler_feet", CosmeticSlot.FEET);
 
     /**
      * TESTING

@@ -43,10 +43,10 @@ public final class Plume {
 
     @SuppressWarnings("UnstableApiUsage")
     public static void initialize() {
-        LOGGER.log(Level.INFO, "Initializing");
+        log("Initializing");
 
         if (runDevTests) {
-            LOGGER.log(Level.INFO, "Development environment detected! Running dev initialize.");
+            log("Development environment detected! Running dev initialize.");
 
             ItemGroup itemGroup = new TabbedItemGroup(
                 "plume_test",
@@ -87,10 +87,10 @@ public final class Plume {
         );
 
         // testing, innit TODO
-        CosmeticsManager.registerPlayerData(PlayerUUID.AndanteMC, Cosmetics.MELON_MANGLER_HAT, Cosmetics.MELON_MANGLER_CHEST, Cosmetics.AURA);
+        CosmeticsManager.registerPlayerData(PlayerUUID.AndanteMC, Cosmetics.MELON_MANGLER_HAT, Cosmetics.MELON_MANGLER_MASK, Cosmetics.MELON_MANGLER_CHEST, Cosmetics.MELON_MANGLER_BACK, Cosmetics.MELON_MANGLER_HAND, Cosmetics.MELON_MANGLER_FEET, Cosmetics.AURA);
         CosmeticsManager.registerPlayerData(PlayerUUID.TinyAtoms, Cosmetics.MELON_MANGLER_MASK);
 
-        LOGGER.log(Level.INFO, "Initialized");
+        log("Initialized");
     }
 
     public static void setup() {
@@ -101,5 +101,12 @@ public final class Plume {
             FuelRegistry.register(80, Blocks.DIRT);
             FuelRegistry.register(80, Items.BLUE_DYE);
         }
+    }
+
+    public static void log(Level level, String message) {
+        LOGGER.log(level, "[{}] " + message, MOD_NAME);
+    }
+    public static void log(String message) {
+        Plume.log(Level.INFO, message);
     }
 }

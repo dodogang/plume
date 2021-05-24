@@ -20,7 +20,7 @@ import net.minecraft.util.Identifier;
 public class CosmeticFeatureRenderer<M extends CompositeEntityModel<PlayerEntity>> extends FeatureRenderer<PlayerEntity, PlayerEntityModel<PlayerEntity>> {
     protected final PlayerEntityRenderer renderer;
     protected final Cosmetic             cosmetic;
-    protected final M                    model;
+    protected M                    model;
     protected final Identifier           texture;
 
     public CosmeticFeatureRenderer(PlayerEntityRenderer renderer, Cosmetic cosmetic, FeatureRendererContext<PlayerEntity, PlayerEntityModel<PlayerEntity>> ctx, M model, Identifier texture) {

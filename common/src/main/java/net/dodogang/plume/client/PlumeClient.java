@@ -8,9 +8,13 @@ import net.minecraft.util.Identifier;
 public final class PlumeClient {
     @SuppressWarnings("UnstableApiUsage")
     public static void initialize() {
+        Plume.log("Initializing (CLIENT)");
+
         Reflection.initialize(
             CosmeticsManagerClient.class
         );
+
+        Plume.log("Initialized (CLIENT)");
     }
 
     public static Identifier texture(String path) {

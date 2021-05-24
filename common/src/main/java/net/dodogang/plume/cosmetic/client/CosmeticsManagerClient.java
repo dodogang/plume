@@ -3,9 +3,7 @@ package net.dodogang.plume.cosmetic.client;
 import net.dodogang.plume.client.PlumeClient;
 import net.dodogang.plume.cosmetic.*;
 import net.dodogang.plume.cosmetic.client.model.CosmeticModel;
-import net.dodogang.plume.cosmetic.client.model.melon_mangler.MelonManglerHatModel;
-import net.dodogang.plume.cosmetic.client.model.melon_mangler.MelonManglerMoustacheModel;
-import net.dodogang.plume.cosmetic.client.model.melon_mangler.MelonManglerRobesModel;
+import net.dodogang.plume.cosmetic.client.model.melon_mangler.*;
 import net.dodogang.plume.cosmetic.client.render.CosmeticFeatureRenderer;
 import net.dodogang.plume.util.Util;
 import net.fabricmc.api.EnvType;
@@ -41,11 +39,14 @@ public final class CosmeticsManagerClient {
         registerRenderer(Cosmetics.MELON_MANGLER_HAT, MelonManglerHatModel::new, Texture.MELON_MANGLER);
         registerRenderer(Cosmetics.MELON_MANGLER_MASK, MelonManglerMoustacheModel::new, Texture.MELON_MANGLER);
         registerRenderer(Cosmetics.MELON_MANGLER_CHEST, MelonManglerRobesModel::new, Texture.MELON_MANGLER);
+        registerRenderer(Cosmetics.MELON_MANGLER_BACK, MelonManglerSackModel::new, Texture.MELON_MANGLER);
+        registerRenderer(Cosmetics.MELON_MANGLER_HAND, MelonManglerGlovesModel::new, Texture.MELON_MANGLER);
+        registerRenderer(Cosmetics.MELON_MANGLER_FEET, MelonManglerBootsModel::new, Texture.MELON_MANGLER);
 
         registerTicker(Cosmetics.AURA, (world, player) -> {
             MinecraftClient client = MinecraftClient.getInstance();
             if (!client.options.getPerspective().isFirstPerson() || client.player != player) {
-                player.world.addParticle(new DustParticleEffect(1.0f, 0.0f, 1.0f, 1.0f), player.getParticleX(0.7d), player.getRandomBodyY(), player.getParticleZ(0.7d), 0.075d, 0.075d, 0.075d);
+                player.world.addParticle(new DustParticleEffect(59f / 255, 78f / 255, 97f / 255, 1.0f), player.getParticleX(0.7d), player.getRandomBodyY(), player.getParticleZ(0.7d), 0.075d, 0.075d, 0.075d);
             }
         });
     }
