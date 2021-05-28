@@ -1,5 +1,6 @@
 package net.dodogang.plume.mixin.cosmetic.client;
 
+import net.dodogang.plume.cosmetic.Cosmetic;
 import net.dodogang.plume.cosmetic.CosmeticPlayerData;
 import net.dodogang.plume.cosmetic.CosmeticSlot;
 import net.dodogang.plume.cosmetic.CosmeticsManager;
@@ -27,13 +28,12 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
         if (!this.isSpectator() && !this.isInvisible()) {
-            CosmeticPlayerData cosmetics = CosmeticsManager.LOCAL_DATA.get(Util.parseStringUUID(this.getUuid()));
+            CosmeticPlayerData cosmetics = CosmeticsManager.getLocalData(Util.parseStringUUID(this.getUuid()));
             if (cosmetics != null) {
-                cosmetics.getCosmetics().forEach((slot, cosmetic) -> {
-                    if (cosmetic.slot == CosmeticSlot.TICKER) {
-                        CosmeticsManagerClient.TICKER_MAP.get(cosmetic).tick(this.world, this);
-                    }
-                });
+                Cosmetic cosmetic = cosmetics.getCosmetics().get(CosmeticSlot.TICKER);
+                if (cosmetic != null) {
+                    CosmeticsManagerClient.getTickers().get(cosmetic).tick(this.world, this);
+                }
             }
         }
     }

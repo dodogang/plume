@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(CapeFeatureRenderer.class)
 public class CapeFeatureRendererMixin {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    private void cancelRender(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, AbstractClientPlayerEntity entity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
-        CosmeticsManagerClient.cancelCapeRender(entity.getUuid(), ci);
+    private void cancelRender(MatrixStack matrices, VertexConsumerProvider vertices, int i, AbstractClientPlayerEntity entity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
+        CosmeticsManagerClient.cancelCapeRender(entity, ci);
     }
 }

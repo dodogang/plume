@@ -25,6 +25,6 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRenderDispatcher;Z)V", at = @At("TAIL"))
     private void injectCosmetics(EntityRenderDispatcher dispatcher, boolean slim, CallbackInfo ci) {
-        CosmeticsManagerClient.RENDERER_MAP.forEach((cosmetic, renderer) -> this.addFeature(renderer.apply(PlayerEntityRenderer.class.cast(this), (FeatureRendererContext) this)));
+        CosmeticsManagerClient.getRenderers().forEach((cosmetic, renderer) -> this.addFeature(renderer.apply(PlayerEntityRenderer.class.cast(this), (FeatureRendererContext) this)));
     }
 }

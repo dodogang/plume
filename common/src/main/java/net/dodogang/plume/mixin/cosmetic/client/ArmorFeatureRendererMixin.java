@@ -25,7 +25,7 @@ public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extend
     }
 
     @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
-    private void cancelRender(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, T entity, EquipmentSlot equipmentSlot, int i, A bipedEntityModel, CallbackInfo ci) {
-        CosmeticsManagerClient.cancelArmorRender(entity.getUuid(), equipmentSlot, ci);
+    private void cancelRender(MatrixStack matrices, VertexConsumerProvider vertices, T entity, EquipmentSlot equipmentSlot, int i, A model, CallbackInfo ci) {
+        CosmeticsManagerClient.cancelArmorRender(entity, equipmentSlot, ci);
     }
 }

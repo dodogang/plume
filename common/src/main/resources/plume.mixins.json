@@ -21,10 +21,16 @@
   "client": [
     "client.CreativeInventoryScreenAccessor",
     "client.CreativeInventoryScreenMixin",
+    "client.MinecraftClientMixin",
     "cosmetic.client.ArmorFeatureRendererMixin",
-    "cosmetic.client.PlayerEntityRendererMixin",
+    "cosmetic.client.CapeFeatureRendererMixin",
+    "cosmetic.client.GameRendererMixin",
+    "cosmetic.client.InGameHudMixin",
     "cosmetic.client.PlayerEntityMixin",
-    "cosmetic.client.CapeFeatureRendererMixin"
+    "cosmetic.client.PlayerEntityRendererMixin",
+    "keybinding.client.GameOptionsMixin",
+    "keybinding.client.KeyBindingAccessor",
+    "keybinding.client.KeyCodeAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -24,12 +24,16 @@ public class CosmeticPlayerData {
     }
 
     @NotNull
+    public String getUuid() {
+        return this.uuid;
+    }
+    @NotNull
     public Map<CosmeticSlot, Cosmetic> getCosmetics() {
         return this.active;
     }
 
     @Override
     public String toString() {
-        return "CosmeticPlayerData{" + "uuid=" + uuid + ", active=" + active + '}';
+        return "CosmeticPlayerData{" + "uuid='" + uuid + '\'' + ", active=" + active + '}';
     }
 }

@@ -10,11 +10,9 @@ import net.dodogang.plume.block.CeilingPlantBlock;
 import net.dodogang.plume.block.TallCeilingPlantBlock;
 import net.dodogang.plume.block.TallerPlantBlock;
 import net.dodogang.plume.cosmetic.Cosmetics;
-import net.dodogang.plume.cosmetic.CosmeticsManager;
 import net.dodogang.plume.item.item_group.TabbedItemGroup;
 import net.dodogang.plume.registry.BlockRegistryBatch;
 import net.dodogang.plume.registry.PointOfInterestTypeAppender;
-import net.dodogang.plume.util.PlayerUUID;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -86,16 +84,12 @@ public final class Plume {
             Cosmetics.class
         );
 
-        // testing, innit TODO
-        CosmeticsManager.registerPlayerData(PlayerUUID.AndanteMC, Cosmetics.MELON_MANGLER_HAT, Cosmetics.MELON_MANGLER_MASK, Cosmetics.MELON_MANGLER_CHEST, Cosmetics.MELON_MANGLER_BACK, Cosmetics.MELON_MANGLER_HAND, Cosmetics.MELON_MANGLER_FEET, Cosmetics.AURA);
-        CosmeticsManager.registerPlayerData(PlayerUUID.TinyAtoms, Cosmetics.MELON_MANGLER_MASK);
-
         log("Initialized");
     }
 
     public static void setup() {
         if (runDevTests) {
-            LOGGER.log(Level.INFO, "Development environment detected! Running dev setup.");
+            log("Development environment detected! Running dev setup.");
 
             FuelRegistry.register(80, TEST_BLOCK.get());
             FuelRegistry.register(80, Blocks.DIRT);

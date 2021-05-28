@@ -1,12 +1,20 @@
 {
   "plume.discord": "Discord",
 
-  "plume.cosmetic.plume:melon_mangler_hat": "Melon Mangler Hat",
-  "plume.cosmetic.plume:melon_mangler_mask": "Melon Mangler Moustache",
-  "plume.cosmetic.plume:melon_mangler_chest": "Melon Mangler Robes",
-  "plume.cosmetic.plume:melon_mangler_back": "Melon Mangler Sack",
-  "plume.cosmetic.plume:melon_mangler_hand": "Melon Mangler Gloves",
-  "plume.cosmetic.plume:melon_mangler_feet": "Melon Mangler Boots",
+  "screen.plume:cosmetics": "Cosmetics",
+  "screen.plume:cosmetics.no_selected_slot": "Select a cosmetic slot!",
+  "screen.plume:cosmetics.clear_cosmetic_slot": "Clear Slot",
+
+  "key.categories.plume": "Dodo Gang",
+  "key.plume.open_cosmetics_menu": "Open Cosmetics Menu",
+
+  "plume.cosmetic.marbles:melon_mangler_hat": "Melon Mangler Hat",
+  "plume.cosmetic.marbles:melon_mangler_mask": "Melon Mangler Moustache",
+  "plume.cosmetic.marbles:melon_mangler_chest": "Melon Mangler Robes",
+  "plume.cosmetic.marbles:melon_mangler_back": "Melon Mangler Sack",
+  "plume.cosmetic.marbles:melon_mangler_hand": "Melon Mangler Gloves",
+  "plume.cosmetic.marbles:melon_mangler_feet": "Melon Mangler Boots",
+  "plume.cosmetic.marbles:melon_mangler_ticker": "Melon Mangler Aura",
 
   "plume.cosmeticSlot.hat": "Hat",
   "plume.cosmeticSlot.mask": "Mask",
