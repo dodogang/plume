@@ -27,10 +27,7 @@
     "cosmetic.client.GameRendererMixin",
     "cosmetic.client.InGameHudMixin",
     "cosmetic.client.PlayerEntityMixin",
-    "cosmetic.client.PlayerEntityRendererMixin",
-    "keybinding.client.GameOptionsMixin",
-    "keybinding.client.KeyBindingAccessor",
-    "keybinding.client.KeyCodeAccessor"
+    "cosmetic.client.PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

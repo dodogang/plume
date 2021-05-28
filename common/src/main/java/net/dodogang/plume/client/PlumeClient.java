@@ -3,7 +3,6 @@ package net.dodogang.plume.client;
 import com.google.common.reflect.Reflection;
 import net.dodogang.plume.Plume;
 import net.dodogang.plume.cosmetic.client.CosmeticsManagerClient;
-import net.dodogang.plume.keybinding.client.PlumeKeyBindings;
 import net.minecraft.util.Identifier;
 
 public final class PlumeClient {

@@ -1,7 +1,7 @@
 package net.dodogang.plume.mixin.client;
 
 import net.dodogang.plume.cosmetic.client.gui.screen.ingame.CosmeticsScreen;
-import net.dodogang.plume.keybinding.client.PlumeKeyBindings;
+import net.dodogang.plume.client.PlumeKeyBindings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
