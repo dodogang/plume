@@ -32,8 +32,8 @@ public class CosmeticButtonWidget extends TexturedButtonWidget {
 
         CosmeticPlayerData data = CosmeticsManager.getLocalData(PlayerUUID.$CLIENT);
         if (data != null && data.getCosmetics().containsValue(this.cosmetic)) {
-            MinecraftClient.getInstance().getTextureManager().bindTexture(CosmeticsScreen.TEXTURE_ICONS);
-            DrawableHelper.drawTexture(matrices, this.x, this.y, 0, 0, 16, 16, 32, 32);
+            MinecraftClient.getInstance().getTextureManager().bindTexture(CosmeticsScreen.TEXTURE_SELECTED);
+            DrawableHelper.drawTexture(matrices, this.x, this.y, 0, 0, 16, 16, 16, 16);
         }
     }
 }

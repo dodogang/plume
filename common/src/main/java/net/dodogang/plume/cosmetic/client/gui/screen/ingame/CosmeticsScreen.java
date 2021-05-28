@@ -9,14 +9,16 @@ import net.dodogang.plume.cosmetic.CosmeticSlot;
 import net.dodogang.plume.cosmetic.CosmeticsManager;
 import net.dodogang.plume.cosmetic.client.CosmeticsManagerClient;
 import net.dodogang.plume.cosmetic.client.gui.widget.CosmeticButtonWidget;
+import net.dodogang.plume.cosmetic.client.gui.widget.CosmeticClearButtonWidget;
 import net.dodogang.plume.cosmetic.client.gui.widget.CosmeticSlotButtonWidget;
+import net.dodogang.plume.util.PlayerUUID;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.gui.widget.TexturedButtonWidget;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
@@ -33,7 +35,8 @@ import java.util.stream.Collectors;
 @Environment(EnvType.CLIENT)
 public class CosmeticsScreen extends Screen {
     public static final Identifier          TEXTURE                 = PlumeClient.texture("gui/cosmetics/background");
-    public static final Identifier          TEXTURE_ICONS           = PlumeClient.texture("gui/cosmetics/icons");
+    public static final Identifier          TEXTURE_SELECTED        = PlumeClient.texture("gui/cosmetics/selected");
+    public static final Identifier          TEXTURE_CLEAR_SLOT      = PlumeClient.texture("gui/cosmetics/clear_slot");
     public static final int                 BACKGROUND_WIDTH        = 199;
     public static final int                 BACKGROUND_HEIGHT       = 190;
 
@@ -70,10 +73,6 @@ public class CosmeticsScreen extends Screen {
     @Override
     protected void init() {
         if (this.client != null) {
-            /*
-             * SLOT BUTTONS
-             */
-
             this.initCosmeticSlots(COSMETIC_SLOTS_ARMOR, 44, 0);
             this.initCosmeticSlots(COSMETIC_SLOTS_NO_ARMOR, 139, 16);
         }
@@ -91,26 +90,18 @@ public class CosmeticsScreen extends Screen {
         this.cosmeticsSelected = cosmetics == null ? new HashMap<>() : cosmetics.getCosmetics();
 
         if (this.client != null) {
-            /*
-             * UI BACKGROUND
-             */
-
+            // ui background
             this.renderBackground(matrices);
             this.client.getTextureManager().bindTexture(CosmeticsScreen.TEXTURE);
             this.drawTexture(matrices, this.backgroundOriginX, this.backgroundOriginY, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
 
-            /*
-             * TEXT
-             */
-
+            // text
             DrawableHelper.drawCenteredText(matrices, this.textRenderer, this.title, this.width / 2, (this.height / 2) - 108, DyeColor.WHITE.getSignColor());
             RenderSystem.disableBlend();
             Text selectedSlotText = this.selectedSlot == null ? TEXT_NO_SELECTED_SLOT : this.selectedSlot.getDisplayText();
-            this.textRenderer.draw(matrices, selectedSlotText, (this.width / 2f) - (textRenderer.getWidth(selectedSlotText) / 2f), (this.height / 2f) + 76, 4210752);
+            this.textRenderer.draw(matrices, selectedSlotText, (this.width / 2f) - (textRenderer.getWidth(selectedSlotText) / 2f), (this.height / 2f) + 77, 4210752);
 
-            /*
-             * PLAYER RENDERER
-             */
+            // player renderer
 
             boolean hasHat = this.cosmeticsSelected.containsKey(CosmeticSlot.HAT);
             int rendererScale = hasHat ? 32 : 42;
@@ -131,22 +122,38 @@ public class CosmeticsScreen extends Screen {
             int y = (this.height / 2) - (BACKGROUND_HEIGHT / 2) + 23 + (i * 18);
             int v = 16 + (i * 16);
 
-            this.addButton(new CosmeticSlotButtonWidget(this, slot, x, y, u, v, 16 * slots.size(), TEXTURE, (w) -> this.onSlotClick((CosmeticSlotButtonWidget) w)));
+            this.addButton(new CosmeticSlotButtonWidget(this, slot, x, y, u, v, 16 * slots.size(), TEXTURE, this::onSlotClick, (w, matrices, mouseX, mouseY) -> {
+                CosmeticPlayerData data = CosmeticsManager.getLocalData(PlayerUUID.$CLIENT);
+                if (data != null) {
+                    Cosmetic cosmetic = data.getCosmetics().get(slot);
+                    if (cosmetic != null) {
+                        this.renderTooltip(matrices, new TranslatableText(cosmetic.getTranslationKey()), mouseX, mouseY);
+                        return;
+                    }
+                }
+
+                if (((CosmeticSlotButtonWidget) w).isJustHovered()) {
+                    this.renderTooltip(matrices, slot.getDisplayText(), mouseX, mouseY);
+                }
+            }));
         }
     }
 
-    public void onSlotClick(CosmeticSlotButtonWidget widget) {
-        if (this.selectedSlot == null) {
-            this.addButton(new TexturedButtonWidget((this.width / 2) + 64, (this.height / 2) + 54, 16, 16, 16, 0, 0, TEXTURE_ICONS, 32, 32, w -> CosmeticsManagerClient.clearCosmeticSlot(this.selectedSlot), (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, TEXT_CLEAR_SLOT, mouseX, mouseY), LiteralText.EMPTY));
-        }
-
-        this.selectedSlot = widget.getSlot();
+    public void onSlotClick(ButtonWidget widget) {
+        this.selectedSlot = ((CosmeticSlotButtonWidget) widget).getSlot();
         this.scrollPosition = 0;
         this.updateCosmetics();
     }
 
-    private void onCosmeticClick(CosmeticButtonWidget w) {
-        Cosmetic cosmetic = w.getCosmetic();
+    private void onClearSlotClick(ButtonWidget widget) {
+        CosmeticsManagerClient.clearCosmeticSlot(this.selectedSlot);
+
+        this.selectedSlot = null;
+        this.updateCosmetics();
+    }
+
+    private void onCosmeticClick(ButtonWidget widget) {
+        Cosmetic cosmetic = ((CosmeticButtonWidget) widget).getCosmetic();
         CosmeticsManagerClient.setCosmetic(cosmetic);
         cosmetic.onClick();
     }
@@ -159,6 +166,15 @@ public class CosmeticsScreen extends Screen {
         this.cosmeticsDisplayed.addAll(this.cosmeticsAvailable);
         this.cosmeticsDisplayed.removeIf(cosmetic -> cosmetic.slot != this.selectedSlot);
 
+        // reinitialise cosmetic clear button if required
+        this.buttons.removeIf(w -> w instanceof CosmeticClearButtonWidget);
+        this.children.removeIf(w -> w instanceof CosmeticClearButtonWidget);
+
+        if (this.selectedSlot != null) {
+            this.addButton(new CosmeticClearButtonWidget((this.width / 2) + 70, (this.height / 2) + 36, 16, 16, 0, 0, 0, TEXTURE_CLEAR_SLOT, 16, 16, this::onClearSlotClick, (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, TEXT_CLEAR_SLOT, mouseX, mouseY), LiteralText.EMPTY));
+        }
+
+        // remove current cosmetics
         this.buttons.removeIf(widget -> widget instanceof CosmeticButtonWidget);
         this.children.removeIf(widget -> widget instanceof CosmeticButtonWidget);
 
@@ -169,7 +185,7 @@ public class CosmeticsScreen extends Screen {
             Cosmetic cosmetic = this.cosmeticsDisplayed.get(i);
             int x = (this.width / 2)  - (BACKGROUND_WIDTH  / 2) + 37 + (i * COSMETIC_SIZE) - (row * COSMETIC_SIZE * ROW_LENGTH);
             int y = (this.height / 2) - (BACKGROUND_HEIGHT / 2) + 113 + (row * COSMETIC_SIZE);
-            this.addButton(new CosmeticButtonWidget(cosmetic, x, y, (w) -> this.onCosmeticClick((CosmeticButtonWidget) w), (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, new TranslatableText(((CosmeticButtonWidget) w).getCosmetic().getTranslationKey()), mouseX, mouseY)));
+            this.addButton(new CosmeticButtonWidget(cosmetic, x, y, this::onCosmeticClick, (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, new TranslatableText(((CosmeticButtonWidget) w).getCosmetic().getTranslationKey()), mouseX, mouseY)));
         }
     }
 
@@ -181,5 +197,10 @@ public class CosmeticsScreen extends Screen {
 
     public CosmeticSlot getSelectedSlot() {
         return this.selectedSlot;
+    }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false;
     }
 }
