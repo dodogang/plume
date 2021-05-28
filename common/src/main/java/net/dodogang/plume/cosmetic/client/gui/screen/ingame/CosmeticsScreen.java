@@ -151,6 +151,9 @@ public class CosmeticsScreen extends Screen {
         cosmetic.onClick();
     }
 
+    public static final int ROW_LENGTH    = 7;
+    public static final int COSMETIC_SIZE = 18;
+
     public void updateCosmetics() {
         this.cosmeticsDisplayed.clear();
         this.cosmeticsDisplayed.addAll(this.cosmeticsAvailable);
@@ -159,10 +162,13 @@ public class CosmeticsScreen extends Screen {
         this.buttons.removeIf(widget -> widget instanceof CosmeticButtonWidget);
         this.children.removeIf(widget -> widget instanceof CosmeticButtonWidget);
 
-        for (int i = 0; i < this.cosmeticsDisplayed.size(); i++) {
+        int row = -1;
+        for (int i = 0; i < this.cosmeticsDisplayed.size() && i < 21; i++) {
+            if (i % ROW_LENGTH == 0) row++;
+
             Cosmetic cosmetic = this.cosmeticsDisplayed.get(i);
-            int x = (this.width / 2)  - (BACKGROUND_WIDTH  / 2) + 37 + (i * 16);
-            int y = (this.height / 2) - (BACKGROUND_HEIGHT / 2) + 113;
+            int x = (this.width / 2)  - (BACKGROUND_WIDTH  / 2) + 37 + (i * COSMETIC_SIZE) - (row * COSMETIC_SIZE * ROW_LENGTH);
+            int y = (this.height / 2) - (BACKGROUND_HEIGHT / 2) + 113 + (row * COSMETIC_SIZE);
             this.addButton(new CosmeticButtonWidget(cosmetic, x, y, (w) -> this.onCosmeticClick((CosmeticButtonWidget) w), (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, new TranslatableText(((CosmeticButtonWidget) w).getCosmetic().getTranslationKey()), mouseX, mouseY)));
         }
     }
