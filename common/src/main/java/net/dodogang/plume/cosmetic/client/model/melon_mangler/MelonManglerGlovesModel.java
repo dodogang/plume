@@ -46,18 +46,12 @@ public class MelonManglerGlovesModel extends CosmeticModel {
 
         this.leftCuff.copyPositionAndRotation(this.leftGlove);
         this.rightCuff.copyPositionAndRotation(this.rightGlove);
-        setRotationAngle(this.leftCuff, 0.0F, 0.0F, -0.2618F);
-        setRotationAngle(this.rightCuff, 0.0F, 0.0F, 0.2618F);
+        setRotationAngle(this.leftCuff, this.leftCuff.pitch, this.leftCuff.yaw, this.leftCuff.roll + -0.2618F);
+        setRotationAngle(this.rightCuff, this.rightCuff.pitch, this.rightCuff.yaw, this.rightCuff.roll + 0.2618F);
     }
 
     @Override
     public Iterable<ModelPart> getParts() {
         return ImmutableList.of(this.leftGlove, this.rightGlove);
-    }
-
-    public void setRotationAngle(ModelPart bone, float x, float y, float z) {
-        bone.pitch = x;
-        bone.yaw = y;
-        bone.roll = z;
     }
 }

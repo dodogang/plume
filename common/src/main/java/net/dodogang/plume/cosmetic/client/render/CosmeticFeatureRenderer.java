@@ -3,7 +3,6 @@ package net.dodogang.plume.cosmetic.client.render;
 import net.dodogang.plume.cosmetic.Cosmetic;
 import net.dodogang.plume.cosmetic.CosmeticPlayerData;
 import net.dodogang.plume.cosmetic.CosmeticsManager;
-import net.dodogang.plume.util.PlayerUUID;
 import net.dodogang.plume.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

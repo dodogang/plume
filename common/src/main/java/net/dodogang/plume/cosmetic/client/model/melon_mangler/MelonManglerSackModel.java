@@ -27,19 +27,11 @@ public class MelonManglerSackModel extends CosmeticModel {
     @Override
     public void setAngles(PlayerEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.sack.copyPositionAndRotation(this.renderer.getModel().torso);
-        setRotationAngle(this.sack, -0.1309F, 0.0F, 0.0F);
-
-        
+        setRotationAngle(this.sack, this.sack.pitch + -0.1309F, this.sack.yaw, this.sack.roll);
     }
 
     @Override
     public Iterable<ModelPart> getParts() {
         return ImmutableList.of(this.sack);
-    }
-
-    public void setRotationAngle(ModelPart bone, float x, float y, float z) {
-        bone.pitch = x;
-        bone.yaw = y;
-        bone.roll = z;
     }
 }
