@@ -33,7 +33,9 @@ public class Cosmetic {
     @Environment(EnvType.CLIENT)
     public void onClick() {
         if (CosmeticSets.MELON_MANGLER.contains(this)) {
-            MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_ILLUSIONER_MIRROR_MOVE, 1.0F));
+            MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_ILLUSIONER_MIRROR_MOVE, 0.78F, 0.5F));
+        } else if (CosmeticSets.NAUTILUS.contains(this)) {
+            MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_BOAT_PADDLE_WATER, 2.0F, 1.1F));
         }
     }
 }

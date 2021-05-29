@@ -5,6 +5,7 @@ import net.dodogang.plume.client.PlumeClient;
 import net.dodogang.plume.cosmetic.*;
 import net.dodogang.plume.cosmetic.client.model.CosmeticModel;
 import net.dodogang.plume.cosmetic.client.model.melon_mangler.*;
+import net.dodogang.plume.cosmetic.client.model.nautilus.*;
 import net.dodogang.plume.cosmetic.client.render.CosmeticFeatureRenderer;
 import net.dodogang.plume.util.PlayerUUID;
 import net.dodogang.plume.util.Util;
@@ -42,7 +43,7 @@ public final class CosmeticsManagerClient {
     private static final Map<Cosmetic, CosmeticTicker> TICKER_MAP = new HashMap<>();
 
     static {
-        addAvailable(Cosmetics.MELON_MANGLER_HAT, Cosmetics.MELON_MANGLER_MASK, Cosmetics.MELON_MANGLER_CHEST, Cosmetics.MELON_MANGLER_BACK, Cosmetics.MELON_MANGLER_HAND, Cosmetics.MELON_MANGLER_FEET, Cosmetics.MELON_MANGLER_TICKER);
+        addAvailable(Cosmetics.MELON_MANGLER_HAT, Cosmetics.MELON_MANGLER_MASK, Cosmetics.MELON_MANGLER_CHEST, Cosmetics.MELON_MANGLER_BACK, Cosmetics.MELON_MANGLER_HAND, Cosmetics.MELON_MANGLER_FEET, Cosmetics.MELON_MANGLER_TICKER, Cosmetics.NAUTILUS_HAT, Cosmetics.NAUTILUS_BACK, Cosmetics.YELLOW_NAUTILUS_HAT, Cosmetics.YELLOW_NAUTILUS_BACK, Cosmetics.ORANGE_NAUTILUS_HAT, Cosmetics.ORANGE_NAUTILUS_BACK);
 
         registerRenderer(Cosmetics.MELON_MANGLER_HAT, MelonManglerHatModel::new, Texture.MELON_MANGLER);
         registerRenderer(Cosmetics.MELON_MANGLER_MASK, MelonManglerMoustacheModel::new, Texture.MELON_MANGLER);
@@ -50,6 +51,13 @@ public final class CosmeticsManagerClient {
         registerRenderer(Cosmetics.MELON_MANGLER_BACK, MelonManglerSackModel::new, Texture.MELON_MANGLER);
         registerRenderer(Cosmetics.MELON_MANGLER_HAND, MelonManglerGlovesModel::new, Texture.MELON_MANGLER);
         registerRenderer(Cosmetics.MELON_MANGLER_FEET, MelonManglerBootsModel::new, Texture.MELON_MANGLER);
+
+        registerRenderer(Cosmetics.NAUTILUS_HAT, NautilusHatModel::new, Texture.NAUTILUS);
+        registerRenderer(Cosmetics.NAUTILUS_BACK, NautilusBackpackModel::new, Texture.NAUTILUS);
+        registerRenderer(Cosmetics.YELLOW_NAUTILUS_HAT, YellowNautilusHatModel::new, Texture.YELLOW_NAUTILUS);
+        registerRenderer(Cosmetics.YELLOW_NAUTILUS_BACK, YellowNautilusBackpackModel::new, Texture.YELLOW_NAUTILUS);
+        registerRenderer(Cosmetics.ORANGE_NAUTILUS_HAT, OrangeNautilusHatModel::new, Texture.ORANGE_NAUTILUS);
+        registerRenderer(Cosmetics.ORANGE_NAUTILUS_BACK, OrangeNautilusBackpackModel::new, Texture.ORANGE_NAUTILUS);
 
         registerTicker(Cosmetics.MELON_MANGLER_TICKER, (world, player) -> {
             MinecraftClient client = MinecraftClient.getInstance();
@@ -131,7 +139,10 @@ public final class CosmeticsManagerClient {
     }
 
     private static class Texture {
-        private static final Identifier MELON_MANGLER = texture("melon_mangler");
+        public static final Identifier MELON_MANGLER    = texture("melon_mangler");
+        public static final Identifier NAUTILUS         = texture("nautilus");
+        public static final Identifier YELLOW_NAUTILUS  = texture("yellow_nautilus");
+        public static final Identifier ORANGE_NAUTILUS  = texture("orange_nautilus");
 
         private static Identifier texture(String path) {
             return PlumeClient.texture("cosmetic/" + path);
