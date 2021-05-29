@@ -9,7 +9,7 @@ import net.dodogang.plume.block.BeamBlock;
 import net.dodogang.plume.block.CeilingPlantBlock;
 import net.dodogang.plume.block.TallCeilingPlantBlock;
 import net.dodogang.plume.block.TallerPlantBlock;
-import net.dodogang.plume.cosmetic.Cosmetics;
+import net.dodogang.plume.donor.cosmetic.Cosmetics;
 import net.dodogang.plume.item.item_group.TabbedItemGroup;
 import net.dodogang.plume.registry.BlockRegistryBatch;
 import net.dodogang.plume.registry.PointOfInterestTypeAppender;

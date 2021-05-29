@@ -27,7 +27,8 @@
     "cosmetic.client.GameRendererMixin",
     "cosmetic.client.InGameHudMixin",
     "cosmetic.client.PlayerEntityMixin",
-    "cosmetic.client.PlayerEntityRendererMixin"
+    "cosmetic.client.PlayerEntityRendererMixin",
+    "cosmetic.client.PlayerListHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

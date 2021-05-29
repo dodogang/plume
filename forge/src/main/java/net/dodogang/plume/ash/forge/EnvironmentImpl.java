@@ -2,7 +2,10 @@ package net.dodogang.plume.ash.forge;
 
 import net.dodogang.plume.ash.Platform;
 import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.fml.loading.FMLPaths;
 import org.jetbrains.annotations.ApiStatus;
+
+import java.nio.file.Path;
 
 @ApiStatus.Internal
 public final class EnvironmentImpl {
@@ -18,5 +21,9 @@ public final class EnvironmentImpl {
      */
     public static Platform getPlatform() {
         return Platform.FABRIC;
+    }
+
+    public static Path getConfigDir() {
+        return FMLPaths.CONFIGDIR.get();
     }
 }

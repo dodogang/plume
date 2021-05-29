@@ -1,6 +1,6 @@
 package net.dodogang.plume.mixin.cosmetic.client;
 
-import net.dodogang.plume.cosmetic.client.CosmeticsManagerClient;
+import net.dodogang.plume.donor.client.cosmetic.CosmeticsClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -25,6 +25,6 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Inject(method = "<init>(Lnet/minecraft/client/render/entity/EntityRenderDispatcher;Z)V", at = @At("TAIL"))
     private void injectCosmetics(EntityRenderDispatcher dispatcher, boolean slim, CallbackInfo ci) {
-        CosmeticsManagerClient.getRenderers().forEach((cosmetic, renderer) -> this.addFeature(renderer.apply(PlayerEntityRenderer.class.cast(this), (FeatureRendererContext) this)));
+        CosmeticsClient.getRenderers().forEach((cosmetic, renderer) -> this.addFeature(renderer.apply(PlayerEntityRenderer.class.cast(this), (FeatureRendererContext) this)));
     }
 }

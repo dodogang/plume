@@ -1,6 +1,6 @@
 package net.dodogang.plume.mixin.cosmetic.client;
 
-import net.dodogang.plume.cosmetic.client.gui.screen.ingame.CosmeticsScreen;
+import net.dodogang.plume.donor.client.cosmetic.gui.screen.ingame.CosmeticsScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;

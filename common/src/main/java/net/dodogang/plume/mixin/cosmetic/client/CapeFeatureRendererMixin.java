@@ -1,6 +1,6 @@
 package net.dodogang.plume.mixin.cosmetic.client;
 
-import net.dodogang.plume.cosmetic.client.CosmeticsManagerClient;
+import net.dodogang.plume.donor.client.cosmetic.CosmeticsClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -17,6 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class CapeFeatureRendererMixin {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void cancelRender(MatrixStack matrices, VertexConsumerProvider vertices, int i, AbstractClientPlayerEntity entity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
-        CosmeticsManagerClient.cancelCapeRender(entity, ci);
+        CosmeticsClient.cancelCapeRender(entity, ci);
     }
 }

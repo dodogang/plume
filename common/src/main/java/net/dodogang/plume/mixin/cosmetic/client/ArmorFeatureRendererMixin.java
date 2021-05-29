@@ -1,6 +1,6 @@
 package net.dodogang.plume.mixin.cosmetic.client;
 
-import net.dodogang.plume.cosmetic.client.CosmeticsManagerClient;
+import net.dodogang.plume.donor.client.cosmetic.CosmeticsClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -26,6 +26,6 @@ public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extend
 
     @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
     private void cancelRender(MatrixStack matrices, VertexConsumerProvider vertices, T entity, EquipmentSlot equipmentSlot, int i, A model, CallbackInfo ci) {
-        CosmeticsManagerClient.cancelArmorRender(entity, equipmentSlot, ci);
+        CosmeticsClient.cancelArmorRender(entity, equipmentSlot, ci);
     }
 }

@@ -1,10 +1,10 @@
 package net.dodogang.plume.mixin.cosmetic.client;
 
-import net.dodogang.plume.cosmetic.Cosmetic;
-import net.dodogang.plume.cosmetic.CosmeticPlayerData;
-import net.dodogang.plume.cosmetic.CosmeticSlot;
-import net.dodogang.plume.cosmetic.CosmeticsManager;
-import net.dodogang.plume.cosmetic.client.CosmeticsManagerClient;
+import net.dodogang.plume.donor.cosmetic.Cosmetic;
+import net.dodogang.plume.donor.DonorData;
+import net.dodogang.plume.donor.cosmetic.CosmeticSlot;
+import net.dodogang.plume.donor.DonorDataManager;
+import net.dodogang.plume.donor.client.cosmetic.CosmeticsClient;
 import net.dodogang.plume.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -28,11 +28,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
         if (!this.isSpectator() && !this.isInvisible()) {
-            CosmeticPlayerData cosmetics = CosmeticsManager.getLocalData(Util.parseStringUUID(this.getUuid()));
+            DonorData cosmetics = DonorDataManager.get(Util.parseStringUUID(this.getUuid()));
             if (cosmetics != null) {
-                Cosmetic cosmetic = cosmetics.getCosmetics().get(CosmeticSlot.TICKER);
+                Cosmetic cosmetic = cosmetics.getSelectedCosmetics().get(CosmeticSlot.TICKER);
                 if (cosmetic != null) {
-                    CosmeticsManagerClient.getTickers().get(cosmetic).tick(this.world, this);
+                    CosmeticsClient.getTickers().get(cosmetic).tick(this.world, this);
                 }
             }
         }
