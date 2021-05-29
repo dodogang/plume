@@ -73,8 +73,9 @@ public class CosmeticsScreen extends Screen {
     @Override
     protected void init() {
         if (this.client != null) {
-            this.initCosmeticSlots(COSMETIC_SLOTS_ARMOR, 44, 0);
+            // render right slots before left slots in case of tooltip weaving
             this.initCosmeticSlots(COSMETIC_SLOTS_NO_ARMOR, 139, 16);
+            this.initCosmeticSlots(COSMETIC_SLOTS_ARMOR, 44, 0);
         }
     }
 

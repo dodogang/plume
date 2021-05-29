@@ -27,9 +27,21 @@ public class CosmeticButtonWidget extends TexturedButtonWidget {
     }
 
     @Override
-    public void render(MatrixStack matrices, int i, int j, float f) {
-        super.render(matrices, i, j, f);
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float tickDelta) {
+        super.render(matrices, mouseX, mouseY, tickDelta);
 
+        if (!this.isHovered()) {
+            this.renderSelectedOverlay(matrices);
+        }
+    }
+
+    @Override
+    public void renderToolTip(MatrixStack matrices, int mouseX, int mouseY) {
+        this.renderSelectedOverlay(matrices);
+        super.renderToolTip(matrices, mouseX, mouseY);
+    }
+
+    protected void renderSelectedOverlay(MatrixStack matrices) {
         CosmeticPlayerData data = CosmeticsManager.getLocalData(PlayerUUID.$CLIENT);
         if (data != null && data.getCosmetics().containsValue(this.cosmetic)) {
             MinecraftClient.getInstance().getTextureManager().bindTexture(CosmeticsScreen.TEXTURE_SELECTED);
