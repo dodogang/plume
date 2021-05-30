@@ -1,17 +1,18 @@
 package net.dodogang.plume.donor.client.cosmetic.gui.screen.ingame;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.dodogang.plume.Plume;
 import net.dodogang.plume.client.PlumeClient;
-import net.dodogang.plume.donor.cosmetic.Cosmetic;
 import net.dodogang.plume.donor.DonorData;
-import net.dodogang.plume.donor.cosmetic.CosmeticSlot;
 import net.dodogang.plume.donor.DonorDataManager;
 import net.dodogang.plume.donor.client.DonorDataManagerClient;
 import net.dodogang.plume.donor.client.cosmetic.config.CosmeticsConfig;
-import net.dodogang.plume.donor.client.cosmetic.gui.widget.CosmeticButtonWidget;
-import net.dodogang.plume.donor.client.cosmetic.gui.widget.CosmeticClearButtonWidget;
-import net.dodogang.plume.donor.client.cosmetic.gui.widget.CosmeticSlotButtonWidget;
+import net.dodogang.plume.donor.client.cosmetic.gui.widget.*;
+import net.dodogang.plume.donor.cosmetic.Cosmetic;
+import net.dodogang.plume.donor.cosmetic.CosmeticSlot;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -34,22 +35,26 @@ import java.util.stream.Collectors;
 
 @Environment(EnvType.CLIENT)
 public class CosmeticsScreen extends Screen {
-    public static final Identifier          TEXTURE                 = PlumeClient.texture("gui/cosmetics/background");
-    public static final Identifier          TEXTURE_SELECTED        = PlumeClient.texture("gui/cosmetics/selected");
-    public static final Identifier          TEXTURE_CLEAR_SLOT      = PlumeClient.texture("gui/cosmetics/clear_slot");
-    public static final int                 BACKGROUND_WIDTH        = 199;
-    public static final int                 BACKGROUND_HEIGHT       = 190;
+    public static final Identifier          TEXTURE                         = PlumeClient.texture("gui/cosmetics/background");
+    public static final Identifier          TEXTURE_SELECTED                = PlumeClient.texture("gui/cosmetics/selected");
+    public static final Identifier          TEXTURE_CLEAR_SLOT              = PlumeClient.texture("gui/cosmetics/clear_slot");
+    public static final Identifier          TEXTURE_BACK_CONFIG             = PlumeClient.texture("gui/cosmetics/back_config");
+    public static final Identifier          TEXTURE_BACK_CONFIG_ON          = PlumeClient.texture("gui/cosmetics/back_config_on");
+    public static final Identifier          TEXTURE_BACK_CONFIG_HOVER       = PlumeClient.texture("gui/cosmetics/back_config_hover");
+    public static final int                 BACKGROUND_WIDTH                = 199;
+    public static final int                 BACKGROUND_HEIGHT               = 190;
 
-    public static final TranslatableText    TEXT_TITLE              = new TranslatableText("screen." + new Identifier(Plume.MOD_ID, "cosmetics"));
-    public static final TranslatableText    TEXT_NO_SELECTED_SLOT   = new TranslatableText("screen." + new Identifier(Plume.MOD_ID, "cosmetics.no_selected_slot"));
-    public static final TranslatableText    TEXT_CLEAR_SLOT         = new TranslatableText("screen." + new Identifier(Plume.MOD_ID, "cosmetics.clear_cosmetic_slot"));
+    public static final TranslatableText    TEXT_TITLE                      = new TranslatableText("screen." + new Identifier(Plume.MOD_ID, "cosmetics"));
+    public static final TranslatableText    TEXT_NO_SELECTED_SLOT           = new TranslatableText("screen." + new Identifier(Plume.MOD_ID, "cosmetics.no_selected_slot"));
+    public static final TranslatableText    TEXT_CLEAR_SLOT                 = new TranslatableText("screen." + new Identifier(Plume.MOD_ID, "cosmetics.clear_cosmetic_slot"));
+    public static final TranslatableText    TEXT_BACK_CONFIG                = new TranslatableText("screen." + new Identifier(Plume.MOD_ID, "cosmetics.back_config"));
 
-    private static final List<CosmeticSlot> COSMETIC_SLOTS_ARMOR    = Arrays.stream(CosmeticSlot.values())
-                                                                            .filter(cosmeticSlot -> !cosmeticSlot.getArmorRenderCancellers().isEmpty())
-                                                                            .collect(Collectors.toList());
-    private static final List<CosmeticSlot> COSMETIC_SLOTS_NO_ARMOR = Arrays.stream(CosmeticSlot.values())
-                                                                            .filter(cosmeticSlot -> cosmeticSlot.getArmorRenderCancellers().isEmpty())
-                                                                            .collect(Collectors.toList());
+    private static final List<CosmeticSlot> COSMETIC_SLOTS_ARMOR            = Arrays.stream(CosmeticSlot.values())
+                                                                                    .filter(cosmeticSlot -> !cosmeticSlot.getArmorRenderCancellers().isEmpty())
+                                                                                    .collect(Collectors.toList());
+    private static final List<CosmeticSlot> COSMETIC_SLOTS_NO_ARMOR         = Arrays.stream(CosmeticSlot.values())
+                                                                                    .filter(cosmeticSlot -> cosmeticSlot.getArmorRenderCancellers().isEmpty())
+                                                                                    .collect(Collectors.toList());
 
     protected Map<CosmeticSlot, Cosmetic> cosmeticsSelected;
     protected final List<Cosmetic> cosmeticsAvailable = DonorDataManagerClient.getAvailableCosmetics();
@@ -93,8 +98,7 @@ public class CosmeticsScreen extends Screen {
         this.mouseX = (float) mouseX;
         this.mouseY = (float) mouseY;
 
-        DonorData cosmetics = DonorDataManager.get(player.getUuid());
-        this.cosmeticsSelected = cosmetics == null ? new HashMap<>() : cosmetics.getSelectedCosmetics();
+        this.cosmeticsSelected = DonorDataManager.get(player.getUuid()).getSelectedCosmetics();
 
         if (this.client != null) {
             // ui background
@@ -131,12 +135,10 @@ public class CosmeticsScreen extends Screen {
 
             this.addButton(new CosmeticSlotButtonWidget(this, slot, x, y, u, v, 16 * slots.size(), TEXTURE, this::onSlotClick, (w, matrices, mouseX, mouseY) -> {
                 DonorData data = DonorDataManagerClient.getOwn();
-                if (data != null) {
-                    Cosmetic cosmetic = data.getSelectedCosmetics().get(slot);
-                    if (cosmetic != null) {
-                        this.renderTooltip(matrices, new TranslatableText(cosmetic.getTranslationKey()), mouseX, mouseY);
-                        return;
-                    }
+                Cosmetic cosmetic = data.getSelectedCosmetics().get(slot);
+                if (cosmetic != null) {
+                    this.renderTooltip(matrices, new TranslatableText(cosmetic.getTranslationKey()), mouseX, mouseY);
+                    return;
                 }
 
                 if (((CosmeticSlotButtonWidget) w).isJustHovered()) {
@@ -151,39 +153,47 @@ public class CosmeticsScreen extends Screen {
         this.scrollPosition = 0;
         this.updateCosmetics();
     }
-
     private void onClearSlotClick(ButtonWidget widget) {
         DonorDataManagerClient.clearCosmeticSlot(this.selectedSlot);
 
         this.selectedSlot = null;
         this.updateCosmetics();
     }
-
     private void onCosmeticClick(ButtonWidget widget) {
         Cosmetic cosmetic = ((CosmeticButtonWidget) widget).getCosmetic();
         DonorDataManagerClient.setCosmetic(cosmetic);
         cosmetic.onClick();
+    }
+    private void onCapeElytraConfigClick(ButtonWidget widget) {
+        DonorData data = DonorDataManagerClient.getOwn();
+        Map<String, JsonElement> oldConfig = data.getConfig();
+
+        Map<String, JsonElement> config = new HashMap<>(oldConfig);
+        config.put(DonorData.ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS, new JsonPrimitive(!oldConfig.get(DonorData.ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS).getAsBoolean()));
+
+        data.setConfig(ImmutableMap.copyOf(config));
     }
 
     public static final int ROW_LENGTH    = 7;
     public static final int COSMETIC_SIZE = 18;
 
     public void updateCosmetics() {
+        // reinitialise slot-specific buttons
+        this.buttons.removeIf(w -> w instanceof ChangingCosmeticButtonWidget);
+        this.children.removeIf(w -> w instanceof ChangingCosmeticButtonWidget);
+
+        if (this.selectedSlot != null) {
+            this.addButton(new ClearCosmeticSlotButtonWidget((this.width / 2) + 70, (this.height / 2) + 36, 16, 16, 0, 0, 0, TEXTURE_CLEAR_SLOT, 16, 16, this::onClearSlotClick, (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, TEXT_CLEAR_SLOT, mouseX, mouseY), LiteralText.EMPTY));
+
+            if (this.selectedSlot == CosmeticSlot.BACK) {
+                this.addButton(new CosmeticCapeConfigButtonWidget((this.width / 2) - 86, (this.height / 2) + 36, 16, 16, 0, 0, 0, TEXTURE_BACK_CONFIG, 16, 16, this::onCapeElytraConfigClick, (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, TEXT_BACK_CONFIG, mouseX, mouseY), LiteralText.EMPTY));
+            }
+        }
+
+        // add cosmetics
         this.cosmeticsDisplayed.clear();
         this.cosmeticsDisplayed.addAll(this.cosmeticsAvailable);
         this.cosmeticsDisplayed.removeIf(cosmetic -> cosmetic.getSlot() != this.selectedSlot);
-
-        // reinitialise cosmetic clear button if required
-        this.buttons.removeIf(w -> w instanceof CosmeticClearButtonWidget);
-        this.children.removeIf(w -> w instanceof CosmeticClearButtonWidget);
-
-        if (this.selectedSlot != null) {
-            this.addButton(new CosmeticClearButtonWidget((this.width / 2) + 70, (this.height / 2) + 36, 16, 16, 0, 0, 0, TEXTURE_CLEAR_SLOT, 16, 16, this::onClearSlotClick, (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, TEXT_CLEAR_SLOT, mouseX, mouseY), LiteralText.EMPTY));
-        }
-
-        // remove current cosmetics
-        this.buttons.removeIf(widget -> widget instanceof CosmeticButtonWidget);
-        this.children.removeIf(widget -> widget instanceof CosmeticButtonWidget);
 
         int row = -1;
         for (int i = 0; i < this.cosmeticsDisplayed.size() && i < 21; i++) {

@@ -1,8 +1,8 @@
 package net.dodogang.plume.donor.client.cosmetic.render;
 
-import net.dodogang.plume.donor.cosmetic.Cosmetic;
 import net.dodogang.plume.donor.DonorData;
 import net.dodogang.plume.donor.DonorDataManager;
+import net.dodogang.plume.donor.cosmetic.Cosmetic;
 import net.dodogang.plume.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -34,8 +34,8 @@ public class CosmeticFeatureRenderer<M extends CompositeEntityModel<PlayerEntity
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertices, int light, PlayerEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        DonorData cosmetics = DonorDataManager.get(Util.parseStringUUID(entity.getUuid()));
-        if (cosmetics != null && cosmetics.getSelectedCosmetics().containsValue(this.cosmetic)) {
+        DonorData data = DonorDataManager.get(Util.parseStringUUID(entity.getUuid()));
+        if (data.getSelectedCosmetics().containsValue(this.cosmetic)) {
             FeatureRenderer.render(this.getContextModel(), this.model, this.getTexture(entity), matrices, vertices, light, entity, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch, 1.0f, 1.0f, 1.0f);
         }
     }

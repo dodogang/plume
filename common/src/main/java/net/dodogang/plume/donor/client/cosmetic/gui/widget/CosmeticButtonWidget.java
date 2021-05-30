@@ -1,19 +1,18 @@
 package net.dodogang.plume.donor.client.cosmetic.gui.widget;
 
-import net.dodogang.plume.donor.cosmetic.Cosmetic;
 import net.dodogang.plume.donor.DonorData;
 import net.dodogang.plume.donor.client.DonorDataManagerClient;
 import net.dodogang.plume.donor.client.cosmetic.gui.screen.ingame.CosmeticsScreen;
+import net.dodogang.plume.donor.cosmetic.Cosmetic;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 
 @Environment(EnvType.CLIENT)
-public class CosmeticButtonWidget extends TexturedButtonWidget {
+public class CosmeticButtonWidget extends CosmeticScreenButtonWidget implements ChangingCosmeticButtonWidget {
     private final Cosmetic cosmetic;
 
     public CosmeticButtonWidget(Cosmetic cosmetic, int x, int y, PressAction onClick, TooltipSupplier tooltip) {
@@ -42,7 +41,7 @@ public class CosmeticButtonWidget extends TexturedButtonWidget {
 
     protected void renderSelectedOverlay(MatrixStack matrices) {
         DonorData data = DonorDataManagerClient.getOwn();
-        if (data != null && data.getSelectedCosmetics().containsValue(this.cosmetic)) {
+        if (data.getSelectedCosmetics().containsValue(this.cosmetic)) {
             MinecraftClient.getInstance().getTextureManager().bindTexture(CosmeticsScreen.TEXTURE_SELECTED);
             DrawableHelper.drawTexture(matrices, this.x, this.y, 0, 0, 16, 16, 16, 16);
         }

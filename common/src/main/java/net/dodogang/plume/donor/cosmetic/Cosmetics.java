@@ -1,13 +1,11 @@
 package net.dodogang.plume.donor.cosmetic;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import net.dodogang.plume.Plume;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Cosmetics {
@@ -15,7 +13,7 @@ public class Cosmetics {
     private static final ImmutableList.Builder<Cosmetic> ALL_BUILDER = new ImmutableList.Builder<>();
 
     /*
-     * MELON MANGLER
+     * MELON MANGLER SET
      */
 
     public static final Cosmetic MELON_MANGLER_HAT = createMelonMangler(CosmeticSlot.HAT);
@@ -32,7 +30,7 @@ public class Cosmetics {
     }
 
     /*
-     * NAUTILUS
+     * NAUTILUS SET
      */
 
     public static final Cosmetic NAUTILUS_HAT = createNautilus(CosmeticSlot.HAT);
@@ -56,6 +54,19 @@ public class Cosmetics {
     private static Cosmetic createOrangeNautilus(CosmeticSlot slot) {
         Cosmetic cosmetic = new Cosmetic(new Identifier(Plume.MOD_ID, "orange_nautilus_" + slot.getId()), slot);
         CosmeticSets.NAUTILUS.add(cosmetic);
+        return register(cosmetic);
+    }
+
+    /*
+     * VAGABOND SET
+     */
+
+    public static final Cosmetic VAGABOND_HAT = createVagabond(CosmeticSlot.HAT);
+    public static final Cosmetic VAGABOND_BACK = createVagabond(CosmeticSlot.BACK);
+    public static final Cosmetic VAGABOND_FEET = createVagabond(CosmeticSlot.FEET);
+    private static Cosmetic createVagabond(CosmeticSlot slot) {
+        Cosmetic cosmetic = new Cosmetic(new Identifier(Plume.MOD_ID, "vagabond_" + slot.getId()), slot);
+        CosmeticSets.VAGABOND.add(cosmetic);
         return register(cosmetic);
     }
 

@@ -1,21 +1,20 @@
 package net.dodogang.plume.donor.client.cosmetic.gui.widget;
 
-import net.dodogang.plume.donor.cosmetic.Cosmetic;
 import net.dodogang.plume.donor.DonorData;
-import net.dodogang.plume.donor.cosmetic.CosmeticSlot;
 import net.dodogang.plume.donor.client.DonorDataManagerClient;
 import net.dodogang.plume.donor.client.cosmetic.gui.screen.ingame.CosmeticsScreen;
+import net.dodogang.plume.donor.cosmetic.Cosmetic;
+import net.dodogang.plume.donor.cosmetic.CosmeticSlot;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class CosmeticSlotButtonWidget extends TexturedButtonWidget {
+public class CosmeticSlotButtonWidget extends CosmeticScreenButtonWidget {
     private final CosmeticsScreen parent;
     private final CosmeticSlot slot;
 
@@ -44,13 +43,11 @@ public class CosmeticSlotButtonWidget extends TexturedButtonWidget {
     public void renderButton(MatrixStack matrices, int i, int j, float f) {
         boolean renderedCosmetic = false;
         DonorData data = DonorDataManagerClient.getOwn();
-        if (data != null) {
-            Cosmetic cosmetic = data.getSelectedCosmetics().get(this.slot);
-            if (cosmetic != null) {
-                MinecraftClient.getInstance().getTextureManager().bindTexture(cosmetic.getTexture());
-                DrawableHelper.drawTexture(matrices, this.x, this.y, 0, 0, 16, 16, 16, 16);
-                renderedCosmetic = true;
-            }
+        Cosmetic cosmetic = data.getSelectedCosmetics().get(this.slot);
+        if (cosmetic != null) {
+            MinecraftClient.getInstance().getTextureManager().bindTexture(cosmetic.getTexture());
+            DrawableHelper.drawTexture(matrices, this.x, this.y, 0, 0, 16, 16, 16, 16);
+            renderedCosmetic = true;
         }
 
         int v = this.v;
@@ -72,11 +69,9 @@ public class CosmeticSlotButtonWidget extends TexturedButtonWidget {
     @Override
     public boolean isHovered() {
         DonorData data = DonorDataManagerClient.getOwn();
-        if (data != null) {
-            Cosmetic cosmetic = data.getSelectedCosmetics().get(this.slot);
-            if (cosmetic != null) {
-                return this.hovered;
-            }
+        Cosmetic cosmetic = data.getSelectedCosmetics().get(this.slot);
+        if (cosmetic != null) {
+            return this.hovered;
         }
 
         return super.isHovered() || parent.getSelectedSlot() == this.slot;

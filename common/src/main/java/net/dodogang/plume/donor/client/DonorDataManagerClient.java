@@ -3,7 +3,9 @@ package net.dodogang.plume.donor.client;
 import com.google.common.collect.Lists;
 import net.dodogang.plume.donor.DonorData;
 import net.dodogang.plume.donor.DonorDataManager;
-import net.dodogang.plume.donor.cosmetic.*;
+import net.dodogang.plume.donor.cosmetic.Cosmetic;
+import net.dodogang.plume.donor.cosmetic.CosmeticSlot;
+import net.dodogang.plume.donor.cosmetic.Cosmetics;
 import net.dodogang.plume.util.PlayerUUID;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,7 +23,7 @@ public final class DonorDataManagerClient {
 
     static {
         // TODO patreon + nitro (networking)
-        DonorDataManager.put(DonorData.of(PlayerUUID.$CLIENT, 0, false));
+        DonorDataManager.put(DonorData.of(PlayerUUID.$CLIENT, 0, false, null));
 
         if (PlayerUUID.$TEAM_MEMBERS.contains(PlayerUUID.$CLIENT)) {
             DonorDataManagerClient.addAvailableCosmetics(Cosmetics.ALL_ARRAY);
@@ -31,24 +33,18 @@ public final class DonorDataManagerClient {
     // TODO networking + saved config
     public static void setCosmetic(Cosmetic cosmetic) {
         DonorData data = DonorDataManagerClient.getOwn();
-        if (data != null) {
-            List<Cosmetic> cosmetics = Lists.newArrayList(data.getSelectedCosmetics().values());
-            cosmetics.removeIf(c -> c == cosmetic);
-            cosmetics.add(cosmetic);
+        List<Cosmetic> cosmetics = Lists.newArrayList(data.getSelectedCosmetics().values());
+        cosmetics.removeIf(c -> c == cosmetic);
+        cosmetics.add(cosmetic);
 
-            DonorData.replace(cosmetics.toArray(new Cosmetic[]{}));
-        } else {
-            DonorData.replace(cosmetic);
-        }
+        DonorDataManager.get(PlayerUUID.$CLIENT).setSelectedCosmetics(cosmetics.toArray(new Cosmetic[]{}));
     }
     public static void clearCosmeticSlot(CosmeticSlot slot) {
         DonorData data = DonorDataManagerClient.getOwn();
-        if (data != null) {
-            List<Cosmetic> cosmetics = Lists.newArrayList(data.getSelectedCosmetics().values());
-            cosmetics.removeIf(c -> c.getSlot() == slot);
+        List<Cosmetic> cosmetics = Lists.newArrayList(data.getSelectedCosmetics().values());
+        cosmetics.removeIf(c -> c.getSlot() == slot);
 
-            DonorData.replace(cosmetics.toArray(new Cosmetic[]{}));
-        }
+        DonorDataManager.get(PlayerUUID.$CLIENT).setSelectedCosmetics(cosmetics.toArray(new Cosmetic[]{}));
     }
 
     public static DonorData getOwn() {

@@ -1,4 +1,4 @@
-package net.dodogang.plume.mixin.cosmetic.client;
+package net.dodogang.plume.mixin.donor.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.dodogang.plume.donor.DonorData;
@@ -33,7 +33,7 @@ public class PlayerListHudMixin extends DrawableHelper {
         DonorData data = DonorDataManager.get(uuid);
         boolean isTeamMember = PlayerUUID.$TEAM_MEMBERS.contains(uuid.toString());
 
-        if ((data != null && (data.isPatron() || data.isNitro())) || isTeamMember) {
+        if (data.isPatron() || data.isNitro() || isTeamMember) {
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             this.client.getTextureManager().bindTexture(isTeamMember ? Util.DONOR_BADGE_TEAM : Util.DONOR_BADGE);
 
