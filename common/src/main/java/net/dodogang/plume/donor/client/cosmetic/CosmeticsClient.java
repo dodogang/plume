@@ -16,6 +16,7 @@ import net.dodogang.plume.donor.cosmetic.Cosmetics;
 import net.dodogang.plume.util.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
+import net.minecraft.client.render.entity.feature.CapeFeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.entity.LivingEntity;
@@ -38,7 +39,7 @@ public class CosmeticsClient {
     /**
      * Cosmetic model cape registry.
      */
-    private static final Map<Cosmetic, CapeCosmeticModel> CAPE_MODEL_MAP = new HashMap<>();
+    private static final Map<Cosmetic, Function<CapeFeatureRenderer, CapeCosmeticModel>> CAPE_MODEL_MAP = new HashMap<>();
     /**
      * Cosmetic model elytra registry.
      */
@@ -84,8 +85,8 @@ public class CosmeticsClient {
         RENDERER_MAP.put(cosmetic, ctx);
     }
 
-    public static void registerCapeElytraModel(Cosmetic cosmetic, Supplier<CapeCosmeticModel> cape, Supplier<ElytraCosmeticModel> elytra) {
-        CAPE_MODEL_MAP.put(cosmetic, cape.get());
+    public static void registerCapeElytraModel(Cosmetic cosmetic, Function<CapeFeatureRenderer, CapeCosmeticModel> cape, Supplier<ElytraCosmeticModel> elytra) {
+        CAPE_MODEL_MAP.put(cosmetic, cape);
         ELYTRA_MODEL_MAP.put(cosmetic, elytra.get());
     }
 
@@ -104,7 +105,7 @@ public class CosmeticsClient {
     public static Map<Cosmetic, BiFunction<PlayerEntityRenderer, FeatureRendererContext<PlayerEntity, PlayerEntityModel<PlayerEntity>>, CosmeticFeatureRenderer<?>>> getRenderers() {
         return RENDERER_MAP;
     }
-    public static Map<Cosmetic, CapeCosmeticModel> getCapeModels() {
+    public static Map<Cosmetic, Function<CapeFeatureRenderer, CapeCosmeticModel>> getCapeModels() {
         return CAPE_MODEL_MAP;
     }
     public static Map<Cosmetic, ElytraCosmeticModel> getElytraModels() {

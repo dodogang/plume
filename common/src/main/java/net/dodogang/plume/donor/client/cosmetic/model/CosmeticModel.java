@@ -18,6 +18,9 @@ public abstract class CosmeticModel extends CompositeEntityModel<PlayerEntity> {
         this.renderer = renderer;
     }
 
+    /**
+     * Pass in {@link OverlayTexture#DEFAULT_UV} to prevent damage overlay.
+     */
     @Override
     public void render(MatrixStack matrixStack, VertexConsumer vertexConsumer, int i, int overlay, float f, float g, float h, float k) {
         super.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, f, g, h, k);

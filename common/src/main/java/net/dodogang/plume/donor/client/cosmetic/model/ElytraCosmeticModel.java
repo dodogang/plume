@@ -14,14 +14,6 @@ public abstract class ElytraCosmeticModel extends CosmeticModel {
         super(null);
     }
 
-    @Override
-    public Iterable<ModelPart> getParts() {
-        return ImmutableList.of(this.getLeftWing(), this.getRightWing());
-    }
-
-    public abstract ModelPart getLeftWing();
-    public abstract ModelPart getRightWing();
-
     /**
      * Copied directly from {@link ElytraEntityModel#setAngles(LivingEntity, float, float, float, float, float)}.
      */
@@ -73,6 +65,14 @@ public abstract class ElytraCosmeticModel extends CosmeticModel {
         left.pitch = right.pitch;
         left.roll = -right.roll;
     }
+
+    @Override
+    public Iterable<ModelPart> getParts() {
+        return ImmutableList.of(this.getLeftWing(), this.getRightWing());
+    }
+
+    public abstract ModelPart getLeftWing();
+    public abstract ModelPart getRightWing();
 
     public abstract Identifier getTexture();
 }

@@ -23,14 +23,15 @@
     "client.CreativeInventoryScreenMixin",
     "client.MinecraftClientMixin",
     "donor.client.PlayerListHudMixin",
+    "donor.client.cosmetic.AbstractClientPlayerEntityMixin",
     "donor.client.cosmetic.ArmorFeatureRendererMixin",
     "donor.client.cosmetic.CapeFeatureRendererMixin",
+    "donor.client.cosmetic.ElytraFeatureRendererMixin",
     "donor.client.cosmetic.GameRendererMixin",
     "donor.client.cosmetic.InGameHudMixin",
     "donor.client.cosmetic.PlayerEntityMixin",
     "donor.client.cosmetic.PlayerEntityRendererMixin",
-    "donor.client.cosmetic.AbstractClientPlayerEntityMixin",
-    "donor.client.cosmetic.ElytraFeatureRendererMixin"
+    "donor.client.cosmetic.PlayerEntityModelAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

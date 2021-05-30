@@ -14,6 +14,9 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.CapeFeatureRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +25,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(CapeFeatureRenderer.class)
-public class CapeFeatureRendererMixin {
+public abstract class CapeFeatureRendererMixin extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
+    @SuppressWarnings("unused")
+    private CapeFeatureRendererMixin(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> ctx) {
+        super(ctx);
+    }
+
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void cancelRender(MatrixStack matrices, VertexConsumerProvider vertices, int i, AbstractClientPlayerEntity entity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
         CosmeticsClient.cancelCapeElytraRender(entity, ci);
@@ -33,7 +41,9 @@ public class CapeFeatureRendererMixin {
         DonorData data = DonorDataManager.get(Util.parseStringUUID(entity.getUuid()));
         Cosmetic cosmetic = data.getSelectedCosmetics().get(CosmeticSlot.BACK);
         if (cosmetic != null && CosmeticsClient.getCapeModels().containsKey(cosmetic) && data.getConfig(DonorData.ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS).getAsBoolean()) {
-            CapeCosmeticModel cape = CosmeticsClient.getCapeModels().get(cosmetic);
+            // TODO this is creating a new model every frame??
+            CapeCosmeticModel cape = CosmeticsClient.getCapeModels().get(cosmetic).apply(CapeFeatureRenderer.class.cast(this));
+            cape.setAngles(entity, f, g, h, i, j);
             cape.render(matrices, vertices.getBuffer(RenderLayer.getEntitySolid(cape.getTexture())), i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             matrices.pop();
 
