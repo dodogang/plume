@@ -27,11 +27,11 @@ public class MelonManglerRobesModel extends CosmeticModel {
 
         leftArm = new ModelPart(this);
         leftArm.setPivot(-6.0F, 2.0F, 0.0F);
-        leftArm.setTextureOffset(30, 42).addCuboid(-2.5F, -1.75F, -2.0F, 4.0F, 7.0F, 4.0F, 0.28F, false);
+        leftArm.setTextureOffset(30, 42).addCuboid(-2.75F, -1.75F, -2.0F, 4.0F, 7.0F, 4.0F, 0.28F, false);
 
         rightArm = new ModelPart(this);
         rightArm.setPivot(6.0F, 2.0F, 0.0F);
-        rightArm.setTextureOffset(30, 42).addCuboid(-1.5F, -1.75F, -2.0F, 4.0F, 7.0F, 4.0F, 0.28F, true);
+        rightArm.setTextureOffset(30, 42).addCuboid(-1.25F, -1.75F, -2.0F, 4.0F, 7.0F, 4.0F, 0.28F, true);
     }
 
     @Override
