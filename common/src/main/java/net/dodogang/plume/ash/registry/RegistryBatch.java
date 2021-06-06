@@ -36,9 +36,9 @@ public abstract class RegistryBatch<T> {
      *
      * @param name the name of the object to be combined with the modId to make the id
      * @param object the object to be registered
-     * @return a {@link RegistrySupplier} containing the id of the object
+     * @return the registered object
      */
-    public abstract <V extends T> RegistrySupplier<V> add(String name, V object);
+    public abstract <V extends T> V add(String name, V object);
 
     /**
      * Registers all the objects in the registry batch. Should only be called
@@ -51,7 +51,7 @@ public abstract class RegistryBatch<T> {
         registered = true;
         registerImpl();
     }
-    
+
     protected abstract void registerImpl();
 
     @SuppressWarnings({"unchecked", "rawtypes"})

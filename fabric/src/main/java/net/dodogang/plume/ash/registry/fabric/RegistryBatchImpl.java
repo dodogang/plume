@@ -1,7 +1,6 @@
 package net.dodogang.plume.ash.registry.fabric;
 
 import net.dodogang.plume.ash.registry.RegistryBatch;
-import net.dodogang.plume.ash.registry.RegistrySupplier;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -33,14 +32,13 @@ public final class RegistryBatchImpl<T> extends RegistryBatch<T> {
      *
      * @param name the name of the object to be combined with the modId to make the id
      * @param object the object to be registered
-     * @return a {@link RegistrySupplier} containing the id of the object
+     * @return the registered object
      */
-    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    public <V extends T> RegistrySupplier<V> add(String name, V object) {
+    public <V extends T> V add(String name, V object) {
         Identifier id = new Identifier(modId, name);
         Registry.register(registry, id, object);
-        return new RegistrySupplier(id, registry, object);
+        return object;
     }
 
     @Override

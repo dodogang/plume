@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.Reflection;
 import net.dodogang.plume.ash.Environment;
 import net.dodogang.plume.ash.registry.FuelRegistry;
-import net.dodogang.plume.ash.registry.RegistrySupplier;
 import net.dodogang.plume.block.BeamBlock;
 import net.dodogang.plume.block.CeilingPlantBlock;
 import net.dodogang.plume.block.TallCeilingPlantBlock;
@@ -33,11 +32,11 @@ public final class Plume {
 
     public static final boolean runDevTests = Environment.isDevelopmentEnvironment();
 
-    private static RegistrySupplier<Block> TEST_BLOCK;
-    private static RegistrySupplier<Block> TEST_BEAM_BLOCK;
-    private static RegistrySupplier<Block> TEST_CEILING_PLANT_BLOCK;
-    private static RegistrySupplier<Block> TEST_TALL_CEILING_PLANT_BLOCK;
-    private static RegistrySupplier<Block> TEST_TALLER_PLANT_BLOCK;
+    private static Block TEST_BLOCK;
+    private static Block TEST_BEAM_BLOCK;
+    private static Block TEST_CEILING_PLANT_BLOCK;
+    private static Block TEST_TALL_CEILING_PLANT_BLOCK;
+    private static Block TEST_TALLER_PLANT_BLOCK;
 
     @SuppressWarnings("UnstableApiUsage")
     public static void initialize() {
@@ -75,8 +74,8 @@ public final class Plume {
             blocks.register();
 
             PointOfInterestTypeAppender.appendBlocks(
-                    PointOfInterestType.BUTCHER,
-                    TEST_BLOCK.getInitialValue()
+                PointOfInterestType.BUTCHER,
+                    TEST_BLOCK
             );
         }
 
@@ -91,7 +90,7 @@ public final class Plume {
         if (runDevTests) {
             log("Development environment detected! Running dev setup.");
 
-            FuelRegistry.register(80, TEST_BLOCK.get());
+            FuelRegistry.register(80, Plume.TEST_BLOCK);
             FuelRegistry.register(80, Blocks.DIRT);
             FuelRegistry.register(80, Items.BLUE_DYE);
         }
