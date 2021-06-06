@@ -1,7 +1,6 @@
 package net.dodogang.plume.registry;
 
 import net.dodogang.plume.ash.registry.RegistryBatch;
-import net.dodogang.plume.ash.registry.RegistrySupplier;
 import net.dodogang.plume.block.PlumeStairsBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -45,9 +44,9 @@ public final class BlockRegistryBatch {
      * @param name the name of the block to be combined with the modId to make the id
      * @param block the block to be registered
      * @param settings the {@link Item.Settings} that will make the block item.
-     * @return a {@link RegistrySupplier} containing the id of the block
+     * @return the registered block
      */
-    public <B extends Block>RegistrySupplier<B> add(String name, B block, @Nullable Item.Settings settings) {
+    public <B extends Block> B add(String name, B block, @Nullable Item.Settings settings) {
         if (settings != null) {
             this.itemRegistry.add(name, new BlockItem(block, settings));
         }
@@ -61,9 +60,9 @@ public final class BlockRegistryBatch {
      *
      * @param name the name of the block to be combined with the modId to make the id
      * @param block the block to be registered
-     * @return a {@link RegistrySupplier} containing the id of the block
+     * @return the registered block
      */
-    public <B extends Block>RegistrySupplier<B> add(String name, B block) {
+    public <B extends Block> B add(String name, B block) {
         return add(name, block, this.defaultSettings);
     }
 
@@ -75,9 +74,9 @@ public final class BlockRegistryBatch {
      * @param name the name of the block to be combined with the modId to make the id
      * @param blockFunction a function that constructs a block from a {@link AbstractBlock.Settings}
      * @param toCopy an {@link AbstractBlock} that will have its block settings copied.
-     * @return a {@link RegistrySupplier} containing the id of the block
+     * @return the registered block
      */
-    public <B extends Block> RegistrySupplier<B> addCopy(
+    public <B extends Block> B addCopy(
             String name,
             Function<AbstractBlock.Settings, B> blockFunction,
             AbstractBlock toCopy
@@ -92,9 +91,9 @@ public final class BlockRegistryBatch {
      *
      * @param name the name of the block to be combined with the modId to make the id
      * @param toCopy an {@link AbstractBlock} that will have its block settings copied.
-     * @return a {@link RegistrySupplier} containing the id of the block
+     * @return the registered block
      */
-    public RegistrySupplier<PlumeStairsBlock> addStairCopy(String name, Block toCopy) {
+    public PlumeStairsBlock addStairCopy(String name, Block toCopy) {
         return this.add(name, new PlumeStairsBlock(toCopy.getDefaultState(), AbstractBlock.Settings.copy(toCopy)));
     }
 
