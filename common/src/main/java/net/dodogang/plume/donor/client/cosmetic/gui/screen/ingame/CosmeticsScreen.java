@@ -26,8 +26,10 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.*;
@@ -47,6 +49,7 @@ public class CosmeticsScreen extends Screen {
     public static final TranslatableText    TEXT_TITLE                      = new TranslatableText("screen." + new Identifier(Plume.MOD_ID, "cosmetics"));
     public static final TranslatableText    TEXT_NO_SELECTED_SLOT           = new TranslatableText("screen." + new Identifier(Plume.MOD_ID, "cosmetics.no_selected_slot"));
     public static final TranslatableText    TEXT_CLEAR_SLOT                 = new TranslatableText("screen." + new Identifier(Plume.MOD_ID, "cosmetics.clear_cosmetic_slot"));
+    public static final TranslatableText    TEXT_CLEAR_SLOT_ALL             = (TranslatableText) new TranslatableText("screen." + new Identifier(Plume.MOD_ID, "cosmetics.clear_cosmetic_slot_all")).formatted(Formatting.RED);
     public static final TranslatableText    TEXT_BACK_CONFIG                = new TranslatableText("screen." + new Identifier(Plume.MOD_ID, "cosmetics.back_config"));
 
     private static final List<CosmeticSlot> COSMETIC_SLOTS_ARMOR            = Arrays.stream(CosmeticSlot.values())
@@ -64,6 +67,7 @@ public class CosmeticsScreen extends Screen {
     protected float mouseY;
     protected int backgroundOriginX;
     protected int backgroundOriginY;
+    protected boolean shiftHeld = false;
 
     @Nullable protected CosmeticSlot selectedSlot;
 
@@ -154,7 +158,13 @@ public class CosmeticsScreen extends Screen {
         this.updateCosmetics();
     }
     private void onClearSlotClick(ButtonWidget widget) {
-        DonorDataManagerClient.clearCosmeticSlot(this.selectedSlot);
+        if (this.shiftHeld) {
+            for (CosmeticSlot slot : CosmeticSlot.values()) {
+                DonorDataManagerClient.clearCosmeticSlot(slot);
+            }
+        } else {
+            DonorDataManagerClient.clearCosmeticSlot(this.selectedSlot);
+        }
 
         this.selectedSlot = null;
         this.updateCosmetics();
@@ -183,7 +193,7 @@ public class CosmeticsScreen extends Screen {
         this.children.removeIf(w -> w instanceof ChangingCosmeticButtonWidget);
 
         if (this.selectedSlot != null) {
-            this.addButton(new ClearCosmeticSlotButtonWidget((this.width / 2) + 70, (this.height / 2) + 36, 16, 16, 0, 0, 0, TEXTURE_CLEAR_SLOT, 16, 16, this::onClearSlotClick, (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, TEXT_CLEAR_SLOT, mouseX, mouseY), LiteralText.EMPTY));
+            this.addButton(new ClearCosmeticSlotButtonWidget((this.width / 2) + 70, (this.height / 2) + 36, 16, 16, 0, 0, 0, TEXTURE_CLEAR_SLOT, 16, 16, this::onClearSlotClick, (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, this.shiftHeld ? TEXT_CLEAR_SLOT_ALL : TEXT_CLEAR_SLOT, mouseX, mouseY), LiteralText.EMPTY));
 
             if (this.selectedSlot == CosmeticSlot.BACK) {
                 this.addButton(new CosmeticCapeConfigButtonWidget((this.width / 2) - 86, (this.height / 2) + 36, 16, 16, 0, 0, 0, TEXTURE_BACK_CONFIG, 16, 16, this::onCapeElytraConfigClick, (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, TEXT_BACK_CONFIG, mouseX, mouseY), LiteralText.EMPTY));
@@ -219,5 +229,23 @@ public class CosmeticsScreen extends Screen {
     @Override
     public boolean isPauseScreen() {
         return false;
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
+            this.shiftHeld = true;
+        }
+
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
+    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
+            this.shiftHeld = false;
+        }
+
+        return super.keyReleased(keyCode, scanCode, modifiers);
     }
 }

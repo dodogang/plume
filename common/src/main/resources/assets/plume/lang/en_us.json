@@ -7,6 +7,7 @@
   "screen.plume:cosmetics": "Cosmetics",
   "screen.plume:cosmetics.no_selected_slot": "Select a cosmetic slot!",
   "screen.plume:cosmetics.clear_cosmetic_slot": "Clear Slot",
+  "screen.plume:cosmetics.clear_cosmetic_slot_all": "Clear All Slots",
   "screen.plume:cosmetics.back_config": "Toggle Cape/Elytra",
 
   "key.categories.plume": "Dodo Gang",
