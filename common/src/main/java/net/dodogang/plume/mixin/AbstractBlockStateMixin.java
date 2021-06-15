@@ -1,6 +1,6 @@
 package net.dodogang.plume.mixin;
 
-import net.dodogang.plume.ash.tag.PlumeTags;
+import net.dodogang.plume.ash.tag.AshTags;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -26,7 +26,7 @@ public abstract class AbstractBlockStateMixin {
     @Inject(at = @At("HEAD"), method = "isOf", cancellable = true)
     private void isBookshelf(Block block, CallbackInfoReturnable<Boolean> info) {
         if (block.equals(Blocks.BOOKSHELF)) {
-            info.setReturnValue(this.isIn(PlumeTags.Blocks.BOOKSHELVES));
+            info.setReturnValue(this.isIn(AshTags.Blocks.BOOKSHELVES));
         }
     }
 }
