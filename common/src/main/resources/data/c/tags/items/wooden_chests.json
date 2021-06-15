@@ -2,7 +2,6 @@
     "replace": false,
     "values": [
         "minecraft:chest",
-        "minecraft:trapped_chest",
-        "minecraft:stick"
+        "minecraft:trapped_chest"
     ]
 }
