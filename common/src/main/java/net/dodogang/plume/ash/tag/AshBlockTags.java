@@ -7,14 +7,14 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 
 public class AshBlockTags {
-    public static final Tag<Block> BOOKSHELVES = platformTag("bookshelves");
+    public static final Tag.Identified<Block> BOOKSHELVES = platformTag("bookshelves");
 
-    public static final Tag<Block> CHESTS = platformTag("chests", "chests");
-    public static final Tag<Block> ENDER_CHESTS = platformTag("ender_chests", "chests/ender");
-    public static final Tag<Block> TRAPPED_CHESTS = platformTag("trapped_chests", "chests/trapped");
-    public static final Tag<Block> WOODEN_CHESTS = platformTag("wooden_chests", "chests/wooden");
+    public static final Tag.Identified<Block> CHESTS = platformTag("chests");
+    public static final Tag.Identified<Block> ENDER_CHESTS = platformTag("ender_chests", "chests/ender");
+    public static final Tag.Identified<Block> TRAPPED_CHESTS = platformTag("trapped_chests", "chests/trapped");
+    public static final Tag.Identified<Block> WOODEN_CHESTS = platformTag("wooden_chests", "chests/wooden");
 
-    private static Tag<Block> platformTag(String fabricPath, String forgePath) {
+    private static Tag.Identified<Block> platformTag(String fabricPath, String forgePath) {
         if (Environment.getPlatform() == Platform.FORGE) {
             return TagRegistry.block(new Identifier("forge", forgePath));
         } else {
@@ -22,7 +22,7 @@ public class AshBlockTags {
         }
     }
 
-    private static Tag<Block> platformTag(String path) {
+    private static Tag.Identified<Block> platformTag(String path) {
         return platformTag(path, path);
     }
 }
