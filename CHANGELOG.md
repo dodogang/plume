@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v0.6.0 - 2021-6-14
+### Added
+- Add `chests`, `ender_chests`, `trapped_chests`, `wooden_chests` ash tags.
+- Add ability for wooden_chests to be equipped to donkeys.
+
+### Changed
+- Split `PlumeTags` into `AshBlockTags` and `AshItemTags`.
+
 ## v0.5.4 - 2021-5-16
 ### Added
 - Add `RenderLayerRegistry` for setting a block or fluid's render layer.
