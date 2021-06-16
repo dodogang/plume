@@ -32,6 +32,17 @@ dependencies {
     }
 }
 
+loom {
+    runs {
+        data {
+            server()
+
+            vmArg "-Dplume.datagen=true"
+            vmArg "-Dplume.datagen.path=\"${project.file("src/generated/resources")};${project.file("$buildDir/resources/main")}\""
+        }
+    }
+}
+
 processResources {
     inputs.property "version", project.version
 

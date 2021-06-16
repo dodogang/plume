@@ -1,0 +1,16 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "plume:icon/dodo.png",
+      "ascent": 8,
+      "chars": [ "▭" ]
+    },
+    {
+      "type": "bitmap",
+      "file": "plume:icon/dodo_golden.png",
+      "ascent": 8,
+      "chars": [ "▬" ]
+    }
+  ]
+}

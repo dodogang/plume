@@ -88,4 +88,8 @@ public final class Plume {
             FuelRegistry.register(80, Items.BLUE_DYE);
         }
     }
+
+    public static Block getTestBlock() {
+        return Plume.TEST_BLOCK;
+    }
 }

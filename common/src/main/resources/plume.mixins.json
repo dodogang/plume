@@ -2,11 +2,11 @@
   "required": true,
   "minVersion": "0.8",
   "package": "net.dodogang.plume.mixin",
+  "plugin": "net.dodogang.plume.mixin.PlumeMixinPlugin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AbstractBlockStateMixin",
     "PointOfInterestTypeAccessor",
-
     "supporters_tags.AttachedStemBlockMixin",
     "supporters_tags.CropBlockMixin",
     "supporters_tags.DeadBushBlockMixin",
@@ -17,7 +17,10 @@
     "supporters_tags.RootsBlockMixin",
     "supporters_tags.SproutsBlockMixin",
     "supporters_tags.StemBlockMixin",
-    "supporters_tags.WitherRoseBlockMixin"
+    "supporters_tags.WitherRoseBlockMixin",
+    "test.datagen.BlockStateTableMixin",
+    "test.datagen.ItemModelTableMixin",
+    "test.datagen.PlumeLootTableDataProviderMixin"
   ],
   "client": [
     "client.CreativeInventoryScreenAccessor",
