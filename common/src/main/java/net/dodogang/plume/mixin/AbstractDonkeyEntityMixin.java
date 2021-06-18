@@ -15,15 +15,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 @Mixin(AbstractDonkeyEntity.class)
 public abstract class AbstractDonkeyEntityMixin extends HorseBaseEntity {
     @Shadow public abstract boolean hasChest();
-
     @Shadow public abstract void setHasChest(boolean bl);
-
     @Shadow protected abstract void playAddChestSound();
 
-    public AbstractDonkeyEntityMixin(EntityType<? extends HorseBaseEntity> entityType, World world) {
+    private AbstractDonkeyEntityMixin(EntityType<? extends HorseBaseEntity> entityType, World world) {
         super(entityType, world);
     }
 
