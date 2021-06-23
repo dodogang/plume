@@ -1,9 +1,13 @@
 package net.dodogang.plume.ash.tag.fabric;
 
+import net.fabricmc.fabric.mixin.tag.extension.AccessorFluidTags;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.EntityTypeTags;
+import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
@@ -16,8 +20,8 @@ public final class TagRegistryImpl {
      * @param id the identifier
      * @return the created block tag
      */
-    public static Tag<Block> block(Identifier id) {
-        return net.fabricmc.fabric.api.tag.TagRegistry.block(id);
+    public static Tag.Identified<Block> block(Identifier id) {
+        return net.fabricmc.fabric.api.tag.TagRegistry.create(id, BlockTags::getTagGroup);
     }
 
     /**
@@ -26,8 +30,8 @@ public final class TagRegistryImpl {
      * @param id the identifier
      * @return the created entity type tag
      */
-    public static Tag<EntityType<?>> entityType(Identifier id) {
-        return net.fabricmc.fabric.api.tag.TagRegistry.entityType(id);
+    public static Tag.Identified<EntityType<?>> entityType(Identifier id) {
+        return net.fabricmc.fabric.api.tag.TagRegistry.create(id, EntityTypeTags::getTagGroup);
     }
 
     /**
@@ -36,8 +40,8 @@ public final class TagRegistryImpl {
      * @param id the identifier
      * @return the created fluid tag
      */
-    public static Tag<Fluid> fluid(Identifier id) {
-        return net.fabricmc.fabric.api.tag.TagRegistry.fluid(id);
+    public static Tag.Identified<Fluid> fluid(Identifier id) {
+        return net.fabricmc.fabric.api.tag.TagRegistry.create(id, () -> AccessorFluidTags.getRequiredTags().getGroup());
     }
 
     /**
@@ -46,7 +50,7 @@ public final class TagRegistryImpl {
      * @param id the identifier
      * @return the created item tag
      */
-    public static Tag<Item> item(Identifier id) {
-        return net.fabricmc.fabric.api.tag.TagRegistry.item(id);
+    public static Tag.Identified<Item> item(Identifier id) {
+        return net.fabricmc.fabric.api.tag.TagRegistry.create(id, ItemTags::getTagGroup);
     }
 }

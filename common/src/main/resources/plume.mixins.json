@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AbstractBlockStateMixin",
+    "AbstractDonkeyEntityMixin",
     "PointOfInterestTypeAccessor",
 
     "supporters_tags.AttachedStemBlockMixin",

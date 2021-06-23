@@ -18,7 +18,7 @@ public final class TagRegistry {
      * @return the created block tag
      */
     @ExpectPlatform
-    public static Tag<Block> block(Identifier id) {
+    public static Tag.Identified<Block> block(Identifier id) {
         throw new AssertionError();
     }
 
@@ -29,7 +29,7 @@ public final class TagRegistry {
      * @return the created entity type tag
      */
     @ExpectPlatform
-    public static Tag<EntityType<?>> entityType(Identifier id) {
+    public static Tag.Identified<EntityType<?>> entityType(Identifier id) {
         throw new AssertionError();
     }
 
@@ -40,7 +40,7 @@ public final class TagRegistry {
      * @return the created fluid tag
      */
     @ExpectPlatform
-    public static Tag<Fluid> fluid(Identifier id) {
+    public static Tag.Identified<Fluid> fluid(Identifier id) {
         throw new AssertionError();
     }
 
@@ -51,7 +51,7 @@ public final class TagRegistry {
      * @return the created item tag
      */
     @ExpectPlatform
-    public static Tag<Item> item(Identifier id) {
+    public static Tag.Identified<Item> item(Identifier id) {
         throw new AssertionError();
     }
 }
