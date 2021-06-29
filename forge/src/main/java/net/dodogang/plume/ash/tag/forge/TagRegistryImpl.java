@@ -16,7 +16,7 @@ public final class TagRegistryImpl {
      * @param id the identifier
      * @return the created block tag
      */
-    public static Tag<Block> block(Identifier id) {
+    public static Tag.Identified<Block> block(Identifier id) {
         return BlockTags.register(id.toString());
     }
 
@@ -26,7 +26,7 @@ public final class TagRegistryImpl {
      * @param id the identifier
      * @return the created entity type tag
      */
-    public static Tag<EntityType<?>> entityType(Identifier id) {
+    public static Tag.Identified<EntityType<?>> entityType(Identifier id) {
         return EntityTypeTags.register(id.toString());
     }
 
@@ -36,7 +36,7 @@ public final class TagRegistryImpl {
      * @param id the identifier
      * @return the created fluid tag
      */
-    public static Tag<Fluid> fluid(Identifier id) {
+    public static Tag.Identified<Fluid> fluid(Identifier id) {
         return FluidTags.register(id.toString());
     }
 
@@ -46,7 +46,7 @@ public final class TagRegistryImpl {
      * @param id the identifier
      * @return the created item tag
      */
-    public static Tag<Item> item(Identifier id) {
+    public static Tag.Identified<Item> item(Identifier id) {
         return ItemTags.register(id.toString());
     }
 }
