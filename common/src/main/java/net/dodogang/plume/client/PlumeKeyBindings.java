@@ -7,6 +7,8 @@ import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 public class PlumeKeyBindings {
+    public static final KeyBinding OPEN_COSMETICS_MENU = register("open_cosmetics_menu", GLFW.GLFW_KEY_UNKNOWN);
+
     private static KeyBinding register(String id, int code) {
         return KeyBindingRegistry.register(new KeyBinding(
                 "key." + Plume.MOD_ID + "." + id,
