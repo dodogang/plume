@@ -37,10 +37,10 @@ public final class Plume {
     private static Block TEST_TALLER_PLANT_BLOCK;
 
     public static void initialize() {
-        LOGGER.log(Level.INFO, "Initializing");
+        log("Initializing");
 
         if (runDevTests) {
-            LOGGER.log(Level.INFO, "Development environment detected! Running dev initialize.");
+            log("Development environment detected! Running dev initialize.");
 
             ItemGroup itemGroup = new TabbedItemGroup(
                 "plume_test",
@@ -92,16 +92,23 @@ public final class Plume {
             );
         }
 
-        LOGGER.log(Level.INFO, "Initialized");
+       log("Initialized");
     }
 
     public static void setup() {
         if (runDevTests) {
-            LOGGER.log(Level.INFO, "Development environment detected! Running dev setup.");
+            log("Development environment detected! Running dev setup.");
 
             FuelRegistry.register(80, Plume.TEST_BLOCK);
             FuelRegistry.register(80, Blocks.DIRT);
             FuelRegistry.register(80, Items.BLUE_DYE);
         }
+    }
+
+    public static void log(Level level, String message) {
+        LOGGER.log(level, "[{}] {}", MOD_NAME, message);
+    }
+    public static void log(String message) {
+        Plume.log(Level.INFO, message);
     }
 }

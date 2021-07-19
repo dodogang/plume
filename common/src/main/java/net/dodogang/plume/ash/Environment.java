@@ -2,6 +2,8 @@ package net.dodogang.plume.ash;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
 
+import java.nio.file.Path;
+
 public final class Environment {
     private Environment() {}
 
@@ -18,6 +20,11 @@ public final class Environment {
      */
     @ExpectPlatform
     public static Platform getPlatform() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static Path getConfigDir() {
         throw new AssertionError();
     }
 }

@@ -4,6 +4,8 @@ import net.dodogang.plume.ash.Platform;
 import net.fabricmc.loader.api.FabricLoader;
 import org.jetbrains.annotations.ApiStatus;
 
+import java.nio.file.Path;
+
 @ApiStatus.Internal
 public final class EnvironmentImpl {
     public static boolean isDevelopmentEnvironment() {
@@ -18,5 +20,9 @@ public final class EnvironmentImpl {
      */
     public static Platform getPlatform() {
         return Platform.FABRIC;
+    }
+
+    public static Path getConfigDir() {
+        return FabricLoader.getInstance().getConfigDir();
     }
 }
