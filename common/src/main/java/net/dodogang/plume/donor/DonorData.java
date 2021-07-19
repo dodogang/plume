@@ -3,9 +3,7 @@ package net.dodogang.plume.donor;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
-import net.dodogang.plume.donor.client.DonorDataManagerClient;
 import net.dodogang.plume.donor.cosmetic.Cosmetic;
 import net.dodogang.plume.donor.cosmetic.CosmeticSlot;
 import net.dodogang.plume.donor.cosmetic.Cosmetics;
@@ -73,7 +71,7 @@ public class DonorData {
     public static ImmutableMap<String, JsonElement> getDefaultConfig() {
         if (DEFAULT_CONFIG == null) {
             DEFAULT_CONFIG = ImmutableMap.of(
-                ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS, new JsonPrimitive(false)
+                ConfigOptions.BOOL_RENDER_CLOAKS_AND_ELYTRAS, new JsonPrimitive(false)
             );
         }
 
@@ -147,6 +145,6 @@ public class DonorData {
     }
 
     public static class ConfigOptions {
-        public static final String BOOL_RENDER_CAPES_AND_ELYTRAS = "render_capes_and_elytras";
+        public static final String BOOL_RENDER_CLOAKS_AND_ELYTRAS = "render_cloaks_and_elytras";
     }
 }

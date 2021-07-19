@@ -7,25 +7,25 @@ import net.minecraft.client.render.entity.feature.CapeFeatureRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
-public abstract class CapeCosmeticModel extends CosmeticModel {
+public abstract class CloakCosmeticModel extends CosmeticModel {
     private final CapeFeatureRenderer renderer;
 
-    public CapeCosmeticModel(CapeFeatureRenderer renderer) {
+    public CloakCosmeticModel(CapeFeatureRenderer renderer) {
         super(null);
         this.renderer = renderer;
     }
 
     @Override
     public void setAngles(PlayerEntity entity, float f, float g, float h, float i, float j) {
-        this.getCape().copyPositionAndRotation(((PlayerEntityModelAccessor) this.renderer.getContextModel()).getCape());
+        this.getCloak().copyPositionAndRotation(((PlayerEntityModelAccessor) this.renderer.getContextModel()).getCape());
     }
 
     @Override
     public Iterable<ModelPart> getParts() {
-        return ImmutableList.of(this.getCape());
+        return ImmutableList.of(this.getCloak());
     }
 
-    public abstract ModelPart getCape();
+    public abstract ModelPart getCloak();
 
     public abstract Identifier getTexture();
 }

@@ -38,14 +38,14 @@ public abstract class ElytraFeatureRendererMixin<T extends LivingEntity, M exten
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void cancelRender(MatrixStack matrices, VertexConsumerProvider vertices, int i, T entity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
-        CosmeticsClient.cancelCapeElytraRender(entity, ci);
+        CosmeticsClient.cancelCapeOrElytraRender(entity, ci);
     }
 
     @SuppressWarnings("unchecked")
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/feature/ElytraFeatureRenderer;getContextModel()Lnet/minecraft/client/render/entity/model/EntityModel;"), cancellable = true)
     private void replaceCape(MatrixStack matrices, VertexConsumerProvider vertices, int i, T entity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
         DonorData data = DonorDataManager.get(Util.parseStringUUID(entity.getUuid()));
-        if (data.getConfig().get(DonorData.ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS).getAsBoolean()) {
+        if (data.getConfig().get(DonorData.ConfigOptions.BOOL_RENDER_CLOAKS_AND_ELYTRAS).getAsBoolean()) {
             Cosmetic cosmetic = data.getSelectedCosmetics().get(CosmeticSlot.BACK);
             if (cosmetic != null) {
                 ElytraCosmeticModel elytra = CosmeticsClient.getElytraModels().get(cosmetic);

@@ -39,11 +39,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Inject(method = "isPartVisible", at = @At("HEAD"), cancellable = true)
-    private void checkForCosmeticCapeVisible(PlayerModelPart part, CallbackInfoReturnable<Boolean> cir) {
+    private void checkForCosmeticCloakVisible(PlayerModelPart part, CallbackInfoReturnable<Boolean> cir) {
         if (part == PlayerModelPart.CAPE) {
             DonorData data = DonorDataManager.get(Util.parseStringUUID(this.getUuid()));
             Cosmetic cosmetic = data.getSelectedCosmetics().get(CosmeticSlot.BACK);
-            if (cosmetic != null && !CosmeticsClient.getCapeModels().containsKey(cosmetic) && !data.getConfig(DonorData.ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS).getAsBoolean()) {
+            if (cosmetic != null && !CosmeticsClient.getCloakModels().containsKey(cosmetic) && !data.getConfig(DonorData.ConfigOptions.BOOL_RENDER_CLOAKS_AND_ELYTRAS).getAsBoolean()) {
                 cir.setReturnValue(false);
             }
         }

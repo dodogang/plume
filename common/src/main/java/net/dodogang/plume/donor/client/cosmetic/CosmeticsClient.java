@@ -3,7 +3,7 @@ package net.dodogang.plume.donor.client.cosmetic;
 import net.dodogang.plume.client.PlumeClient;
 import net.dodogang.plume.donor.DonorData;
 import net.dodogang.plume.donor.DonorDataManager;
-import net.dodogang.plume.donor.client.cosmetic.model.CapeCosmeticModel;
+import net.dodogang.plume.donor.client.cosmetic.model.CloakCosmeticModel;
 import net.dodogang.plume.donor.client.cosmetic.model.CosmeticModel;
 import net.dodogang.plume.donor.client.cosmetic.model.ElytraCosmeticModel;
 import net.dodogang.plume.donor.client.cosmetic.model.melon_mangler.*;
@@ -37,9 +37,9 @@ public class CosmeticsClient {
      */
     private static final Map<Cosmetic, BiFunction<PlayerEntityRenderer, FeatureRendererContext<PlayerEntity, PlayerEntityModel<PlayerEntity>>, CosmeticFeatureRenderer<?>>> RENDERER_MAP = new HashMap<>();
     /**
-     * Cosmetic model cape registry.
+     * Cosmetic model cloak registry.
      */
-    private static final Map<Cosmetic, Function<CapeFeatureRenderer, CapeCosmeticModel>> CAPE_MODEL_MAP = new HashMap<>();
+    private static final Map<Cosmetic, Function<CapeFeatureRenderer, CloakCosmeticModel>> CLOAK_MODEL_MAP = new HashMap<>();
     /**
      * Cosmetic model elytra registry.
      */
@@ -68,7 +68,7 @@ public class CosmeticsClient {
         registerRenderer(Cosmetics.VAGABOND_BACK, VagabondSackModel::new, Texture.VAGABOND);
         registerRenderer(Cosmetics.VAGABOND_FEET, VagabondBootsModel::new, Texture.VAGABOND);
 
-        registerCapeElytraModel(Cosmetics.VAGABOND_BACK, VagabondCapeModel::new, VagabondElytraModel::new);
+        registerCloakElytraModel(Cosmetics.VAGABOND_BACK, VagabondCloakModel::new, VagabondElytraModel::new);
 
         registerTicker(Cosmetics.MELON_MANGLER_TICKER, (world, player) -> {
             MinecraftClient client = MinecraftClient.getInstance();
@@ -85,8 +85,8 @@ public class CosmeticsClient {
         RENDERER_MAP.put(cosmetic, ctx);
     }
 
-    public static void registerCapeElytraModel(Cosmetic cosmetic, Function<CapeFeatureRenderer, CapeCosmeticModel> cape, Supplier<ElytraCosmeticModel> elytra) {
-        CAPE_MODEL_MAP.put(cosmetic, cape);
+    public static void registerCloakElytraModel(Cosmetic cosmetic, Function<CapeFeatureRenderer, CloakCosmeticModel> cloak, Supplier<ElytraCosmeticModel> elytra) {
+        CLOAK_MODEL_MAP.put(cosmetic, cloak);
         ELYTRA_MODEL_MAP.put(cosmetic, elytra.get());
     }
 
@@ -94,10 +94,10 @@ public class CosmeticsClient {
         TICKER_MAP.put(cosmetic, ticker);
     }
 
-    public static void cancelCapeElytraRender(LivingEntity entity, CallbackInfo ci) {
+    public static void cancelCapeOrElytraRender(LivingEntity entity, CallbackInfo ci) {
         DonorData data = DonorDataManager.get(Util.parseStringUUID(entity.getUuid()));
         Cosmetic cosmetic = data.getSelectedCosmetics().get(CosmeticSlot.BACK);
-        if (cosmetic != null && !CosmeticsClient.getCapeModels().containsKey(cosmetic) && !data.getConfig(DonorData.ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS).getAsBoolean()) {
+        if (cosmetic != null && !CosmeticsClient.getCloakModels().containsKey(cosmetic) && !data.getConfig(DonorData.ConfigOptions.BOOL_RENDER_CLOAKS_AND_ELYTRAS).getAsBoolean()) {
             ci.cancel();
         }
     }
@@ -105,8 +105,8 @@ public class CosmeticsClient {
     public static Map<Cosmetic, BiFunction<PlayerEntityRenderer, FeatureRendererContext<PlayerEntity, PlayerEntityModel<PlayerEntity>>, CosmeticFeatureRenderer<?>>> getRenderers() {
         return RENDERER_MAP;
     }
-    public static Map<Cosmetic, Function<CapeFeatureRenderer, CapeCosmeticModel>> getCapeModels() {
-        return CAPE_MODEL_MAP;
+    public static Map<Cosmetic, Function<CapeFeatureRenderer, CloakCosmeticModel>> getCloakModels() {
+        return CLOAK_MODEL_MAP;
     }
     public static Map<Cosmetic, ElytraCosmeticModel> getElytraModels() {
         return ELYTRA_MODEL_MAP;

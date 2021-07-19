@@ -174,12 +174,13 @@ public class CosmeticsScreen extends Screen {
         DonorDataManagerClient.setCosmetic(cosmetic);
         cosmetic.onClick();
     }
-    private void onCapeElytraConfigClick(ButtonWidget widget) {
+    private void onCloakElytraConfigClick(ButtonWidget widget) {
         DonorData data = DonorDataManagerClient.getOwn();
         Map<String, JsonElement> oldConfig = data.getConfig();
 
         Map<String, JsonElement> config = new HashMap<>(oldConfig);
-        config.put(DonorData.ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS, new JsonPrimitive(!oldConfig.get(DonorData.ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS).getAsBoolean()));
+        JsonElement oldRenderCloaksAndElytras = oldConfig.get(DonorData.ConfigOptions.BOOL_RENDER_CLOAKS_AND_ELYTRAS);
+        config.put(DonorData.ConfigOptions.BOOL_RENDER_CLOAKS_AND_ELYTRAS, new JsonPrimitive(oldRenderCloaksAndElytras == null || !oldRenderCloaksAndElytras.getAsBoolean()));
 
         data.setConfig(ImmutableMap.copyOf(config));
     }
@@ -196,7 +197,7 @@ public class CosmeticsScreen extends Screen {
             this.addButton(new ClearCosmeticSlotButtonWidget((this.width / 2) + 70, (this.height / 2) + 36, 16, 16, 0, 0, 0, TEXTURE_CLEAR_SLOT, 16, 16, this::onClearSlotClick, (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, this.shiftHeld ? TEXT_CLEAR_SLOT_ALL : TEXT_CLEAR_SLOT, mouseX, mouseY), LiteralText.EMPTY));
 
             if (this.selectedSlot == CosmeticSlot.BACK) {
-                this.addButton(new CosmeticCapeConfigButtonWidget((this.width / 2) - 86, (this.height / 2) + 36, 16, 16, 0, 0, 0, TEXTURE_BACK_CONFIG, 16, 16, this::onCapeElytraConfigClick, (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, TEXT_BACK_CONFIG, mouseX, mouseY), LiteralText.EMPTY));
+                this.addButton(new CosmeticCloakAndElytraConfigButtonWidget((this.width / 2) - 86, (this.height / 2) + 36, 16, 16, 0, 0, 0, TEXTURE_BACK_CONFIG, 16, 16, this::onCloakElytraConfigClick, (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, TEXT_BACK_CONFIG, mouseX, mouseY), LiteralText.EMPTY));
             }
         }
 

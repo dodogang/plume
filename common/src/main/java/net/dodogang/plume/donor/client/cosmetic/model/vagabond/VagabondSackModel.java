@@ -69,7 +69,7 @@ public class VagabondSackModel extends CosmeticModel {
 
         this.sack.copyPositionAndRotation(model.torso);
         setRotationAngle(this.sack, this.sack.pitch + -0.2618F, this.sack.yaw, this.sack.roll);
-        this.sack.visible = !((DonorDataManager.get(entity.getUuid()).getConfig(DonorData.ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS).getAsBoolean() || entity.isPartVisible(PlayerModelPart.CAPE)) && (entity instanceof AbstractClientPlayerEntity && ((AbstractClientPlayerEntity) entity).getCapeTexture() != null)) || hasElytra;
+        this.sack.visible = !((DonorDataManager.get(entity.getUuid()).getConfig(DonorData.ConfigOptions.BOOL_RENDER_CLOAKS_AND_ELYTRAS).getAsBoolean() || entity.isPartVisible(PlayerModelPart.CAPE)) && (entity instanceof AbstractClientPlayerEntity && ((AbstractClientPlayerEntity) entity).getCapeTexture() != null)) || hasElytra;
     }
 
     @Override

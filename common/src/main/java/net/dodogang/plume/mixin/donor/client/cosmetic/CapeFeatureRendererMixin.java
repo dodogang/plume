@@ -3,7 +3,7 @@ package net.dodogang.plume.mixin.donor.client.cosmetic;
 import net.dodogang.plume.donor.DonorData;
 import net.dodogang.plume.donor.DonorDataManager;
 import net.dodogang.plume.donor.client.cosmetic.CosmeticsClient;
-import net.dodogang.plume.donor.client.cosmetic.model.CapeCosmeticModel;
+import net.dodogang.plume.donor.client.cosmetic.model.CloakCosmeticModel;
 import net.dodogang.plume.donor.cosmetic.Cosmetic;
 import net.dodogang.plume.donor.cosmetic.CosmeticSlot;
 import net.dodogang.plume.util.Util;
@@ -33,18 +33,18 @@ public abstract class CapeFeatureRendererMixin extends FeatureRenderer<AbstractC
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void cancelRender(MatrixStack matrices, VertexConsumerProvider vertices, int i, AbstractClientPlayerEntity entity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
-        CosmeticsClient.cancelCapeElytraRender(entity, ci);
+        CosmeticsClient.cancelCapeOrElytraRender(entity, ci);
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/PlayerEntityModel;renderCape(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;II)V"), cancellable = true)
     private void replaceCape(MatrixStack matrices, VertexConsumerProvider vertices, int i, AbstractClientPlayerEntity entity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
         DonorData data = DonorDataManager.get(Util.parseStringUUID(entity.getUuid()));
         Cosmetic cosmetic = data.getSelectedCosmetics().get(CosmeticSlot.BACK);
-        if (cosmetic != null && CosmeticsClient.getCapeModels().containsKey(cosmetic) && data.getConfig(DonorData.ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS).getAsBoolean()) {
+        if (cosmetic != null && CosmeticsClient.getCloakModels().containsKey(cosmetic) && data.getConfig(DonorData.ConfigOptions.BOOL_RENDER_CLOAKS_AND_ELYTRAS).getAsBoolean()) {
             // TODO this is creating a new model every frame??
-            CapeCosmeticModel cape = CosmeticsClient.getCapeModels().get(cosmetic).apply(CapeFeatureRenderer.class.cast(this));
-            cape.setAngles(entity, f, g, h, i, j);
-            cape.render(matrices, vertices.getBuffer(RenderLayer.getEntitySolid(cape.getTexture())), i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+            CloakCosmeticModel cloak = CosmeticsClient.getCloakModels().get(cosmetic).apply(CapeFeatureRenderer.class.cast(this));
+            cloak.setAngles(entity, f, g, h, i, j);
+            cloak.render(matrices, vertices.getBuffer(RenderLayer.getEntitySolid(cloak.getTexture())), i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             matrices.pop();
 
             ci.cancel();

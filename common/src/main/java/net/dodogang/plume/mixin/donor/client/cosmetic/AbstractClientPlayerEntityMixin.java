@@ -31,7 +31,7 @@ public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
     private void imitateCapeTexture(CallbackInfoReturnable<Identifier> cir) {
         DonorData data = DonorDataManager.get(Util.parseStringUUID(this.getUuid()));
         Cosmetic cosmetic = data.getSelectedCosmetics().get(CosmeticSlot.BACK);
-        if (cosmetic != null && data.getConfig(DonorData.ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS).getAsBoolean() && CosmeticsClient.getCapeModels().containsKey(cosmetic)) {
+        if (cosmetic != null && data.getConfig(DonorData.ConfigOptions.BOOL_RENDER_CLOAKS_AND_ELYTRAS).getAsBoolean() && CosmeticsClient.getCloakModels().containsKey(cosmetic)) {
             cir.setReturnValue(Util.EMPTY_TEXTURE);
         }
     }

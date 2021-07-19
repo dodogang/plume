@@ -9,8 +9,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class CosmeticCapeConfigButtonWidget extends CosmeticScreenButtonWidget implements ChangingCosmeticButtonWidget {
-    public CosmeticCapeConfigButtonWidget(int x, int y, int width, int height, int u, int v, int hoveredVOffset, Identifier texture, int textureWidth, int textureHeight, PressAction onClick, TooltipSupplier tooltip, Text message) {
+public class CosmeticCloakAndElytraConfigButtonWidget extends CosmeticScreenButtonWidget implements ChangingCosmeticButtonWidget {
+    public CosmeticCloakAndElytraConfigButtonWidget(int x, int y, int width, int height, int u, int v, int hoveredVOffset, Identifier texture, int textureWidth, int textureHeight, PressAction onClick, TooltipSupplier tooltip, Text message) {
         super(x, y, width, height, u, v, hoveredVOffset, texture, textureWidth, textureHeight, onClick, tooltip, message);
     }
 
@@ -24,7 +24,7 @@ public class CosmeticCapeConfigButtonWidget extends CosmeticScreenButtonWidget i
 
     @Override
     public Identifier getTexture() {
-        return DonorDataManagerClient.getOwn().getConfig(DonorData.ConfigOptions.BOOL_RENDER_CAPES_AND_ELYTRAS).getAsBoolean()
+        return DonorDataManagerClient.getOwn().getConfig(DonorData.ConfigOptions.BOOL_RENDER_CLOAKS_AND_ELYTRAS).getAsBoolean()
             ? CosmeticsScreen.TEXTURE_BACK_CONFIG_ON
             : this.isHovered()
                 ? CosmeticsScreen.TEXTURE_BACK_CONFIG_HOVER
