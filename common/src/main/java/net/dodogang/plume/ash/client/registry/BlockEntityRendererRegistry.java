@@ -1,6 +1,6 @@
 package net.dodogang.plume.ash.client.registry;
 
-import me.shedaniel.architectury.annotations.ExpectPlatform;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
@@ -14,12 +14,12 @@ public final class BlockEntityRendererRegistry {
      *
      * @param beType type of block entity to register the renderer to
      * @param renderer a function that contructs a BlockEntityRenderer e.g. ChestRenderer::new
-     * @param <T> extends BlockEntity
+     * @param <E> extends BlockEntity
      */
     @ExpectPlatform
-    public static <T extends BlockEntity> void register(
-            BlockEntityType<T> beType,
-            Function<BlockEntityRenderDispatcher, BlockEntityRenderer<T>> renderer
+    public static <E extends BlockEntity> void register(
+            BlockEntityType<E> beType,
+            Function<BlockEntityRenderDispatcher, BlockEntityRenderer<E>> renderer
     ) {
         throw new AssertionError();
     }

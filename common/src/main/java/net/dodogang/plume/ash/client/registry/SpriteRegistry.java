@@ -1,6 +1,6 @@
 package net.dodogang.plume.ash.client.registry;
 
-import me.shedaniel.architectury.annotations.ExpectPlatform;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.util.Identifier;
 

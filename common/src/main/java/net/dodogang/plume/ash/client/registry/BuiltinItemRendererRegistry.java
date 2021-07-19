@@ -1,6 +1,6 @@
 package net.dodogang.plume.ash.client.registry;
 
-import me.shedaniel.architectury.annotations.ExpectPlatform;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
@@ -51,7 +51,7 @@ public final class BuiltinItemRendererRegistry {
     public static void registerBlockEntityRenderer(ItemConvertible item, BlockEntity blockEntity) {
         register(item, (stack, mode, matrices, vertexConsumers, light, overlay) -> {
             matrices.push();
-            BlockEntityRenderDispatcher.INSTANCE.renderEntity(blockEntity, matrices, vertexConsumers, light, overlay);
+            // TODO BlockEntityRenderDispatcher.INSTANCE.renderEntity(blockEntity, matrices, vertexConsumers, light, overlay);
             matrices.pop();
         });
     }

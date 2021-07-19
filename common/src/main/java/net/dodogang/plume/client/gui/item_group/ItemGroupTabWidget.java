@@ -8,6 +8,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
@@ -34,7 +35,7 @@ public class ItemGroupTabWidget extends ButtonWidget {
         tabGroup.setSelectedTabIndex(index);
 
         if (screen != null) {
-            MinecraftClient.getInstance().openScreen(screen);
+            MinecraftClient.getInstance().setScreen(screen);
         }
     }
     public void setSelected() {
@@ -46,19 +47,19 @@ public class ItemGroupTabWidget extends ButtonWidget {
         return isHovered || this.isSelected ? 1 : 0;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
-        client.getTextureManager().bindTexture(texture);
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, texture);
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
 
         this.drawTexture(matrices, this.x, this.y, 0, this.getYImage(this.isHovered()) * height, this.width, this.height);
-        this.renderBg(matrices, client, mouseX, mouseY);
+        this.renderBackground(matrices, client, mouseX, mouseY);
 
         client.getItemRenderer().renderInGui(parent.getIcon(), this.x + 3, this.y + 3);
     }

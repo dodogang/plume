@@ -29,7 +29,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
 
     @Inject(at = @At("HEAD"), method = "setSelectedTab(Lnet/minecraft/item/ItemGroup;)V")
     private void setSelectedTab(ItemGroup group, CallbackInfo ci) {
-        this.buttons.removeAll(this.plume_tabWidgets);
+        ((ScreenAccessor) this).getDrawables().removeAll(this.plume_tabWidgets);
         this.plume_tabWidgets.clear();
 
         if (group instanceof TabbedItemGroup) {
@@ -44,7 +44,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
                 }
 
                 this.plume_tabWidgets.add(widget);
-                this.addButton(widget);
+                this.addDrawableChild(widget);
             }
         }
     }

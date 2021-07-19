@@ -46,7 +46,8 @@ public final class PointOfInterestTypeAppender {
         blockStates.addAll(Arrays.asList(states));
 
         // Replace the original set with one that has our values.
-        poiTypeAccessor.setBlockStates(ImmutableSet.copyOf(blockStates));
+        // poiTypeAccessor.setBlockStates(ImmutableSet.copyOf(blockStates));
+            // TODO java.lang.IllegalAccessError: Update to non-static final field net.minecraft.world.poi.PointOfInterestType.blockStates attempted from a different method (setBlockStates) than the initializer method <init>
     }
 
     /**
