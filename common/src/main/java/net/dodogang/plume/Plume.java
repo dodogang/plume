@@ -113,7 +113,7 @@ public final class Plume {
     }
 
     public static void log(Level level, String message) {
-        LOGGER.log(level, "[{}] " + message, MOD_NAME);
+        LOGGER.log(level, "[{}] {}", MOD_NAME, message);
     }
     public static void log(String message) {
         Plume.log(Level.INFO, message);
