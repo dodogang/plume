@@ -37,10 +37,10 @@ jobs:
           name: Artifacts
           path: fabric/build/libs/
 
-      - name: Build Forge
-        run: ./gradlew :forge:build
-      - name: Capture Forge build artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: Artifacts
-          path: forge/build/libs/
+#       - name: Build Forge
+#         run: ./gradlew :forge:build
+#       - name: Capture Forge build artifacts
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: Artifacts
+#           path: forge/build/libs/
