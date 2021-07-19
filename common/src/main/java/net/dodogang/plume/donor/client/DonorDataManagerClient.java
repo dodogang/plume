@@ -22,10 +22,12 @@ public final class DonorDataManagerClient {
     private static final List<Cosmetic> AVAILABLE_COSMETICS = new ArrayList<>();
 
     static {
-        // TODO patreon + nitro (networking)
-        DonorDataManager.put(DonorData.of(PlayerUUID.$CLIENT, 0, false, null));
+        boolean isDevEnv = net.dodogang.plume.ash.Environment.isDevelopmentEnvironment();
 
-        if (PlayerUUID.$TEAM_MEMBERS.contains(PlayerUUID.$CLIENT)) {
+        // TODO patreon + nitro (networking)
+        DonorDataManager.put(DonorData.of(PlayerUUID.$CLIENT, isDevEnv ? 0 : 3, isDevEnv, null));
+
+        if (isDevEnv || PlayerUUID.$TEAM_MEMBERS.contains(PlayerUUID.$CLIENT)) {
             DonorDataManagerClient.addAvailableCosmetics(Cosmetics.ALL_ARRAY);
         }
     }
