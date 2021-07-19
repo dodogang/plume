@@ -17,13 +17,16 @@ public class ItemGroupTabWidget extends ButtonWidget {
     protected final Identifier texture;
     protected boolean isSelected = false;
 
+    private static final int BUTTON_SIZE = 24;
+    private static final int WIDGETS_PER_COLUMN = 5;
+
     public ItemGroupTabWidget(int x, int y, ItemGroupTab parent, PressAction onPress, Identifier texture) {
         super(x, y, 22, 22, parent.getTranslationKey(), onPress);
         this.parent = parent;
         this.texture = texture;
     }
     public ItemGroupTabWidget(int x, int y, int index, TabbedItemGroup parent, CreativeInventoryScreen screen, Identifier texture) {
-        this(x - 24, (y + 12) + (index * 24), parent.getTabs().get(index), btn -> ItemGroupTabWidget.setSelected(btn, parent, index, screen), texture);
+        this(x - (BUTTON_SIZE * ((index + WIDGETS_PER_COLUMN) / WIDGETS_PER_COLUMN)), y + 12 + (index * BUTTON_SIZE) - (BUTTON_SIZE * (index / WIDGETS_PER_COLUMN)) * WIDGETS_PER_COLUMN, parent.getTabs().get(index), btn -> ItemGroupTabWidget.setSelected(btn, parent, index, screen), texture);
     }
 
     public static void setSelected(ButtonWidget widget, TabbedItemGroup tabGroup, int index, CreativeInventoryScreen screen) {

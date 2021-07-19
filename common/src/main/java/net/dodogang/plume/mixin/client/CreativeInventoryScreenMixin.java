@@ -23,8 +23,7 @@ import java.util.List;
 public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScreen<CreativeInventoryScreen.CreativeScreenHandler> {
     private final List<ItemGroupTabWidget> plume_tabWidgets = new ArrayList<>();
 
-    @SuppressWarnings("unused")
-    public CreativeInventoryScreenMixin(CreativeInventoryScreen.CreativeScreenHandler screenHandler, PlayerInventory inventory, Text text) {
+    private CreativeInventoryScreenMixin(CreativeInventoryScreen.CreativeScreenHandler screenHandler, PlayerInventory inventory, Text text) {
         super(screenHandler, inventory, text);
     }
 

@@ -36,14 +36,17 @@ allprojects {
     group = rootProject.maven_group
 
     repositories {
-        // Mod Menu Maven
-        maven { url = "https://maven.terraformersmc.com/releases/" }
+        // Terraformers Maven
+        // maven { url = "https://maven.terraformersmc.com/releases/" }
+
+        // Terraformers Maven (BACKUP)
+        maven { url = "https://raw.githubusercontent.com/TerraformersMC/Archive/main/releases/" }
 
         // JEI Maven
         maven { url = "https://dvs1.progwml6.com/files/maven/" }
 
         // Mod Maven Maven (JEI backup)
-        maven { url = "https://modmaven.k-4u.nl" }
+        maven { url = "https://modmaven.k-4u.nl/" }
     }
 
     tasks.withType(JavaCompile) {
