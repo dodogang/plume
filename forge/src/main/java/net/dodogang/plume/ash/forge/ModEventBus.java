@@ -1,10 +1,9 @@
 package net.dodogang.plume.ash.forge;
 
 import net.minecraftforge.eventbus.api.IEventBus;
-import org.jetbrains.annotations.ApiStatus;
 
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * In order for ash to handle forge events on the mod event bus ash must have
@@ -18,6 +17,7 @@ public final class ModEventBus {
     private ModEventBus() {}
 
     private static final HashMap<String, IEventBus> MOD_EVENT_BUSES = new HashMap<>();
+    private static final Map<String, List<Consumer<IEventBus>>> ON_REGISTERED = new HashMap<>();
 
     /**
      * Register the mod's forge mod event bus to ash.
@@ -29,6 +29,16 @@ public final class ModEventBus {
         IEventBus previousBus = MOD_EVENT_BUSES.put(modId, bus);
         if (previousBus != null) {
             throw new IllegalStateException("Attempted to register a mod event bus for modid '" + modId + "' twice.");
+        }
+    }
+
+    public static void onRegistered(String modId, Consumer<IEventBus> busConsumer) {
+        if (MOD_EVENT_BUSES.containsKey(modId)) {
+            busConsumer.accept(MOD_EVENT_BUSES.get(modId));
+        } else {
+            synchronized (ON_REGISTERED) {
+                ON_REGISTERED.computeIfAbsent(modId, s -> new ArrayList<>()).add(busConsumer);
+            }
         }
     }
 
