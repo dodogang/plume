@@ -1,9 +1,12 @@
 package net.dodogang.plume.ash.client.registry;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.util.Identifier;
 
+@Environment(EnvType.CLIENT)
 public final class SpriteRegistry {
     private SpriteRegistry() {}
 

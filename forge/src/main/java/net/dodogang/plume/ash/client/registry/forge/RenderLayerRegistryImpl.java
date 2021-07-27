@@ -4,8 +4,11 @@ import net.minecraft.block.Block;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.fluid.Fluid;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.ApiStatus;
 
+@OnlyIn(Dist.CLIENT)
 @ApiStatus.Internal
 public final class RenderLayerRegistryImpl {
     /**

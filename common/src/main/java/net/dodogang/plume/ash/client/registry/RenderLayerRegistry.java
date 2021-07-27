@@ -1,10 +1,13 @@
 package net.dodogang.plume.ash.client.registry;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.fluid.Fluid;
 
+@Environment(EnvType.CLIENT)
 public final class RenderLayerRegistry {
     /**
      * Map (or re-map) multiple blocks with a render layer.  Re-mapping is not

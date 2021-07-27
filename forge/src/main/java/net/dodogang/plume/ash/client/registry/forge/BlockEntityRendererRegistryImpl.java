@@ -4,11 +4,14 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.function.Function;
 
+@OnlyIn(Dist.CLIENT)
 @ApiStatus.Internal
 public final class BlockEntityRendererRegistryImpl {
     /**
