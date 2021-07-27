@@ -6,10 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## v0.6.0 - 2021-6-14
+## v0.6.0 - 2021-6-27
 ### Added
 - Add `chests`, `ender_chests`, `trapped_chests`, `wooden_chests` ash tags.
 - Add ability for wooden_chests to be equipped to donkeys.
+- Added `Environment#getConfigDir`
+- Fixed tabbed item groups vertically overflowing - now they horizontally overflow! 😊
 
 ### Changed
 - Split `PlumeTags` into `AshBlockTags` and `AshItemTags`.
@@ -32,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add `Environment` for getting the platform and whether the game is in a
   development environment or not.
-  
+
 ### Changed
 - Remove check in `FuelRegistry` so it can be used before tags have been
   initialized.
@@ -52,7 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Change parameters on `register` in `FuelRegistry` to take multiple items in
   one method call.
-  
+
 ### Removed
 - Remove `unregister` in `FuelRegistry` as it was unnecessary and not
   implemented well.
@@ -89,7 +91,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v0.2.0 - 2021-03-11
 ### Added
-- Add `BlockBatchedRegistry` that wraps around `BatchedRegistry` to make it 
+- Add `BlockBatchedRegistry` that wraps around `BatchedRegistry` to make it
   easier to register blocks and their block items.
 - Add a changelog to keep track of changes between versions. This should make
   it easier to keep track of what needs to be changed when a dependent changes
