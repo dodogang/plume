@@ -13,6 +13,7 @@ import net.dodogang.plume.donor.client.cosmetic.config.CosmeticsConfig;
 import net.dodogang.plume.donor.client.cosmetic.gui.widget.*;
 import net.dodogang.plume.donor.cosmetic.Cosmetic;
 import net.dodogang.plume.donor.cosmetic.CosmeticSlot;
+import net.dodogang.plume.donor.cosmetic.Cosmetics;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -39,6 +40,7 @@ import java.util.stream.Collectors;
 public class CosmeticsScreen extends Screen {
     public static final Identifier          TEXTURE                         = PlumeClient.texture("gui/cosmetics/background");
     public static final Identifier          TEXTURE_SELECTED                = PlumeClient.texture("gui/cosmetics/selected");
+    public static final Identifier          TEXTURE_LOCKED                  = PlumeClient.texture("gui/cosmetics/locked");
     public static final Identifier          TEXTURE_CLEAR_SLOT              = PlumeClient.texture("gui/cosmetics/clear_slot");
     public static final Identifier          TEXTURE_BACK_CONFIG             = PlumeClient.texture("gui/cosmetics/back_config");
     public static final Identifier          TEXTURE_BACK_CONFIG_ON          = PlumeClient.texture("gui/cosmetics/back_config_on");
@@ -203,7 +205,7 @@ public class CosmeticsScreen extends Screen {
 
         // add cosmetics
         this.cosmeticsDisplayed.clear();
-        this.cosmeticsDisplayed.addAll(this.cosmeticsAvailable);
+        this.cosmeticsDisplayed.addAll(Cosmetics.ALL);
         this.cosmeticsDisplayed.removeIf(cosmetic -> cosmetic.getSlot() != this.selectedSlot);
 
         int row = -1;
@@ -213,7 +215,7 @@ public class CosmeticsScreen extends Screen {
             Cosmetic cosmetic = this.cosmeticsDisplayed.get(i);
             int x = (this.width / 2)  - (BACKGROUND_WIDTH  / 2) + 37 + (i * COSMETIC_SIZE) - (row * COSMETIC_SIZE * ROW_LENGTH);
             int y = (this.height / 2) - (BACKGROUND_HEIGHT / 2) + 113 + (row * COSMETIC_SIZE);
-            this.addButton(new CosmeticButtonWidget(cosmetic, x, y, this::onCosmeticClick, (w, matrices, mouseX, mouseY) -> {
+            this.addButton(new CosmeticButtonWidget(cosmetic,  this.cosmeticsAvailable.contains(cosmetic), x, y, this::onCosmeticClick, (w, matrices, mouseX, mouseY) -> {
                 TranslatableText title = new TranslatableText(cosmetic.getTranslationKey());
                 this.renderTooltip(matrices, cosmetic.hasDescription() ? Arrays.asList(title, new TranslatableText(cosmetic.getDescriptionKey()).formatted(Formatting.GRAY)) : Collections.singletonList(title), mouseX, mouseY);
             }));
@@ -248,6 +250,7 @@ public class CosmeticsScreen extends Screen {
     public void resize(MinecraftClient client, int i, int j) {
         CosmeticSlot selectedSlot = this.selectedSlot;
         super.resize(client, i, j);
+
         this.selectedSlot = selectedSlot;
         this.updateCosmetics();
     }

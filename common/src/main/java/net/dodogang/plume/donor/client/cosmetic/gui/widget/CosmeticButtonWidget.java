@@ -14,10 +14,12 @@ import net.minecraft.text.LiteralText;
 @Environment(EnvType.CLIENT)
 public class CosmeticButtonWidget extends CosmeticScreenButtonWidget implements ChangingCosmeticButtonWidget {
     private final Cosmetic cosmetic;
+    private final boolean isAvailable;
 
-    public CosmeticButtonWidget(Cosmetic cosmetic, int x, int y, PressAction onClick, TooltipSupplier tooltip) {
+    public CosmeticButtonWidget(Cosmetic cosmetic, boolean isAvailable, int x, int y, PressAction onClick, TooltipSupplier tooltip) {
         super(x, y, 16, 16, 0, 0, 0, cosmetic.getTexture(), 16, 16, onClick, tooltip, LiteralText.EMPTY);
         this.cosmetic = cosmetic;
+        this.isAvailable = isAvailable;
     }
 
     public Cosmetic getCosmetic() {
@@ -29,14 +31,29 @@ public class CosmeticButtonWidget extends CosmeticScreenButtonWidget implements 
         super.render(matrices, mouseX, mouseY, tickDelta);
 
         if (!this.isHovered()) {
-            this.renderSelectedOverlay(matrices);
+            this.renderOverlays(matrices);
+        }
+    }
+
+    @Override
+    public void onPress() {
+        if (this.isAvailable()) {
+            super.onPress();
         }
     }
 
     @Override
     public void renderToolTip(MatrixStack matrices, int mouseX, int mouseY) {
-        this.renderSelectedOverlay(matrices);
+        this.renderOverlays(matrices);
         super.renderToolTip(matrices, mouseX, mouseY);
+    }
+
+    public void renderOverlays(MatrixStack matrices) {
+        if (this.isAvailable()) {
+            this.renderSelectedOverlay(matrices);
+        } else {
+            this.renderLockedOverlay(matrices);
+        }
     }
 
     protected void renderSelectedOverlay(MatrixStack matrices) {
@@ -45,5 +62,18 @@ public class CosmeticButtonWidget extends CosmeticScreenButtonWidget implements 
             MinecraftClient.getInstance().getTextureManager().bindTexture(CosmeticsScreen.TEXTURE_SELECTED);
             DrawableHelper.drawTexture(matrices, this.x, this.y, 0, 0, 16, 16, 16, 16);
         }
+    }
+
+    protected void renderLockedOverlay(MatrixStack matrices) {
+        MinecraftClient.getInstance().getTextureManager().bindTexture(CosmeticsScreen.TEXTURE_LOCKED);
+
+        matrices.push();
+        matrices.translate(-0.5d, 0.0d, 0.0d); // translate half a pixel to the left to centre
+        DrawableHelper.drawTexture(matrices, this.x, this.y, 0, 0, 16, 16, 16, 16);
+        matrices.pop();
+    }
+
+    public boolean isAvailable() {
+        return this.isAvailable;
     }
 }
