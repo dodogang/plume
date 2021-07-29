@@ -213,7 +213,10 @@ public class CosmeticsScreen extends Screen {
             Cosmetic cosmetic = this.cosmeticsDisplayed.get(i);
             int x = (this.width / 2)  - (BACKGROUND_WIDTH  / 2) + 37 + (i * COSMETIC_SIZE) - (row * COSMETIC_SIZE * ROW_LENGTH);
             int y = (this.height / 2) - (BACKGROUND_HEIGHT / 2) + 113 + (row * COSMETIC_SIZE);
-            this.addButton(new CosmeticButtonWidget(cosmetic, x, y, this::onCosmeticClick, (w, matrices, mouseX, mouseY) -> this.renderTooltip(matrices, new TranslatableText(((CosmeticButtonWidget) w).getCosmetic().getTranslationKey()), mouseX, mouseY)));
+            this.addButton(new CosmeticButtonWidget(cosmetic, x, y, this::onCosmeticClick, (w, matrices, mouseX, mouseY) -> {
+                TranslatableText title = new TranslatableText(cosmetic.getTranslationKey());
+                this.renderTooltip(matrices, cosmetic.hasDescription() ? Arrays.asList(title, new TranslatableText(cosmetic.getDescriptionKey()).formatted(Formatting.GRAY)) : Collections.singletonList(title), mouseX, mouseY);
+            }));
         }
     }
 

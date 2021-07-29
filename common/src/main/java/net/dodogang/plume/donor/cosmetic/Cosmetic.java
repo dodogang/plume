@@ -4,6 +4,7 @@ import net.dodogang.plume.Plume;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
@@ -12,14 +13,16 @@ public class Cosmetic {
     private final Identifier id;
     private final CosmeticSlot slot;
 
+    private final String descriptionKey;
     private final Identifier texture;
 
     public Cosmetic(Identifier id, CosmeticSlot slot) {
         this.id = id;
-        this.slot = slot;
 
+        this.slot = slot;
         this.slot.addCosmetic(this);
 
+        this.descriptionKey = String.format("%s.cosmetic.%s.description", Plume.MOD_ID, this.id);
         this.texture = new Identifier(Plume.MOD_ID, "textures/gui/cosmetics/icon/" + id.getNamespace() + "/" + id.getPath() + ".png");
     }
 
@@ -35,12 +38,20 @@ public class Cosmetic {
     }
 
     public String getTranslationKey() {
-        return Plume.MOD_ID + ".cosmetic." + id.toString();
+        return String.format("%s.cosmetic.%s", Plume.MOD_ID, this.id);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public boolean hasDescription() {
+        return I18n.hasTranslation(this.getDescriptionKey());
+    }
+    public String getDescriptionKey() {
+        return this.descriptionKey;
     }
 
     @Override
     public String toString() {
-        return this.getTranslationKey();
+        return this.id.toString();
     }
 
     @Environment(EnvType.CLIENT)
