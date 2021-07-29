@@ -8,7 +8,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
 
 @Environment(EnvType.CLIENT)
@@ -26,19 +29,16 @@ public class CosmeticButtonWidget extends CosmeticScreenButtonWidget implements 
         return this.cosmetic;
     }
 
+    public boolean isAvailable() {
+        return this.isAvailable;
+    }
+
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float tickDelta) {
         super.render(matrices, mouseX, mouseY, tickDelta);
 
         if (!this.isHovered()) {
             this.renderOverlays(matrices);
-        }
-    }
-
-    @Override
-    public void onPress() {
-        if (this.isAvailable()) {
-            super.onPress();
         }
     }
 
@@ -56,15 +56,14 @@ public class CosmeticButtonWidget extends CosmeticScreenButtonWidget implements 
         }
     }
 
-    protected void renderSelectedOverlay(MatrixStack matrices) {
+    public void renderSelectedOverlay(MatrixStack matrices) {
         DonorData data = DonorDataManagerClient.getOwn();
         if (data.getSelectedCosmetics().containsValue(this.cosmetic)) {
             MinecraftClient.getInstance().getTextureManager().bindTexture(CosmeticsScreen.TEXTURE_SELECTED);
             DrawableHelper.drawTexture(matrices, this.x, this.y, 0, 0, 16, 16, 16, 16);
         }
     }
-
-    protected void renderLockedOverlay(MatrixStack matrices) {
+    public void renderLockedOverlay(MatrixStack matrices) {
         MinecraftClient.getInstance().getTextureManager().bindTexture(CosmeticsScreen.TEXTURE_LOCKED);
 
         matrices.push();
@@ -73,7 +72,14 @@ public class CosmeticButtonWidget extends CosmeticScreenButtonWidget implements 
         matrices.pop();
     }
 
-    public boolean isAvailable() {
-        return this.isAvailable;
+    @Override
+    public void onPress() {
+        if (this.isAvailable()) {
+            super.onPress();
+        }
+    }
+    @Override
+    public void playDownSound(SoundManager soundManager) {
+        soundManager.play(PositionedSoundInstance.master(this.isAvailable() ? SoundEvents.UI_BUTTON_CLICK : SoundEvents.BLOCK_CHEST_LOCKED, 1.0F));
     }
 }
