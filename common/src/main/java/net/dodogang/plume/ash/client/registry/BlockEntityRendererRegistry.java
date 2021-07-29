@@ -1,6 +1,8 @@
 package net.dodogang.plume.ash.client.registry;
 
 import me.shedaniel.architectury.annotations.ExpectPlatform;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
@@ -8,6 +10,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 
 import java.util.function.Function;
 
+@Environment(EnvType.CLIENT)
 public final class BlockEntityRendererRegistry {
     /**
      * Registers a renderer to a block entity type.

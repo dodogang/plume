@@ -2,10 +2,13 @@ package net.dodogang.plume.client;
 
 import net.dodogang.plume.Plume;
 import net.dodogang.plume.ash.client.registry.KeyBindingRegistry;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
+@Environment(EnvType.CLIENT)
 public class PlumeKeyBindings {
     public static final KeyBinding OPEN_COSMETICS_MENU = register("open_cosmetics_menu", GLFW.GLFW_KEY_UNKNOWN);
 

@@ -3,9 +3,12 @@ package net.dodogang.plume.ash.client.registry.forge;
 import net.dodogang.plume.ash.forge.ModEventBus;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.util.Identifier;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import org.jetbrains.annotations.ApiStatus;
 
+@OnlyIn(Dist.CLIENT)
 @ApiStatus.Internal
 public final class SpriteRegistryImpl {
     /**

@@ -1,9 +1,12 @@
 package net.dodogang.plume.ash.client.registry.forge;
 
 import net.minecraft.client.options.KeyBinding;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.jetbrains.annotations.ApiStatus;
 
+@OnlyIn(Dist.CLIENT)
 @ApiStatus.Internal
 public final class KeyBindingRegistryImpl {
     /**
