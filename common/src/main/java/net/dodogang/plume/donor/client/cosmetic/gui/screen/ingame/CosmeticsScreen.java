@@ -245,6 +245,14 @@ public class CosmeticsScreen extends Screen {
     }
 
     @Override
+    public void resize(MinecraftClient client, int i, int j) {
+        CosmeticSlot selectedSlot = this.selectedSlot;
+        super.resize(client, i, j);
+        this.selectedSlot = selectedSlot;
+        this.updateCosmetics();
+    }
+
+    @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
             this.shiftHeld = false;
