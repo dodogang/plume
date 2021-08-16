@@ -22,7 +22,9 @@
   ],
   "client": [
     "client.CreativeInventoryScreenAccessor",
-    "client.CreativeInventoryScreenMixin"
+    "client.CreativeInventoryScreenMixin",
+    "client.SplashTextResourceSupplierMixin",
+    "client.TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

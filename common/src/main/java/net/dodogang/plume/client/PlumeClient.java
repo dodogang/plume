@@ -2,6 +2,7 @@ package net.dodogang.plume.client;
 
 import com.google.common.reflect.Reflection;
 import net.dodogang.plume.Plume;
+import net.dodogang.plume.client.registry.SplashTextRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.Identifier;
@@ -15,6 +16,11 @@ public final class PlumeClient {
         Reflection.initialize(
             PlumeKeyBindings.class
         );
+
+        if (net.dodogang.plume.ash.Environment.isDevelopmentEnvironment()) {
+            SplashTextRegistry.register("An enemy spotted.");
+            SplashTextRegistry.register("Terrorists win.", 0xFF0000);
+        }
 
         Plume.log("Initialized (CLIENT)");
     }
