@@ -54,7 +54,7 @@ public final class Plume {
                 "plume_test2",
                 (group) -> ImmutableList.of(
                     group.createTab("unga", Blocks.GRASS_BLOCK),
-                    group.createTab("bunga", Blocks.BLUE_CONCRETE),
+                    group.createTab("bunga", Blocks.BLUE_CONCRETE)/*,
                     group.createTab("bunga2", Blocks.YELLOW_BANNER),
                     group.createTab("bunga3", Blocks.YELLOW_BANNER),
                     group.createTab("bunga4", Blocks.YELLOW_BANNER),
@@ -71,7 +71,7 @@ public final class Plume {
                     group.createTab("bunga15", Blocks.YELLOW_BANNER),
                     group.createTab("bunga16", Blocks.YELLOW_BANNER),
                     group.createTab("bunga17", Blocks.YELLOW_BANNER),
-                    group.createTab("bunga18", Blocks.YELLOW_BANNER)
+                    group.createTab("bunga18", Blocks.YELLOW_BANNER)*/
                 ),
                 (group) -> new ItemStack(Blocks.STICKY_PISTON)
             );
