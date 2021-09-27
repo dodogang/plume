@@ -1,6 +1,6 @@
 package net.dodogang.plume.ash.client.registry;
 
-import me.shedaniel.architectury.annotations.ExpectPlatform;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
@@ -53,9 +53,10 @@ public final class BuiltinItemRendererRegistry {
      */
     public static void registerBlockEntityRenderer(ItemConvertible item, BlockEntity blockEntity) {
         register(item, (stack, mode, matrices, vertexConsumers, light, overlay) -> {
-            matrices.push();
+            /*matrices.push();
             BlockEntityRenderDispatcher.INSTANCE.renderEntity(blockEntity, matrices, vertexConsumers, light, overlay);
-            matrices.pop();
+            matrices.pop();*/
+            // TODO
         });
     }
 }

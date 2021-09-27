@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[32,)"
+loaderVersion = "[37,)"
 issueTrackerURL = "https://github.com/dodogang/plume/issues"
 license = "MIT; Assets licensed as All Rights Reserved"
 
@@ -19,13 +19,13 @@ Dodo Gang Library Mod
 [[dependencies.plume]]
 modId = "forge"
 mandatory = true
-versionRange = "[32,)"
+versionRange = "[37,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.plume]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.16.2,)"
+versionRange = "[1.17.1,)"
 ordering = "NONE"
 side = "BOTH"

@@ -6,7 +6,6 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.function.Function;
@@ -25,6 +24,6 @@ public final class BlockEntityRendererRegistryImpl {
             BlockEntityType<T> beType, Function<BlockEntityRenderDispatcher,
             BlockEntityRenderer<T>> renderer
     ) {
-        ClientRegistry.bindTileEntityRenderer(beType, renderer);
+        // TODO ClientRegistry.bindTileEntityRenderer(beType, renderer);
     }
 }

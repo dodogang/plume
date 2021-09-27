@@ -2,7 +2,9 @@ package net.dodogang.plume.ash.registry.fabric;
 
 import net.dodogang.plume.ash.registry.FuelRegistry;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.recipe.RecipeType;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
 @ApiStatus.Internal
 public final class FuelRegistryImpl {
@@ -27,7 +29,7 @@ public final class FuelRegistryImpl {
      * @param item an item
      * @return the burn time of the item. 0 if the item isn't fuel.
      */
-    public static int getBurnTime(ItemConvertible item) {
+    public static int getBurnTime(ItemConvertible item, @Nullable RecipeType<?> recipeType) {
         return net.fabricmc.fabric.api.registry.FuelRegistry.INSTANCE.get(item);
     }
 }

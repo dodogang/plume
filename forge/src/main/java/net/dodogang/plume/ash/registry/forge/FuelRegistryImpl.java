@@ -4,9 +4,11 @@ import net.dodogang.plume.ash.registry.FuelRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeType;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,8 +38,8 @@ public final class FuelRegistryImpl {
      * @param item an item
      * @return the burn time of the item. 0 if the item isn't fuel.
      */
-    public static int getBurnTime(ItemConvertible item) {
-        return ForgeHooks.getBurnTime(new ItemStack(item));
+    public static int getBurnTime(ItemConvertible item, @Nullable RecipeType<?> recipeType) {
+        return ForgeHooks.getBurnTime(new ItemStack(item), recipeType);
     }
 
     public static void furnaceFuelBurnTimeHandler(FurnaceFuelBurnTimeEvent event) {

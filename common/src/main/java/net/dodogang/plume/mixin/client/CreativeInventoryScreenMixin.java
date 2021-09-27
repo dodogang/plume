@@ -1,7 +1,9 @@
 package net.dodogang.plume.mixin.client;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.dodogang.plume.client.gui.item_group.ItemGroupTabWidget;
 import net.dodogang.plume.item.item_group.TabbedItemGroup;
+import net.dodogang.plume.mixin.ScreenAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
@@ -29,11 +31,10 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
 
     @Inject(at = @At("HEAD"), method = "setSelectedTab(Lnet/minecraft/item/ItemGroup;)V")
     private void setSelectedTab(ItemGroup group, CallbackInfo ci) {
-        this.buttons.removeAll(this.plume_tabWidgets);
+        ((ScreenAccessor) this).getDrawables().removeAll(this.plume_tabWidgets);
         this.plume_tabWidgets.clear();
 
-        if (group instanceof TabbedItemGroup) {
-            TabbedItemGroup tabGroup = (TabbedItemGroup) group;
+        if (group instanceof TabbedItemGroup tabGroup) {
             tabGroup.refreshTabs();
 
             for (int i = 0; i < tabGroup.getTabs().size(); i++) {
@@ -44,7 +45,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
                 }
 
                 this.plume_tabWidgets.add(widget);
-                this.addButton(widget);
+                this.addDrawableChild(widget);
             }
         }
     }
@@ -63,7 +64,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
     @Inject(method = "renderTabIcon", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/CreativeInventoryScreen;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V", shift = At.Shift.BEFORE))
     protected void renderTabIcon(MatrixStack matrices, ItemGroup group, CallbackInfo ci) {
         if (this.client != null && group instanceof TabbedItemGroup) {
-            this.client.getTextureManager().bindTexture(((TabbedItemGroup) group).getIconBackgroundTexture());
+            RenderSystem.setShaderTexture(0, ((TabbedItemGroup) group).getIconBackgroundTexture());
         }
     }
 }

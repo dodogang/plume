@@ -13,7 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -43,19 +43,19 @@ public abstract class AbstractDonkeyEntityMixin extends HorseBaseEntity {
     private void injectCustomData(CallbackInfo ci) {
         this.dataTracker.startTracking(PLUME_CHEST_TYPE, null);
     }
-    @Inject(method = "readCustomDataFromTag", at = @At("TAIL"))
-    private void injectCustomNbtRead(CompoundTag tag, CallbackInfo ci) {
+    @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
+    private void injectCustomNbtRead(NbtCompound tag, CallbackInfo ci) {
         if (this.hasChest()) {
-            CompoundTag plumeTag = tag.getCompound(Plume.MOD_ID);
+            NbtCompound plumeTag = tag.getCompound(Plume.MOD_ID);
             if (plumeTag != null) {
                 this.dataTracker.set(PLUME_CHEST_TYPE, plumeTag.getString("ChestType"));
             }
         }
     }
-    @Inject(method = "writeCustomDataToTag", at = @At("TAIL"))
-    private void injectCustomNbtWrite(CompoundTag tag, CallbackInfo ci) {
+    @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
+    private void injectCustomNbtWrite(NbtCompound tag, CallbackInfo ci) {
         if (this.hasChest()) {
-            CompoundTag plumeTag = new CompoundTag();
+            NbtCompound plumeTag = new NbtCompound();
             plumeTag.putString("ChestType", this.dataTracker.get(PLUME_CHEST_TYPE));
 
             tag.put(Plume.MOD_ID, plumeTag);
@@ -78,7 +78,7 @@ public abstract class AbstractDonkeyEntityMixin extends HorseBaseEntity {
     /**
      * Replaces hardcoded <code>itemStack.getItem() == Blocks.CHEST.asItem()</code> with a <code>wooden_chests</code> tag.
      */
-    @Inject(at = @At("HEAD"), method = "equip", cancellable = true)
+    /*@Inject(at = @At("HEAD"), method = "equip", cancellable = true)
     private void plume_equipWoodenChest(int i, ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (i == 499) {
             if (!this.hasChest() && AshItemTags.WOODEN_CHESTS.contains(stack.getItem())) {
@@ -88,7 +88,7 @@ public abstract class AbstractDonkeyEntityMixin extends HorseBaseEntity {
                 cir.setReturnValue(true);
             }
         }
-    }
+    }*/ // TODO
 
     /**
      * Replaces hardcoded <code>itemStack.getItem() == Blocks.CHEST.asItem()</code> with a <code>wooden_chests</code> tag.
@@ -101,7 +101,7 @@ public abstract class AbstractDonkeyEntityMixin extends HorseBaseEntity {
                 this.dataTracker.set(PLUME_CHEST_TYPE, Registry.ITEM.getId(stack.getItem()).toString());
                 this.setHasChest(true);
                 this.playAddChestSound();
-                if (!player.abilities.creativeMode) {
+                if (!player.getAbilities().creativeMode) {
                     stack.decrement(1);
                 }
                 this.onChestedStatusChanged();

@@ -14,11 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
-public class ItemGroupTab {
-    private final @NotNull Identifier id;
-    private final @NotNull ItemStack icon;
-    private final @Nullable Tag<Item> tag;
-
+public record ItemGroupTab(@NotNull Identifier id, @NotNull ItemStack icon, @Nullable Tag<Item> tag) {
     private static final Identifier TAB_WIDGET_TEXTURE = new Identifier(Plume.MOD_ID, "textures/gui/creative_inventory/item_group/tab_widget.png");
 
     public ItemGroupTab(@NotNull Identifier id, @NotNull ItemStack icon, @Nullable Tag<Item> tag) {
@@ -27,18 +23,6 @@ public class ItemGroupTab {
         this.tag = tag;
     }
 
-    @NotNull
-    public Identifier getId() {
-        return this.id;
-    }
-    @NotNull
-    public ItemStack getIcon() {
-        return this.icon;
-    }
-    @Nullable
-    public Tag<Item> getTag() {
-        return this.tag;
-    }
     public Identifier getWidgetBackgroundTexture() {
         return ItemGroupTab.TAB_WIDGET_TEXTURE;
     }

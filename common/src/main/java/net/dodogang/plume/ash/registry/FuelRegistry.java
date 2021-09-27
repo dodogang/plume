@@ -1,7 +1,9 @@
 package net.dodogang.plume.ash.registry;
 
-import me.shedaniel.architectury.annotations.ExpectPlatform;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.recipe.RecipeType;
+import org.jetbrains.annotations.Nullable;
 
 public final class FuelRegistry {
     private FuelRegistry() {}
@@ -27,8 +29,11 @@ public final class FuelRegistry {
      * @return the burn time of the item. 0 if the item isn't fuel.
      */
     @ExpectPlatform
-    public static int getBurnTime(ItemConvertible item) {
+    public static int getBurnTime(ItemConvertible item, @Nullable RecipeType<?> recipeType) {
         throw new AssertionError();
+    }
+    public static int getBurnTime(ItemConvertible item) {
+        return getBurnTime(item, null);
     }
 
     /**

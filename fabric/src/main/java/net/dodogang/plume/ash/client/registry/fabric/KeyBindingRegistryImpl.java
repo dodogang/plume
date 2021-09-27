@@ -1,7 +1,7 @@
 package net.dodogang.plume.ash.client.registry.fabric;
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.KeyBinding;
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal

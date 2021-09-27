@@ -62,7 +62,7 @@ public class TabbedItemGroup extends ItemGroup {
             ItemGroupTab tab = this.getSelectedItemTab();
             if (tab.contains(item)) {
                 this.appendStack(item, stacks);
-            } else if (tab.getTag() == null) {
+            } else if (tab.tag() == null) {
                 for (ItemGroupTab i : this.getTabs()) {
                     if (i.contains(item) || item.getGroup() == this) {
                         this.appendStack(item, stacks);

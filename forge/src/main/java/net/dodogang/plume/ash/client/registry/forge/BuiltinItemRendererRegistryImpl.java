@@ -24,10 +24,10 @@ public final class BuiltinItemRendererRegistryImpl {
      * @param renderer the renderer
      */
     public static void register(ItemConvertible item, DynamicItemRenderer renderer) {
-        ((ItemAccessor)item.asItem()).setIster(() -> new CustomBuiltinModelItemRenderer(renderer));
+        // TODO ((ItemAccessor)item.asItem()).setIster(() -> new CustomBuiltinModelItemRenderer(renderer));
     }
 
-    private static final class CustomBuiltinModelItemRenderer extends BuiltinModelItemRenderer {
+    /*private static final class CustomBuiltinModelItemRenderer extends BuiltinModelItemRenderer {
         private final DynamicItemRenderer renderer;
 
         public CustomBuiltinModelItemRenderer(DynamicItemRenderer renderer) {
@@ -45,5 +45,5 @@ public final class BuiltinItemRendererRegistryImpl {
         ) {
             renderer.render(stack, mode, matrices, vertexConsumers, light, overlay);
         }
-    }
+    }*/ // TODO
 }

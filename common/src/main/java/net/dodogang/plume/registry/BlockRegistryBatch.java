@@ -14,9 +14,9 @@ import java.util.function.Function;
 
 @ApiStatus.NonExtendable
 public final class BlockRegistryBatch {
-    protected final RegistryBatch<Block> blockRegistry;
-    protected final RegistryBatch<Item> itemRegistry;
-    protected Item.Settings defaultSettings;
+    private final RegistryBatch<Block> blockRegistry;
+    private final RegistryBatch<Item> itemRegistry;
+    private Item.Settings defaultSettings;
 
     public BlockRegistryBatch(String modId) {
         this.blockRegistry = RegistryBatch.create(Registry.BLOCK_KEY, modId);

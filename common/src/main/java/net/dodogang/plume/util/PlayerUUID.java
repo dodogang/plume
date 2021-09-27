@@ -5,8 +5,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 
-import java.util.List;
-
 @SuppressWarnings("unused")
 public class PlayerUUID {
     // Oh, my fair lady, if I could escape the wrath of the imposed

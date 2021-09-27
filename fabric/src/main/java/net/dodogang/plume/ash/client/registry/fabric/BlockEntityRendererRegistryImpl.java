@@ -1,13 +1,10 @@
 package net.dodogang.plume.ash.client.registry.fabric;
 
-import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import org.jetbrains.annotations.ApiStatus;
-
-import java.util.function.Function;
 
 @ApiStatus.Internal
 public final class BlockEntityRendererRegistryImpl {
@@ -16,12 +13,12 @@ public final class BlockEntityRendererRegistryImpl {
      *
      * @param beType type of block entity to register the renderer to
      * @param renderer a function that contructs a BlockEntityRenderer e.g. ChestRenderer::new
-     * @param <T> extends BlockEntity
+     * @param <E> extends BlockEntity
      */
-    public static <T extends BlockEntity> void register(
-            BlockEntityType<T> beType,
-            Function<BlockEntityRenderDispatcher, BlockEntityRenderer<? super T>> renderer
+    public static <E extends BlockEntity> void register(
+            BlockEntityType<E> beType,
+            BlockEntityRendererFactory<? super E> renderer
     ) {
-        BlockEntityRendererRegistry.INSTANCE.register(beType, renderer);
+        BlockEntityRendererRegistry.register(beType, renderer);
     }
 }

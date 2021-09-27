@@ -25,8 +25,8 @@ public abstract class AbstractBlockStateMixin {
      */
     @Inject(at = @At("HEAD"), method = "isOf", cancellable = true)
     private void isBookshelf(Block block, CallbackInfoReturnable<Boolean> info) {
-        if (block.equals(Blocks.BOOKSHELF)) {
-            info.setReturnValue(this.isIn(AshBlockTags.BOOKSHELVES));
+        if (block.equals(Blocks.BOOKSHELF) && this.isIn(AshBlockTags.BOOKSHELVES)) {
+            info.setReturnValue(true);
         }
     }
 }

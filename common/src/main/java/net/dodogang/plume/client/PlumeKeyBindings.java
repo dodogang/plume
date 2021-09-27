@@ -4,9 +4,8 @@ import net.dodogang.plume.Plume;
 import net.dodogang.plume.ash.client.registry.KeyBindingRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public class PlumeKeyBindings {

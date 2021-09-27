@@ -103,7 +103,7 @@ public class BeamBlock extends Block implements Waterloggable {
 
     /**
      * <p>
-     * Copyright (c) 2020 TechReborn
+     * Copyright (c) 2021 TechReborn
      * <p>
      * Permission is hereby granted, free of charge, to any person obtaining a copy
      * of this software and associated documentation files (the "Software"), to deal
@@ -133,11 +133,8 @@ public class BeamBlock extends Block implements Waterloggable {
         }
 
         private HashMap<BlockState, VoxelShape> createStateShapeMap() {
-            return Util.make(
-                new HashMap<>(),
-                map -> beamBlock.getStateManager().getStates().forEach(
-                    state -> map.put(state, getStateShape(state))
-                )
+            return Util.make(new HashMap<>(), map -> beamBlock.getStateManager().getStates()
+                .forEach(state -> map.put(state, getStateShape(state)))
             );
         }
 
@@ -149,16 +146,16 @@ public class BeamBlock extends Block implements Waterloggable {
 
             final List<VoxelShape> connections = new ArrayList<>();
             for (Direction dir : Direction.values()) {
-                if (state.get(PROP_MAP.get(dir))) {
+                if (state.get(BeamBlock.PROP_MAP.get(dir))) {
                     double x = dir == Direction.WEST ? 0 : dir == Direction.EAST ? 16D : size;
                     double z = dir == Direction.NORTH ? 0 : dir == Direction.SOUTH ? 16D : size;
                     double y = dir == Direction.DOWN ? 0 : dir == Direction.UP ? 16D : size;
 
-                    VoxelShape shape = Block.createCuboidShape(x, y, z, 16.0D - size, 16.0D - size, 16.0D - size);
+                    VoxelShape shape = VoxelShapes.cuboidUnchecked(x, y, z, 16.0D - size, 16.0D - size, 16.0D - size);
                     connections.add(shape);
                 }
             }
-            return VoxelShapes.union(baseShape, connections.toArray(new VoxelShape[] {}));
+            return VoxelShapes.union(baseShape, connections.toArray(new VoxelShape[]{}));
         }
 
         public VoxelShape getShape(BlockState state) {

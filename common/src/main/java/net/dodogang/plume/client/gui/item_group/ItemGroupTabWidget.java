@@ -34,7 +34,7 @@ public class ItemGroupTabWidget extends ButtonWidget {
         tabGroup.setSelectedTabIndex(index);
 
         if (screen != null) {
-            MinecraftClient.getInstance().openScreen(screen);
+            MinecraftClient.getInstance().setScreen(screen);
         }
     }
     public void setSelected() {
@@ -46,20 +46,19 @@ public class ItemGroupTabWidget extends ButtonWidget {
         return isHovered || this.isSelected ? 1 : 0;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
-        client.getTextureManager().bindTexture(texture);
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
+        RenderSystem.setShaderTexture(0, texture);
+        RenderSystem.clearColor(1.0F, 1.0F, 1.0F, this.alpha);
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
 
         this.drawTexture(matrices, this.x, this.y, 0, this.getYImage(this.isHovered()) * height, this.width, this.height);
-        this.renderBg(matrices, client, mouseX, mouseY);
+        this.renderBackground(matrices, client, mouseX, mouseY);
 
-        client.getItemRenderer().renderInGui(parent.getIcon(), this.x + 3, this.y + 3);
+        client.getItemRenderer().renderInGui(parent.icon(), this.x + 3, this.y + 3);
     }
 }
