@@ -5,8 +5,10 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 
+import java.util.function.Supplier;
+
 public class EntityRendererRegistryImpl {
-    public static <T extends Entity> void register(EntityType<T> type, EntityRendererFactory<T> entityRendererFactory) {
-        EntityRendererRegistry.register(type, entityRendererFactory);
+    public static <T extends Entity> void register(Supplier<EntityType<? extends T>> type, EntityRendererFactory<T> provider) {
+        EntityRendererRegistry.register(type.get(), provider);
     }
 }

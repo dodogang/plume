@@ -11,14 +11,11 @@ public final class BlockEntityRendererRegistryImpl {
     /**
      * Registers a renderer to a block entity type.
      *
-     * @param beType type of block entity to register the renderer to
-     * @param renderer a function that contructs a BlockEntityRenderer e.g. ChestRenderer::new
-     * @param <E> extends BlockEntity
+     * @param type type of block entity to register the renderer to
+     * @param factory a function that contructs a BlockEntityRenderer e.g. ChestRenderer::new
+     * @param <T> extends BlockEntity
      */
-    public static <E extends BlockEntity> void register(
-            BlockEntityType<E> beType,
-            BlockEntityRendererFactory<? super E> renderer
-    ) {
-        BlockEntityRendererRegistry.register(beType, renderer);
+    public static <T extends BlockEntity> void register(BlockEntityType<T> type, BlockEntityRendererFactory<? super T> factory) {
+        BlockEntityRendererRegistry.register(type, factory);
     }
 }

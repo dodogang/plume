@@ -1,13 +1,7 @@
 package net.dodogang.plume.ash.client.registry.forge;
 
 import net.dodogang.plume.ash.client.registry.BuiltinItemRendererRegistry.DynamicItemRenderer;
-import net.dodogang.plume.ash.mixin.client.forge.ItemAccessor;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.item.BuiltinModelItemRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.ApiStatus;
