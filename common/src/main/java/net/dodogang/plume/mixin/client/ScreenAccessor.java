@@ -1,4 +1,4 @@
-package net.dodogang.plume.mixin;
+package net.dodogang.plume.mixin.client;
 
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;

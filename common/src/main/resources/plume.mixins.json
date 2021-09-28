@@ -7,7 +7,6 @@
     "AbstractBlockStateMixin",
     "AbstractDonkeyEntityMixin",
     "PointOfInterestTypeAccessor",
-    "ScreenAccessor",
     "supporters_tags.AttachedStemBlockMixin",
     "supporters_tags.CropBlockMixin",
     "supporters_tags.DeadBushBlockMixin",
@@ -22,7 +21,8 @@
   ],
   "client": [
     "client.CreativeInventoryScreenAccessor",
-    "client.CreativeInventoryScreenMixin"
+    "client.CreativeInventoryScreenMixin",
+    "client.ScreenAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

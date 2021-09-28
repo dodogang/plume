@@ -3,7 +3,6 @@ package net.dodogang.plume.mixin.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.dodogang.plume.client.gui.item_group.ItemGroupTabWidget;
 import net.dodogang.plume.item.item_group.TabbedItemGroup;
-import net.dodogang.plume.mixin.ScreenAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
