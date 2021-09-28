@@ -10,6 +10,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
@@ -88,7 +89,17 @@ public abstract class AbstractDonkeyEntityMixin extends HorseBaseEntity {
                 cir.setReturnValue(true);
             }
         }
-    }*/ // TODO
+    }*/
+    @Inject(method = "getStackReference", at = @At("RETURN"), cancellable = true)
+    private void catchChestFromEquip(int i, CallbackInfoReturnable<StackReference> cir) {
+        if (i == 499) {
+            StackReference ref = cir.getReturnValue();
+            ItemStack stack = ref.get();
+            if (!this.hasChest() && AshItemTags.WOODEN_CHESTS.contains(stack.getItem())) {
+                this.dataTracker.set(PLUME_CHEST_TYPE, Registry.ITEM.getId(stack.getItem()).toString());
+            }
+        }
+    }
 
     /**
      * Replaces hardcoded <code>itemStack.getItem() == Blocks.CHEST.asItem()</code> with a <code>wooden_chests</code> tag.
