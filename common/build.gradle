@@ -8,6 +8,10 @@ architectury {
     common()
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/plume.accesswidener")
+}
+
 configurations {
     dev
 }

@@ -23,6 +23,7 @@
             "net.dodogang.plume.client.fabric.PlumeClientFabric"
         ]
     },
+    "accessWidener": "plume.accesswidener",
     "mixins": [
         "plume.mixins.json"
     ],
