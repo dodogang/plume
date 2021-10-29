@@ -4,7 +4,9 @@ import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemConvertible;
@@ -52,10 +54,11 @@ public final class BuiltinItemRendererRegistry {
      */
     public static void registerBlockEntityRenderer(ItemConvertible item, BlockEntity blockEntity) {
         register(item, (stack, mode, matrices, vertexConsumers, light, overlay) -> {
-            /*matrices.push();
-            BlockEntityRenderDispatcher.INSTANCE.renderEntity(blockEntity, matrices, vertexConsumers, light, overlay);
-            matrices.pop();*/
-            // TODO
+            matrices.push();
+            MinecraftClient client = MinecraftClient.getInstance();
+            BlockEntityRenderDispatcher dispatcher = client.getBlockEntityRenderDispatcher();
+            dispatcher.renderEntity(blockEntity, matrices, vertexConsumers, light, overlay);
+            matrices.pop();
         });
     }
 }
