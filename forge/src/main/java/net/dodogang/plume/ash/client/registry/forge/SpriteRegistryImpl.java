@@ -20,7 +20,7 @@ public final class SpriteRegistryImpl {
      */
     public static void register(String modId, Identifier atlas, Identifier... spriteLocations) {
         ModEventBus.getModEventBusOrThrow(modId).<TextureStitchEvent.Pre>addListener(e -> {
-            if (e.getMap().getId().equals(atlas)) {
+            if (e.getAtlas().getId().equals(atlas)) {
                 for (Identifier spriteLocation : spriteLocations) {
                     e.addSprite(spriteLocation);
                 }

@@ -104,10 +104,10 @@ public class TabbedItemGroup extends ItemGroup {
 
     @Environment(EnvType.CLIENT)
     @Override
-    public Text getTranslationKey() {
+    public Text getDisplayName() {
         return this.selectedTabIndex != 0
             ? new TranslatableText("itemGroup." + id.getNamespace(), this.getSelectedItemTab().getTranslationKey())
-            : super.getTranslationKey();
+            : super.getDisplayName();
     }
 
     @Environment(EnvType.CLIENT)
